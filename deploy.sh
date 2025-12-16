@@ -14,7 +14,7 @@ if [[ $EUID -eq 0 ]]; then
 fi
 
 # Configuration
-WEB_ROOT="/var/www/mechanicsaintaugustine.com"
+WEB_ROOT="/var/www/mechanicstaugustine.com"
 DB_NAME="mechanic_sa"
 DB_USER="mechanic_user"
 

@@ -82,7 +82,7 @@ To stop the server: Press `Ctrl+C` in the terminal where it's running.
 
 If you need to restart:
 ```bash
-cd /home/kylewee/mechanicsaintaugustine.com/site/Mobile-mechanic
+cd /home/kylewee/mechanicstaugustine.com/site/Mobile-mechanic
 php -S localhost:8081
 ```
 

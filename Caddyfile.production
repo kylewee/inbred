@@ -1,9 +1,9 @@
 # Caddyfile for MechanicSaintAugustine.com
 # Serves static HTML/CSS and routes PHP requests to FastCGI
 
-mechanicsaintaugustine.com www.mechanicsaintaugustine.com {
+mechanicstaugustine.com www.mechanicstaugustine.com {
     # Document root
-    root * /var/www/mechanicsaintaugustine.com
+    root * /var/www/mechanicstaugustine.com
     
     # Enable gzip compression
     encode gzip
@@ -40,7 +40,7 @@ mechanicsaintaugustine.com www.mechanicsaintaugustine.com {
     
     # Logging
     log {
-        output file /var/log/caddy/mechanicsaintaugustine.access.log
+        output file /var/log/caddy/mechanicstaugustine.access.log
         format json
     }
     
@@ -74,6 +74,6 @@ localhost:8080 {
 }
 
 # Redirect HTTP to HTTPS in production
-mechanicsaintaugustine.com:80 www.mechanicsaintaugustine.com:80 {
-    redir https://mechanicsaintaugustine.com{uri} permanent
+mechanicstaugustine.com:80 www.mechanicstaugustine.com:80 {
+    redir https://mechanicstaugustine.com{uri} permanent
 }
