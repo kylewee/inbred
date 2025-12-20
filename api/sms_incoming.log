@@ -1,0 +1,1 @@
+{"ts":"2025-12-03T01:36:50+00:00","event":"incoming_sms","sid":"TEST123","accountSid":null,"from":" 15555555555","to":" 19047066669","body":"Test","raw":{"From":" 15555555555","To":" 19047066669","Body":"Test","MessageSid":"TEST123"}}
