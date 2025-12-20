@@ -69,3 +69,9 @@ crm/
 !crm/plugins/ext/sms_modules/signalwire/
 !crm/plugins/ext/sms_modules/signalwire/**
 inbred-mechanic-confusion.json
+
+# Exclude sensitive backups and large files
+api/.env.local.php.backup-*
+inbred-mechanic-confusion.json
+crm-old/
+crm-backup/
