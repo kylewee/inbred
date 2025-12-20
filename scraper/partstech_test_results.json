@@ -1,0 +1,85 @@
+[
+  {
+    "vehicle": {
+      "year": 2023,
+      "make": "Honda",
+      "model": "Civic"
+    },
+    "repair_type": "Oil Change",
+    "parts": [
+      {
+        "name": "Oil Filter",
+        "price": 15.99,
+        "part_number": "OF-STD",
+        "brand": "OEM",
+        "availability": "Estimated"
+      },
+      {
+        "name": "Motor Oil (5qt)",
+        "price": 28.99,
+        "part_number": "OIL-5W30",
+        "brand": "Valvoline",
+        "availability": "Estimated"
+      }
+    ],
+    "total_parts_cost": 44.98,
+    "labor_time": 0.5,
+    "labor_complexity": "Standard",
+    "data_source": "partstech_api",
+    "api_success": false,
+    "fetched_at": "2025-10-13T14:51:54.991209"
+  },
+  {
+    "vehicle": {
+      "year": 2020,
+      "make": "Ford",
+      "model": "F-150"
+    },
+    "repair_type": "Brake Pads Replacement",
+    "parts": [
+      {
+        "name": "Front Brake Pads",
+        "price": 89.99,
+        "part_number": "BP-FRT",
+        "brand": "Raybestos",
+        "availability": "Estimated"
+      },
+      {
+        "name": "Brake Cleaner",
+        "price": 9.99,
+        "part_number": "BC-CRC",
+        "brand": "CRC",
+        "availability": "Estimated"
+      }
+    ],
+    "total_parts_cost": 99.97999999999999,
+    "labor_time": 1.5,
+    "labor_complexity": "Standard",
+    "data_source": "partstech_api",
+    "api_success": false,
+    "fetched_at": "2025-10-13T14:51:56.105470"
+  },
+  {
+    "vehicle": {
+      "year": 2019,
+      "make": "Toyota",
+      "model": "Camry"
+    },
+    "repair_type": "Battery Replacement",
+    "parts": [
+      {
+        "name": "Car Battery",
+        "price": 139.99,
+        "part_number": "BAT-STD",
+        "brand": "Interstate",
+        "availability": "Estimated"
+      }
+    ],
+    "total_parts_cost": 139.99,
+    "labor_time": 0.3,
+    "labor_complexity": "Standard",
+    "data_source": "partstech_api",
+    "api_success": false,
+    "fetched_at": "2025-10-13T14:51:57.221204"
+  }
+]

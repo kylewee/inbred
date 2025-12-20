@@ -1,0 +1,20 @@
+{
+    "from": "+19046156899",
+    "call_sid": "15d7a6dc-4716-4b84-8627-c30b5cf40bb8",
+    "last_step": 2,
+    "updated": "2025-12-16T19:02:02+00:00",
+    "recordings": {
+        "vehicle": "https:\/\/files.signalwire.com\/b1fea176-91e4-44fb-942f-5d52f0ac179d\/ce4806cb-ccb0-41e9-8bf1-7ea59536adfd\/recordings\/c75675f0-6cd2-48ff-b13d-93b8fd06bd7d.wav",
+        "name": "https:\/\/mobilemechanic.signalwire.com\/api\/laml\/2010-04-01\/Accounts\/ce4806cb-ccb0-41e9-8bf1-7ea59536adfd\/Calls\/15d7a6dc-4716-4b84-8627-c30b5cf40bb8\/Recordings\/c75675f0-6cd2-48ff-b13d-93b8fd06bd7d",
+        "problem": "https:\/\/files.signalwire.com\/b1fea176-91e4-44fb-942f-5d52f0ac179d\/ce4806cb-ccb0-41e9-8bf1-7ea59536adfd\/recordings\/432ae5da-cc33-4796-9405-73f713bd6f6a.wav",
+        "year": "https:\/\/mobilemechanic.signalwire.com\/api\/laml\/2010-04-01\/Accounts\/ce4806cb-ccb0-41e9-8bf1-7ea59536adfd\/Calls\/15d7a6dc-4716-4b84-8627-c30b5cf40bb8\/Recordings\/432ae5da-cc33-4796-9405-73f713bd6f6a"
+    },
+    "recording_sids": {
+        "name": "c75675f0-6cd2-48ff-b13d-93b8fd06bd7d",
+        "year": "432ae5da-cc33-4796-9405-73f713bd6f6a"
+    },
+    "transcripts": {
+        "name": "I got a 1986, it's hard to answer this question, 1986 Ford F-150."
+    },
+    "complete": true
+}

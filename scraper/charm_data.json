@@ -1,0 +1,1129 @@
+[
+  {
+    "vehicle": {
+      "year": 2020,
+      "make": "Honda",
+      "model": "Civic",
+      "characteristics": {
+        "is_luxury": false,
+        "is_truck": false,
+        "is_old": false,
+        "price_multiplier": 1.0
+      }
+    },
+    "repairs": {
+      "Oil Change": {
+        "parts": [
+          {
+            "name": "Oil Filter",
+            "price": 12.99,
+            "part_number": "OF2020HO"
+          },
+          {
+            "name": "Motor Oil (5qt)",
+            "price": 24.99,
+            "part_number": "OIL5W30"
+          }
+        ],
+        "labor_time": 0.5,
+        "labor_complexity": "Basic"
+      },
+      "Brake Pads Replacement": {
+        "parts": [
+          {
+            "name": "Front Brake Pads",
+            "price": 89.99,
+            "part_number": "BP2020HOF"
+          },
+          {
+            "name": "Brake Cleaner",
+            "price": 8.99,
+            "part_number": "BC789"
+          }
+        ],
+        "labor_time": 1.5,
+        "labor_complexity": "Intermediate"
+      },
+      "Battery Replacement": {
+        "parts": [
+          {
+            "name": "Car Battery",
+            "price": 129.99,
+            "part_number": "BAT2020HO"
+          }
+        ],
+        "labor_time": 0.5,
+        "labor_complexity": "Basic"
+      },
+      "Alternator Replacement": {
+        "parts": [
+          {
+            "name": "Alternator",
+            "price": 299.99,
+            "part_number": "ALT2020HO"
+          },
+          {
+            "name": "Alternator Belt",
+            "price": 29.99,
+            "part_number": "BELT2020"
+          }
+        ],
+        "labor_time": 2.5,
+        "labor_complexity": "Advanced"
+      },
+      "Starter Replacement": {
+        "parts": [
+          {
+            "name": "Starter Motor",
+            "price": 199.99,
+            "part_number": "START2020HO"
+          }
+        ],
+        "labor_time": 2.0,
+        "labor_complexity": "Advanced"
+      },
+      "Timing Belt Replacement": {
+        "parts": [
+          {
+            "name": "Timing Belt",
+            "price": 89.99,
+            "part_number": "TB2020HO"
+          },
+          {
+            "name": "Water Pump",
+            "price": 159.99,
+            "part_number": "WP2020HO"
+          },
+          {
+            "name": "Tensioner",
+            "price": 79.99,
+            "part_number": "TENS2020"
+          }
+        ],
+        "labor_time": 4.5,
+        "labor_complexity": "Expert"
+      },
+      "AC Recharge": {
+        "parts": [
+          {
+            "name": "R134a Refrigerant",
+            "price": 39.99,
+            "part_number": "R134A"
+          },
+          {
+            "name": "AC System Cleaner",
+            "price": 19.99,
+            "part_number": "ACCL"
+          }
+        ],
+        "labor_time": 1.0,
+        "labor_complexity": "Basic"
+      },
+      "Engine Diagnostic": {
+        "parts": [],
+        "labor_time": 1.0,
+        "labor_complexity": "Intermediate"
+      },
+      "Transmission Service": {
+        "parts": [
+          {
+            "name": "Transmission Fluid",
+            "price": 49.99,
+            "part_number": "ATF"
+          },
+          {
+            "name": "Transmission Filter",
+            "price": 39.99,
+            "part_number": "TF2020HO"
+          }
+        ],
+        "labor_time": 2.0,
+        "labor_complexity": "Intermediate"
+      },
+      "Spark Plugs Replacement": {
+        "parts": [
+          {
+            "name": "Spark Plugs (set of 4)",
+            "price": 39.99,
+            "part_number": "SP2020HO"
+          },
+          {
+            "name": "Ignition Coils",
+            "price": 159.99,
+            "part_number": "IC2020HO"
+          }
+        ],
+        "labor_time": 1.5,
+        "labor_complexity": "Intermediate"
+      }
+    },
+    "scraped_at": "2025-10-13T13:06:20.938727",
+    "data_source": "charm.li_enhanced_demo"
+  },
+  {
+    "vehicle": {
+      "year": 2018,
+      "make": "Ford",
+      "model": "F-150",
+      "characteristics": {
+        "is_luxury": false,
+        "is_truck": true,
+        "is_old": false,
+        "price_multiplier": 1.2
+      }
+    },
+    "repairs": {
+      "Oil Change": {
+        "parts": [
+          {
+            "name": "Oil Filter",
+            "price": 15.59,
+            "part_number": "OF2018FO"
+          },
+          {
+            "name": "Motor Oil (5qt)",
+            "price": 29.99,
+            "part_number": "OIL5W30"
+          }
+        ],
+        "labor_time": 0.5,
+        "labor_complexity": "Basic"
+      },
+      "Brake Pads Replacement": {
+        "parts": [
+          {
+            "name": "Front Brake Pads",
+            "price": 107.99,
+            "part_number": "BP2018FOF"
+          },
+          {
+            "name": "Brake Cleaner",
+            "price": 10.79,
+            "part_number": "BC789"
+          }
+        ],
+        "labor_time": 1.5,
+        "labor_complexity": "Intermediate"
+      },
+      "Battery Replacement": {
+        "parts": [
+          {
+            "name": "Car Battery",
+            "price": 155.99,
+            "part_number": "BAT2018FO"
+          }
+        ],
+        "labor_time": 0.5,
+        "labor_complexity": "Basic"
+      },
+      "Alternator Replacement": {
+        "parts": [
+          {
+            "name": "Alternator",
+            "price": 359.99,
+            "part_number": "ALT2018FO"
+          },
+          {
+            "name": "Alternator Belt",
+            "price": 35.99,
+            "part_number": "BELT2018"
+          }
+        ],
+        "labor_time": 2.5,
+        "labor_complexity": "Advanced"
+      },
+      "Starter Replacement": {
+        "parts": [
+          {
+            "name": "Starter Motor",
+            "price": 239.99,
+            "part_number": "START2018FO"
+          }
+        ],
+        "labor_time": 2.0,
+        "labor_complexity": "Advanced"
+      },
+      "Timing Belt Replacement": {
+        "parts": [
+          {
+            "name": "Timing Belt",
+            "price": 107.99,
+            "part_number": "TB2018FO"
+          },
+          {
+            "name": "Water Pump",
+            "price": 191.99,
+            "part_number": "WP2018FO"
+          },
+          {
+            "name": "Tensioner",
+            "price": 95.99,
+            "part_number": "TENS2018"
+          }
+        ],
+        "labor_time": 4.5,
+        "labor_complexity": "Expert"
+      },
+      "AC Recharge": {
+        "parts": [
+          {
+            "name": "R134a Refrigerant",
+            "price": 47.99,
+            "part_number": "R134A"
+          },
+          {
+            "name": "AC System Cleaner",
+            "price": 23.99,
+            "part_number": "ACCL"
+          }
+        ],
+        "labor_time": 1.0,
+        "labor_complexity": "Basic"
+      },
+      "Engine Diagnostic": {
+        "parts": [],
+        "labor_time": 1.0,
+        "labor_complexity": "Intermediate"
+      },
+      "Transmission Service": {
+        "parts": [
+          {
+            "name": "Transmission Fluid",
+            "price": 59.99,
+            "part_number": "ATF"
+          },
+          {
+            "name": "Transmission Filter",
+            "price": 47.99,
+            "part_number": "TF2018FO"
+          }
+        ],
+        "labor_time": 2.0,
+        "labor_complexity": "Intermediate"
+      },
+      "Spark Plugs Replacement": {
+        "parts": [
+          {
+            "name": "Spark Plugs (set of 4)",
+            "price": 47.99,
+            "part_number": "SP2018FO"
+          },
+          {
+            "name": "Ignition Coils",
+            "price": 191.99,
+            "part_number": "IC2018FO"
+          }
+        ],
+        "labor_time": 2.0,
+        "labor_complexity": "Intermediate"
+      }
+    },
+    "scraped_at": "2025-10-13T13:06:20.938876",
+    "data_source": "charm.li_enhanced_demo"
+  },
+  {
+    "vehicle": {
+      "year": 2019,
+      "make": "Toyota",
+      "model": "Camry",
+      "characteristics": {
+        "is_luxury": false,
+        "is_truck": false,
+        "is_old": false,
+        "price_multiplier": 1.0
+      }
+    },
+    "repairs": {
+      "Oil Change": {
+        "parts": [
+          {
+            "name": "Oil Filter",
+            "price": 12.99,
+            "part_number": "OF2019TO"
+          },
+          {
+            "name": "Motor Oil (5qt)",
+            "price": 24.99,
+            "part_number": "OIL5W30"
+          }
+        ],
+        "labor_time": 0.5,
+        "labor_complexity": "Basic"
+      },
+      "Brake Pads Replacement": {
+        "parts": [
+          {
+            "name": "Front Brake Pads",
+            "price": 89.99,
+            "part_number": "BP2019TOF"
+          },
+          {
+            "name": "Brake Cleaner",
+            "price": 8.99,
+            "part_number": "BC789"
+          }
+        ],
+        "labor_time": 1.5,
+        "labor_complexity": "Intermediate"
+      },
+      "Battery Replacement": {
+        "parts": [
+          {
+            "name": "Car Battery",
+            "price": 129.99,
+            "part_number": "BAT2019TO"
+          }
+        ],
+        "labor_time": 0.5,
+        "labor_complexity": "Basic"
+      },
+      "Alternator Replacement": {
+        "parts": [
+          {
+            "name": "Alternator",
+            "price": 299.99,
+            "part_number": "ALT2019TO"
+          },
+          {
+            "name": "Alternator Belt",
+            "price": 29.99,
+            "part_number": "BELT2019"
+          }
+        ],
+        "labor_time": 2.5,
+        "labor_complexity": "Advanced"
+      },
+      "Starter Replacement": {
+        "parts": [
+          {
+            "name": "Starter Motor",
+            "price": 199.99,
+            "part_number": "START2019TO"
+          }
+        ],
+        "labor_time": 2.0,
+        "labor_complexity": "Advanced"
+      },
+      "Timing Belt Replacement": {
+        "parts": [
+          {
+            "name": "Timing Belt",
+            "price": 89.99,
+            "part_number": "TB2019TO"
+          },
+          {
+            "name": "Water Pump",
+            "price": 159.99,
+            "part_number": "WP2019TO"
+          },
+          {
+            "name": "Tensioner",
+            "price": 79.99,
+            "part_number": "TENS2019"
+          }
+        ],
+        "labor_time": 4.5,
+        "labor_complexity": "Expert"
+      },
+      "AC Recharge": {
+        "parts": [
+          {
+            "name": "R134a Refrigerant",
+            "price": 39.99,
+            "part_number": "R134A"
+          },
+          {
+            "name": "AC System Cleaner",
+            "price": 19.99,
+            "part_number": "ACCL"
+          }
+        ],
+        "labor_time": 1.0,
+        "labor_complexity": "Basic"
+      },
+      "Engine Diagnostic": {
+        "parts": [],
+        "labor_time": 1.0,
+        "labor_complexity": "Intermediate"
+      },
+      "Transmission Service": {
+        "parts": [
+          {
+            "name": "Transmission Fluid",
+            "price": 49.99,
+            "part_number": "ATF"
+          },
+          {
+            "name": "Transmission Filter",
+            "price": 39.99,
+            "part_number": "TF2019TO"
+          }
+        ],
+        "labor_time": 2.0,
+        "labor_complexity": "Intermediate"
+      },
+      "Spark Plugs Replacement": {
+        "parts": [
+          {
+            "name": "Spark Plugs (set of 4)",
+            "price": 39.99,
+            "part_number": "SP2019TO"
+          },
+          {
+            "name": "Ignition Coils",
+            "price": 159.99,
+            "part_number": "IC2019TO"
+          }
+        ],
+        "labor_time": 1.5,
+        "labor_complexity": "Intermediate"
+      }
+    },
+    "scraped_at": "2025-10-13T13:06:20.939007",
+    "data_source": "charm.li_enhanced_demo"
+  },
+  {
+    "vehicle": {
+      "year": 2017,
+      "make": "Chevrolet",
+      "model": "Silverado",
+      "characteristics": {
+        "is_luxury": false,
+        "is_truck": true,
+        "is_old": false,
+        "price_multiplier": 1.2
+      }
+    },
+    "repairs": {
+      "Oil Change": {
+        "parts": [
+          {
+            "name": "Oil Filter",
+            "price": 15.59,
+            "part_number": "OF2017CH"
+          },
+          {
+            "name": "Motor Oil (5qt)",
+            "price": 29.99,
+            "part_number": "OIL5W30"
+          }
+        ],
+        "labor_time": 0.5,
+        "labor_complexity": "Basic"
+      },
+      "Brake Pads Replacement": {
+        "parts": [
+          {
+            "name": "Front Brake Pads",
+            "price": 107.99,
+            "part_number": "BP2017CHF"
+          },
+          {
+            "name": "Brake Cleaner",
+            "price": 10.79,
+            "part_number": "BC789"
+          }
+        ],
+        "labor_time": 1.5,
+        "labor_complexity": "Intermediate"
+      },
+      "Battery Replacement": {
+        "parts": [
+          {
+            "name": "Car Battery",
+            "price": 155.99,
+            "part_number": "BAT2017CH"
+          }
+        ],
+        "labor_time": 0.5,
+        "labor_complexity": "Basic"
+      },
+      "Alternator Replacement": {
+        "parts": [
+          {
+            "name": "Alternator",
+            "price": 359.99,
+            "part_number": "ALT2017CH"
+          },
+          {
+            "name": "Alternator Belt",
+            "price": 35.99,
+            "part_number": "BELT2017"
+          }
+        ],
+        "labor_time": 2.5,
+        "labor_complexity": "Advanced"
+      },
+      "Starter Replacement": {
+        "parts": [
+          {
+            "name": "Starter Motor",
+            "price": 239.99,
+            "part_number": "START2017CH"
+          }
+        ],
+        "labor_time": 2.0,
+        "labor_complexity": "Advanced"
+      },
+      "Timing Belt Replacement": {
+        "parts": [
+          {
+            "name": "Timing Belt",
+            "price": 107.99,
+            "part_number": "TB2017CH"
+          },
+          {
+            "name": "Water Pump",
+            "price": 191.99,
+            "part_number": "WP2017CH"
+          },
+          {
+            "name": "Tensioner",
+            "price": 95.99,
+            "part_number": "TENS2017"
+          }
+        ],
+        "labor_time": 4.5,
+        "labor_complexity": "Expert"
+      },
+      "AC Recharge": {
+        "parts": [
+          {
+            "name": "R134a Refrigerant",
+            "price": 47.99,
+            "part_number": "R134A"
+          },
+          {
+            "name": "AC System Cleaner",
+            "price": 23.99,
+            "part_number": "ACCL"
+          }
+        ],
+        "labor_time": 1.0,
+        "labor_complexity": "Basic"
+      },
+      "Engine Diagnostic": {
+        "parts": [],
+        "labor_time": 1.0,
+        "labor_complexity": "Intermediate"
+      },
+      "Transmission Service": {
+        "parts": [
+          {
+            "name": "Transmission Fluid",
+            "price": 59.99,
+            "part_number": "ATF"
+          },
+          {
+            "name": "Transmission Filter",
+            "price": 47.99,
+            "part_number": "TF2017CH"
+          }
+        ],
+        "labor_time": 2.0,
+        "labor_complexity": "Intermediate"
+      },
+      "Spark Plugs Replacement": {
+        "parts": [
+          {
+            "name": "Spark Plugs (set of 4)",
+            "price": 47.99,
+            "part_number": "SP2017CH"
+          },
+          {
+            "name": "Ignition Coils",
+            "price": 191.99,
+            "part_number": "IC2017CH"
+          }
+        ],
+        "labor_time": 2.0,
+        "labor_complexity": "Intermediate"
+      }
+    },
+    "scraped_at": "2025-10-13T13:06:20.939157",
+    "data_source": "charm.li_enhanced_demo"
+  },
+  {
+    "vehicle": {
+      "year": 2021,
+      "make": "Nissan",
+      "model": "Altima",
+      "characteristics": {
+        "is_luxury": false,
+        "is_truck": false,
+        "is_old": false,
+        "price_multiplier": 1.0
+      }
+    },
+    "repairs": {
+      "Oil Change": {
+        "parts": [
+          {
+            "name": "Oil Filter",
+            "price": 12.99,
+            "part_number": "OF2021NI"
+          },
+          {
+            "name": "Motor Oil (5qt)",
+            "price": 24.99,
+            "part_number": "OIL5W30"
+          }
+        ],
+        "labor_time": 0.5,
+        "labor_complexity": "Basic"
+      },
+      "Brake Pads Replacement": {
+        "parts": [
+          {
+            "name": "Front Brake Pads",
+            "price": 89.99,
+            "part_number": "BP2021NIF"
+          },
+          {
+            "name": "Brake Cleaner",
+            "price": 8.99,
+            "part_number": "BC789"
+          }
+        ],
+        "labor_time": 1.5,
+        "labor_complexity": "Intermediate"
+      },
+      "Battery Replacement": {
+        "parts": [
+          {
+            "name": "Car Battery",
+            "price": 129.99,
+            "part_number": "BAT2021NI"
+          }
+        ],
+        "labor_time": 0.5,
+        "labor_complexity": "Basic"
+      },
+      "Alternator Replacement": {
+        "parts": [
+          {
+            "name": "Alternator",
+            "price": 299.99,
+            "part_number": "ALT2021NI"
+          },
+          {
+            "name": "Alternator Belt",
+            "price": 29.99,
+            "part_number": "BELT2021"
+          }
+        ],
+        "labor_time": 2.5,
+        "labor_complexity": "Advanced"
+      },
+      "Starter Replacement": {
+        "parts": [
+          {
+            "name": "Starter Motor",
+            "price": 199.99,
+            "part_number": "START2021NI"
+          }
+        ],
+        "labor_time": 2.0,
+        "labor_complexity": "Advanced"
+      },
+      "Timing Belt Replacement": {
+        "parts": [
+          {
+            "name": "Timing Belt",
+            "price": 89.99,
+            "part_number": "TB2021NI"
+          },
+          {
+            "name": "Water Pump",
+            "price": 159.99,
+            "part_number": "WP2021NI"
+          },
+          {
+            "name": "Tensioner",
+            "price": 79.99,
+            "part_number": "TENS2021"
+          }
+        ],
+        "labor_time": 4.5,
+        "labor_complexity": "Expert"
+      },
+      "AC Recharge": {
+        "parts": [
+          {
+            "name": "R134a Refrigerant",
+            "price": 39.99,
+            "part_number": "R134A"
+          },
+          {
+            "name": "AC System Cleaner",
+            "price": 19.99,
+            "part_number": "ACCL"
+          }
+        ],
+        "labor_time": 1.0,
+        "labor_complexity": "Basic"
+      },
+      "Engine Diagnostic": {
+        "parts": [],
+        "labor_time": 1.0,
+        "labor_complexity": "Intermediate"
+      },
+      "Transmission Service": {
+        "parts": [
+          {
+            "name": "Transmission Fluid",
+            "price": 49.99,
+            "part_number": "ATF"
+          },
+          {
+            "name": "Transmission Filter",
+            "price": 39.99,
+            "part_number": "TF2021NI"
+          }
+        ],
+        "labor_time": 2.0,
+        "labor_complexity": "Intermediate"
+      },
+      "Spark Plugs Replacement": {
+        "parts": [
+          {
+            "name": "Spark Plugs (set of 4)",
+            "price": 39.99,
+            "part_number": "SP2021NI"
+          },
+          {
+            "name": "Ignition Coils",
+            "price": 159.99,
+            "part_number": "IC2021NI"
+          }
+        ],
+        "labor_time": 1.5,
+        "labor_complexity": "Intermediate"
+      }
+    },
+    "scraped_at": "2025-10-13T13:06:20.939289",
+    "data_source": "charm.li_enhanced_demo"
+  },
+  {
+    "vehicle": {
+      "year": 2016,
+      "make": "BMW",
+      "model": "320i",
+      "characteristics": {
+        "is_luxury": true,
+        "is_truck": false,
+        "is_old": false,
+        "price_multiplier": 1.4
+      }
+    },
+    "repairs": {
+      "Oil Change": {
+        "parts": [
+          {
+            "name": "Oil Filter",
+            "price": 18.19,
+            "part_number": "OF2016BM"
+          },
+          {
+            "name": "Motor Oil (5qt)",
+            "price": 34.99,
+            "part_number": "OIL5W30"
+          }
+        ],
+        "labor_time": 0.5,
+        "labor_complexity": "Basic"
+      },
+      "Brake Pads Replacement": {
+        "parts": [
+          {
+            "name": "Front Brake Pads",
+            "price": 125.99,
+            "part_number": "BP2016BMF"
+          },
+          {
+            "name": "Brake Cleaner",
+            "price": 12.59,
+            "part_number": "BC789"
+          }
+        ],
+        "labor_time": 2.0,
+        "labor_complexity": "Intermediate"
+      },
+      "Battery Replacement": {
+        "parts": [
+          {
+            "name": "Car Battery",
+            "price": 181.99,
+            "part_number": "BAT2016BM"
+          }
+        ],
+        "labor_time": 0.5,
+        "labor_complexity": "Basic"
+      },
+      "Alternator Replacement": {
+        "parts": [
+          {
+            "name": "Alternator",
+            "price": 419.99,
+            "part_number": "ALT2016BM"
+          },
+          {
+            "name": "Alternator Belt",
+            "price": 41.99,
+            "part_number": "BELT2016"
+          }
+        ],
+        "labor_time": 3.5,
+        "labor_complexity": "Advanced"
+      },
+      "Starter Replacement": {
+        "parts": [
+          {
+            "name": "Starter Motor",
+            "price": 279.99,
+            "part_number": "START2016BM"
+          }
+        ],
+        "labor_time": 3.0,
+        "labor_complexity": "Advanced"
+      },
+      "Timing Belt Replacement": {
+        "parts": [
+          {
+            "name": "Timing Belt",
+            "price": 125.99,
+            "part_number": "TB2016BM"
+          },
+          {
+            "name": "Water Pump",
+            "price": 223.99,
+            "part_number": "WP2016BM"
+          },
+          {
+            "name": "Tensioner",
+            "price": 111.99,
+            "part_number": "TENS2016"
+          }
+        ],
+        "labor_time": 6.0,
+        "labor_complexity": "Expert"
+      },
+      "AC Recharge": {
+        "parts": [
+          {
+            "name": "R134a Refrigerant",
+            "price": 55.99,
+            "part_number": "R134A"
+          },
+          {
+            "name": "AC System Cleaner",
+            "price": 27.99,
+            "part_number": "ACCL"
+          }
+        ],
+        "labor_time": 1.0,
+        "labor_complexity": "Basic"
+      },
+      "Engine Diagnostic": {
+        "parts": [],
+        "labor_time": 1.0,
+        "labor_complexity": "Intermediate"
+      },
+      "Transmission Service": {
+        "parts": [
+          {
+            "name": "Transmission Fluid",
+            "price": 69.99,
+            "part_number": "ATF"
+          },
+          {
+            "name": "Transmission Filter",
+            "price": 55.99,
+            "part_number": "TF2016BM"
+          }
+        ],
+        "labor_time": 2.5,
+        "labor_complexity": "Intermediate"
+      },
+      "Spark Plugs Replacement": {
+        "parts": [
+          {
+            "name": "Spark Plugs (set of 4)",
+            "price": 55.99,
+            "part_number": "SP2016BM"
+          },
+          {
+            "name": "Ignition Coils",
+            "price": 223.99,
+            "part_number": "IC2016BM"
+          }
+        ],
+        "labor_time": 1.5,
+        "labor_complexity": "Intermediate"
+      }
+    },
+    "scraped_at": "2025-10-13T13:06:20.939435",
+    "data_source": "charm.li_enhanced_demo"
+  },
+  {
+    "vehicle": {
+      "year": 2015,
+      "make": "Mercedes",
+      "model": "C300",
+      "characteristics": {
+        "is_luxury": true,
+        "is_truck": false,
+        "is_old": false,
+        "price_multiplier": 1.4
+      }
+    },
+    "repairs": {
+      "Oil Change": {
+        "parts": [
+          {
+            "name": "Oil Filter",
+            "price": 18.19,
+            "part_number": "OF2015ME"
+          },
+          {
+            "name": "Motor Oil (5qt)",
+            "price": 34.99,
+            "part_number": "OIL5W30"
+          }
+        ],
+        "labor_time": 0.5,
+        "labor_complexity": "Basic"
+      },
+      "Brake Pads Replacement": {
+        "parts": [
+          {
+            "name": "Front Brake Pads",
+            "price": 125.99,
+            "part_number": "BP2015MEF"
+          },
+          {
+            "name": "Brake Cleaner",
+            "price": 12.59,
+            "part_number": "BC789"
+          }
+        ],
+        "labor_time": 2.0,
+        "labor_complexity": "Intermediate"
+      },
+      "Battery Replacement": {
+        "parts": [
+          {
+            "name": "Car Battery",
+            "price": 181.99,
+            "part_number": "BAT2015ME"
+          }
+        ],
+        "labor_time": 0.5,
+        "labor_complexity": "Basic"
+      },
+      "Alternator Replacement": {
+        "parts": [
+          {
+            "name": "Alternator",
+            "price": 419.99,
+            "part_number": "ALT2015ME"
+          },
+          {
+            "name": "Alternator Belt",
+            "price": 41.99,
+            "part_number": "BELT2015"
+          }
+        ],
+        "labor_time": 3.5,
+        "labor_complexity": "Advanced"
+      },
+      "Starter Replacement": {
+        "parts": [
+          {
+            "name": "Starter Motor",
+            "price": 279.99,
+            "part_number": "START2015ME"
+          }
+        ],
+        "labor_time": 3.0,
+        "labor_complexity": "Advanced"
+      },
+      "Timing Belt Replacement": {
+        "parts": [
+          {
+            "name": "Timing Belt",
+            "price": 125.99,
+            "part_number": "TB2015ME"
+          },
+          {
+            "name": "Water Pump",
+            "price": 223.99,
+            "part_number": "WP2015ME"
+          },
+          {
+            "name": "Tensioner",
+            "price": 111.99,
+            "part_number": "TENS2015"
+          }
+        ],
+        "labor_time": 6.0,
+        "labor_complexity": "Expert"
+      },
+      "AC Recharge": {
+        "parts": [
+          {
+            "name": "R134a Refrigerant",
+            "price": 55.99,
+            "part_number": "R134A"
+          },
+          {
+            "name": "AC System Cleaner",
+            "price": 27.99,
+            "part_number": "ACCL"
+          }
+        ],
+        "labor_time": 1.0,
+        "labor_complexity": "Basic"
+      },
+      "Engine Diagnostic": {
+        "parts": [],
+        "labor_time": 1.0,
+        "labor_complexity": "Intermediate"
+      },
+      "Transmission Service": {
+        "parts": [
+          {
+            "name": "Transmission Fluid",
+            "price": 69.99,
+            "part_number": "ATF"
+          },
+          {
+            "name": "Transmission Filter",
+            "price": 55.99,
+            "part_number": "TF2015ME"
+          }
+        ],
+        "labor_time": 2.5,
+        "labor_complexity": "Intermediate"
+      },
+      "Spark Plugs Replacement": {
+        "parts": [
+          {
+            "name": "Spark Plugs (set of 4)",
+            "price": 55.99,
+            "part_number": "SP2015ME"
+          },
+          {
+            "name": "Ignition Coils",
+            "price": 223.99,
+            "part_number": "IC2015ME"
+          }
+        ],
+        "labor_time": 1.5,
+        "labor_complexity": "Intermediate"
+      }
+    },
+    "scraped_at": "2025-10-13T13:06:20.939564",
+    "data_source": "charm.li_enhanced_demo"
+  }
+]

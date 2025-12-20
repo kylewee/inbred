@@ -1,0 +1,22 @@
+{
+    "from": "+19046156899",
+    "call_sid": "ede61248-711f-4475-bfb5-becfe9ff00a3",
+    "last_step": 6,
+    "updated": "2025-12-16T18:45:17+00:00",
+    "recordings": {
+        "name": "https:\/\/mobilemechanic.signalwire.com\/api\/laml\/2010-04-01\/Accounts\/ce4806cb-ccb0-41e9-8bf1-7ea59536adfd\/Calls\/ede61248-711f-4475-bfb5-becfe9ff00a3\/Recordings\/c361b3d8-4b09-417e-a199-1f1c27b01269",
+        "year": "https:\/\/mobilemechanic.signalwire.com\/api\/laml\/2010-04-01\/Accounts\/ce4806cb-ccb0-41e9-8bf1-7ea59536adfd\/Calls\/ede61248-711f-4475-bfb5-becfe9ff00a3\/Recordings\/dbdf00a7-6afd-44c7-ac62-3d4274345530",
+        "model": "https:\/\/mobilemechanic.signalwire.com\/api\/laml\/2010-04-01\/Accounts\/ce4806cb-ccb0-41e9-8bf1-7ea59536adfd\/Calls\/ede61248-711f-4475-bfb5-becfe9ff00a3\/Recordings\/5cc1773c-2c99-4215-9ce8-c2b173945eb4",
+        "problem": "https:\/\/mobilemechanic.signalwire.com\/api\/laml\/2010-04-01\/Accounts\/ce4806cb-ccb0-41e9-8bf1-7ea59536adfd\/Calls\/ede61248-711f-4475-bfb5-becfe9ff00a3\/Recordings\/c6c2d3e8-37bb-4415-8193-45171b9f0ad0"
+    },
+    "recording_sids": {
+        "name": "c361b3d8-4b09-417e-a199-1f1c27b01269",
+        "year": "dbdf00a7-6afd-44c7-ac62-3d4274345530",
+        "model": "5cc1773c-2c99-4215-9ce8-c2b173945eb4",
+        "problem": "c6c2d3e8-37bb-4415-8193-45171b9f0ad0"
+    },
+    "transcripts": {
+        "model": "Camry."
+    },
+    "complete": true
+}

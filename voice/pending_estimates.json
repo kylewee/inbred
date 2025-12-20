@@ -1,0 +1,258 @@
+{
+    "0f1b1af9c94c0b59": {
+        "id": "0f1b1af9c94c0b59",
+        "customer_phone": "9045551234",
+        "customer_name": "John",
+        "estimate": {
+            "success": true,
+            "vehicle": {
+                "year": "2019",
+                "make": "Honda",
+                "model": "Civic",
+                "matched": {
+                    "year": 2020,
+                    "make": "Honda",
+                    "model": "Civic",
+                    "characteristics": {
+                        "is_luxury": false,
+                        "is_truck": false,
+                        "is_old": false,
+                        "price_multiplier": 1
+                    }
+                }
+            },
+            "estimates": [
+                {
+                    "repair": "Oil Change",
+                    "labor_hours": 0.5,
+                    "labor_rate": 95,
+                    "labor_cost": 47.5,
+                    "parts": [
+                        {
+                            "name": "Oil Filter",
+                            "price": 12.99,
+                            "part_number": "OF2020HO"
+                        },
+                        {
+                            "name": "Motor Oil (5qt)",
+                            "price": 24.99,
+                            "part_number": "OIL5W30"
+                        }
+                    ],
+                    "parts_cost": 37.98,
+                    "total": 85.48,
+                    "complexity": "Basic"
+                },
+                {
+                    "repair": "Brake Pads Replacement",
+                    "labor_hours": 1.5,
+                    "labor_rate": 95,
+                    "labor_cost": 142.5,
+                    "parts": [
+                        {
+                            "name": "Front Brake Pads",
+                            "price": 89.99,
+                            "part_number": "BP2020HOF"
+                        },
+                        {
+                            "name": "Brake Cleaner",
+                            "price": 8.99,
+                            "part_number": "BC789"
+                        }
+                    ],
+                    "parts_cost": 98.98,
+                    "total": 241.48,
+                    "complexity": "Intermediate"
+                }
+            ],
+            "grand_total": 326.96,
+            "labor_rate": 95
+        },
+        "lead_data": {
+            "phone": "9045551234",
+            "recording_url": "https:\/\/example.com\/recording123.mp3",
+            "transcript": "Hi this is John Smith calling about my 2019 Honda Civic. I need brakes and an oil change. My phone is 904-555-1234.",
+            "source": "Phone",
+            "created_at": "2025-12-16T16:21:03+00:00",
+            "_bypass_dedupe": false,
+            "first_name": "John",
+            "last_name": "Smith",
+            "year": "2019",
+            "make": "Honda",
+            "model": "Civic",
+            "notes": "Needs brakes and an oil change"
+        },
+        "created_at": "2025-12-16T16:21:06+00:00",
+        "status": "pending"
+    },
+    "da74ca0f2c1486b0": {
+        "id": "da74ca0f2c1486b0",
+        "customer_phone": "9045551234",
+        "customer_name": "John",
+        "estimate": {
+            "success": true,
+            "vehicle": {
+                "year": "2019",
+                "make": "Honda",
+                "model": "Civic",
+                "matched": {
+                    "year": 2020,
+                    "make": "Honda",
+                    "model": "Civic",
+                    "characteristics": {
+                        "is_luxury": false,
+                        "is_truck": false,
+                        "is_old": false,
+                        "price_multiplier": 1
+                    }
+                }
+            },
+            "estimates": [
+                {
+                    "repair": "Oil Change",
+                    "labor_hours": 0.5,
+                    "labor_rate": 95,
+                    "labor_cost": 47.5,
+                    "parts": [
+                        {
+                            "name": "Oil Filter",
+                            "price": 12.99,
+                            "part_number": "OF2020HO"
+                        },
+                        {
+                            "name": "Motor Oil (5qt)",
+                            "price": 24.99,
+                            "part_number": "OIL5W30"
+                        }
+                    ],
+                    "parts_cost": 37.98,
+                    "total": 85.48,
+                    "complexity": "Basic"
+                },
+                {
+                    "repair": "Brake Pads Replacement",
+                    "labor_hours": 1.5,
+                    "labor_rate": 95,
+                    "labor_cost": 142.5,
+                    "parts": [
+                        {
+                            "name": "Front Brake Pads",
+                            "price": 89.99,
+                            "part_number": "BP2020HOF"
+                        },
+                        {
+                            "name": "Brake Cleaner",
+                            "price": 8.99,
+                            "part_number": "BC789"
+                        }
+                    ],
+                    "parts_cost": 98.98,
+                    "total": 241.48,
+                    "complexity": "Intermediate"
+                }
+            ],
+            "grand_total": 326.96,
+            "labor_rate": 95
+        },
+        "lead_data": {
+            "phone": "9045551234",
+            "recording_url": "https:\/\/example.com\/recording123.mp3",
+            "transcript": "Hi this is John Smith calling about my 2019 Honda Civic. I need brakes and an oil change. My phone is 904-555-1234.",
+            "source": "Phone",
+            "created_at": "2025-12-16T16:21:03+00:00",
+            "_bypass_dedupe": false,
+            "first_name": "John",
+            "last_name": "Smith",
+            "year": "2019",
+            "make": "Honda",
+            "model": "Civic",
+            "notes": "Needs brakes and an oil change"
+        },
+        "created_at": "2025-12-16T16:21:06+00:00",
+        "status": "pending"
+    },
+    "est_69418f977ed40": {
+        "id": "est_69418f977ed40",
+        "estimate": {
+            "success": true,
+            "vehicle": {
+                "year": "2019",
+                "make": "Honda",
+                "model": "Civic",
+                "matched": {
+                    "year": 2020,
+                    "make": "Honda",
+                    "model": "Civic",
+                    "characteristics": {
+                        "is_luxury": false,
+                        "is_truck": false,
+                        "is_old": false,
+                        "price_multiplier": 1
+                    }
+                }
+            },
+            "estimates": [
+                {
+                    "repair": "Oil Change",
+                    "labor_hours": 0.5,
+                    "labor_rate": 95,
+                    "labor_cost": 47.5,
+                    "parts": [
+                        {
+                            "name": "Oil Filter",
+                            "price": 12.99,
+                            "part_number": "OF2020HO"
+                        },
+                        {
+                            "name": "Motor Oil (5qt)",
+                            "price": 24.99,
+                            "part_number": "OIL5W30"
+                        }
+                    ],
+                    "parts_cost": 37.98,
+                    "total": 85.48,
+                    "complexity": "Basic"
+                },
+                {
+                    "repair": "Brake Pads Replacement",
+                    "labor_hours": 1.5,
+                    "labor_rate": 95,
+                    "labor_cost": 142.5,
+                    "parts": [
+                        {
+                            "name": "Front Brake Pads",
+                            "price": 89.99,
+                            "part_number": "BP2020HOF"
+                        },
+                        {
+                            "name": "Brake Cleaner",
+                            "price": 8.99,
+                            "part_number": "BC789"
+                        }
+                    ],
+                    "parts_cost": 98.98,
+                    "total": 241.48,
+                    "complexity": "Intermediate"
+                }
+            ],
+            "grand_total": 326.96,
+            "labor_rate": 95
+        },
+        "lead": {
+            "phone": "9045551234",
+            "name": "Test Customer",
+            "first_name": "Test",
+            "last_name": "Customer",
+            "year": "2019",
+            "make": "Honda",
+            "model": "Civic",
+            "engine": "2.0L",
+            "notes": "Need brakes and oil change\n\n=== AUTO ESTIMATE ===\nVehicle: 2019 Honda Civic\n\n\u25ba Oil Change\n  Labor: 0.5 hrs @ $95.00 = $47.50\n  Parts:\n    - Oil Filter: $12.99\n    - Motor Oil (5qt): $24.99\n  Subtotal: $85.48\n\n\u25ba Brake Pads Replacement\n  Labor: 1.5 hrs @ $95.00 = $142.50\n  Parts:\n    - Front Brake Pads: $89.99\n    - Brake Cleaner: $8.99\n  Subtotal: $241.48\n\nGRAND TOTAL: $326.96\n(Labor rate: $95.00\/hr)",
+            "source": "Web Form",
+            "transcript": "Vehicle: 2019 Honda Civic\nEngine: 2.0L\nProblem: Need brakes and oil change",
+            "created_at": "2025-12-16T16:57:59+00:00"
+        },
+        "created_at": "2025-12-16T16:57:59+00:00",
+        "expires_at": "2025-12-17T16:57:59+00:00"
+    }
+}

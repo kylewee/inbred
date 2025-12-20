@@ -1,0 +1,14 @@
+[Unit]
+Description=Mechanic St Augustine Service Startup
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/home/kylewee/code/inbred/scripts/startup-services.sh
+RemainAfterExit=yes
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

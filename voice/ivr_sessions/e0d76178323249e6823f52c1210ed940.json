@@ -1,0 +1,32 @@
+{
+    "from": "+19046156899",
+    "to": "+19047066669",
+    "call_sid": "e0d76178-3232-49e6-823f-52c1210ed940",
+    "last_step": 6,
+    "updated": "2025-12-16T18:35:27+00:00",
+    "recordings": {
+        "name": "https:\/\/mobilemechanic.signalwire.com\/api\/laml\/2010-04-01\/Accounts\/ce4806cb-ccb0-41e9-8bf1-7ea59536adfd\/Calls\/e0d76178-3232-49e6-823f-52c1210ed940\/Recordings\/e5aac5e9-7f24-4178-8668-737ca4ed01ad",
+        "year": "https:\/\/mobilemechanic.signalwire.com\/api\/laml\/2010-04-01\/Accounts\/ce4806cb-ccb0-41e9-8bf1-7ea59536adfd\/Calls\/e0d76178-3232-49e6-823f-52c1210ed940\/Recordings\/a6d865bf-5035-4503-97ab-b34160925c61",
+        "make": "https:\/\/mobilemechanic.signalwire.com\/api\/laml\/2010-04-01\/Accounts\/ce4806cb-ccb0-41e9-8bf1-7ea59536adfd\/Calls\/e0d76178-3232-49e6-823f-52c1210ed940\/Recordings\/3a94f0ec-29bc-4215-b05c-08b11afe0d3d",
+        "model": "https:\/\/mobilemechanic.signalwire.com\/api\/laml\/2010-04-01\/Accounts\/ce4806cb-ccb0-41e9-8bf1-7ea59536adfd\/Calls\/e0d76178-3232-49e6-823f-52c1210ed940\/Recordings\/8efb3126-5a32-4eab-8fbf-0eb1532a46bd",
+        "engine": "https:\/\/mobilemechanic.signalwire.com\/api\/laml\/2010-04-01\/Accounts\/ce4806cb-ccb0-41e9-8bf1-7ea59536adfd\/Calls\/e0d76178-3232-49e6-823f-52c1210ed940\/Recordings\/fa61db78-0a60-477f-a405-c1aa29ac2596",
+        "problem": "https:\/\/mobilemechanic.signalwire.com\/api\/laml\/2010-04-01\/Accounts\/ce4806cb-ccb0-41e9-8bf1-7ea59536adfd\/Calls\/e0d76178-3232-49e6-823f-52c1210ed940\/Recordings\/64e92d63-25ca-4090-8e12-e7d0fc9ecea8"
+    },
+    "recording_sids": {
+        "name": "e5aac5e9-7f24-4178-8668-737ca4ed01ad",
+        "year": "a6d865bf-5035-4503-97ab-b34160925c61",
+        "make": "3a94f0ec-29bc-4215-b05c-08b11afe0d3d",
+        "model": "8efb3126-5a32-4eab-8fbf-0eb1532a46bd",
+        "engine": "fa61db78-0a60-477f-a405-c1aa29ac2596",
+        "problem": "64e92d63-25ca-4090-8e12-e7d0fc9ecea8"
+    },
+    "transcripts": {
+        "name": "Or pile.",
+        "year": "1996",
+        "make": "Toyota.",
+        "model": "uh... pickup truck",
+        "engine": "Ooh, 2.5 v6, skip."
+    },
+    "complete": true,
+    "completed_at": "2025-12-16T18:35:26+00:00"
+}

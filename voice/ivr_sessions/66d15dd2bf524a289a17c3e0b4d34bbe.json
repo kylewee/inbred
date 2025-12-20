@@ -1,0 +1,19 @@
+{
+    "from": "+19046156899",
+    "call_sid": "66d15dd2-bf52-4a28-9a17-c3e0b4d34bbe",
+    "last_step": 2,
+    "updated": "2025-12-16T19:38:07+00:00",
+    "recordings": {
+        "name": "https:\/\/mobilemechanic.signalwire.com\/api\/laml\/2010-04-01\/Accounts\/ce4806cb-ccb0-41e9-8bf1-7ea59536adfd\/Calls\/66d15dd2-bf52-4a28-9a17-c3e0b4d34bbe\/Recordings\/3b303b95-9771-4808-a902-06f0d5fe85ea",
+        "problem": "https:\/\/files.signalwire.com\/b1fea176-91e4-44fb-942f-5d52f0ac179d\/ce4806cb-ccb0-41e9-8bf1-7ea59536adfd\/recordings\/0464ff75-fd66-4ac3-8377-e80c1816f69c.wav",
+        "year": "https:\/\/mobilemechanic.signalwire.com\/api\/laml\/2010-04-01\/Accounts\/ce4806cb-ccb0-41e9-8bf1-7ea59536adfd\/Calls\/66d15dd2-bf52-4a28-9a17-c3e0b4d34bbe\/Recordings\/0464ff75-fd66-4ac3-8377-e80c1816f69c"
+    },
+    "recording_sids": {
+        "name": "3b303b95-9771-4808-a902-06f0d5fe85ea",
+        "year": "0464ff75-fd66-4ac3-8377-e80c1816f69c"
+    },
+    "complete": true,
+    "transcripts": {
+        "year": "and normal stuff."
+    }
+}

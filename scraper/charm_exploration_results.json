@@ -1,0 +1,42 @@
+{
+  "site_accessible": true,
+  "homepage_analysis": {
+    "forms_found": 0,
+    "search_inputs": 0,
+    "vehicle_selectors": 5,
+    "links_count": 53,
+    "javascript_files": 0,
+    "api_endpoints": []
+  },
+  "search_endpoints": [
+    "/search",
+    "/lookup",
+    "/parts",
+    "/labor",
+    "/estimate",
+    "/quote",
+    "/api/search",
+    "/api/parts",
+    "/vehicle"
+  ],
+  "api_endpoints": [],
+  "strategy": {
+    "approach": "web_scraping",
+    "entry_points": [
+      "/search",
+      "/lookup",
+      "/parts",
+      "/labor",
+      "/estimate",
+      "/quote",
+      "/api/search",
+      "/api/parts",
+      "/vehicle"
+    ],
+    "parameters": {},
+    "challenges": [],
+    "recommendations": [
+      "Scrape search results pages"
+    ]
+  }
+}

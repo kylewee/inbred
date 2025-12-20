@@ -1,0 +1,28 @@
+{
+    "from": "+19046156899",
+    "to": "+19047066669",
+    "call_sid": "1e4f4ecd-0818-4b74-b88c-bbcd53a39b90",
+    "last_step": 6,
+    "updated": "2025-12-16T18:39:28+00:00",
+    "recordings": {
+        "name": "https:\/\/mobilemechanic.signalwire.com\/api\/laml\/2010-04-01\/Accounts\/ce4806cb-ccb0-41e9-8bf1-7ea59536adfd\/Calls\/1e4f4ecd-0818-4b74-b88c-bbcd53a39b90\/Recordings\/4813428a-4251-4bc8-9a45-489fe8927b0e",
+        "year": "https:\/\/mobilemechanic.signalwire.com\/api\/laml\/2010-04-01\/Accounts\/ce4806cb-ccb0-41e9-8bf1-7ea59536adfd\/Calls\/1e4f4ecd-0818-4b74-b88c-bbcd53a39b90\/Recordings\/01bb8eff-93d3-4288-a649-64621736d628",
+        "make": "https:\/\/mobilemechanic.signalwire.com\/api\/laml\/2010-04-01\/Accounts\/ce4806cb-ccb0-41e9-8bf1-7ea59536adfd\/Calls\/1e4f4ecd-0818-4b74-b88c-bbcd53a39b90\/Recordings\/9923fdfe-8dca-48d2-bb6b-0125935e6cd4",
+        "model": "https:\/\/mobilemechanic.signalwire.com\/api\/laml\/2010-04-01\/Accounts\/ce4806cb-ccb0-41e9-8bf1-7ea59536adfd\/Calls\/1e4f4ecd-0818-4b74-b88c-bbcd53a39b90\/Recordings\/fd45448e-840e-4561-97f7-fe895dd1b49c",
+        "engine": "https:\/\/mobilemechanic.signalwire.com\/api\/laml\/2010-04-01\/Accounts\/ce4806cb-ccb0-41e9-8bf1-7ea59536adfd\/Calls\/1e4f4ecd-0818-4b74-b88c-bbcd53a39b90\/Recordings\/a54f4187-8416-46c1-87c8-0cab397fdf87",
+        "problem": "https:\/\/mobilemechanic.signalwire.com\/api\/laml\/2010-04-01\/Accounts\/ce4806cb-ccb0-41e9-8bf1-7ea59536adfd\/Calls\/1e4f4ecd-0818-4b74-b88c-bbcd53a39b90\/Recordings\/c1438bd3-a55a-418c-aa94-30587b3ebbd7"
+    },
+    "recording_sids": {
+        "name": "4813428a-4251-4bc8-9a45-489fe8927b0e",
+        "year": "01bb8eff-93d3-4288-a649-64621736d628",
+        "make": "9923fdfe-8dca-48d2-bb6b-0125935e6cd4",
+        "model": "fd45448e-840e-4561-97f7-fe895dd1b49c",
+        "engine": "a54f4187-8416-46c1-87c8-0cab397fdf87",
+        "problem": "c1438bd3-a55a-418c-aa94-30587b3ebbd7"
+    },
+    "complete": true,
+    "completed_at": "2025-12-16T18:39:26+00:00",
+    "transcripts": {
+        "problem": "I need the clutch replaced."
+    }
+}

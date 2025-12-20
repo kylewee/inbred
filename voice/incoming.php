@@ -1,65 +1,38 @@
 <?php
-declare(strict_types=1);
+// Prevent caching
+header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+header('Pragma: no-cache');
+header('Expires: Thu, 01 Jan 1970 00:00:00 GMT');
 header('Content-Type: text/xml');
 
-// Load shared config (CRM/Twilio values live here)
-$env = __DIR__ . '/../api/.env.local.php';
-if (is_file($env)) {
-  require $env;
-}
-
-$host = $_SERVER['HTTP_HOST'] ?? 'mechanicstaugustine.com';
-$callback = 'https://' . $host . '/voice/recording_callback.php';
-$toRaw = defined('TWILIO_FORWARD_TO') ? TWILIO_FORWARD_TO : '+19046634789';
-$to = preg_replace('/[^0-9\+]/', '', (string)$toRaw);
-if ($to === '') {
-  $to = '+19046634789';
-}
-// Caller ID must be a verified Twilio number
-$callerIdRaw = defined('TWILIO_SMS_FROM') ? TWILIO_SMS_FROM : '';
-$callerId = preg_replace('/[^0-9\+]/', '', (string)$callerIdRaw);
-if ($callerId === '') {
-  $callerId = $to;
-}
-
-// Log webhook hit and dial target for diagnostics
-try {
-  $logFile = __DIR__ . '/voice.log';
-  $entry = [
+// Log incoming request
+$logFile = __DIR__ . '/voice.log';
+$entry = [
     'ts' => date('c'),
-    'ip' => $_SERVER['REMOTE_ADDR'] ?? null,
-    'event' => 'incoming_twiml',
-    'to' => $to,
-    'from' => $_POST['From'] ?? $_GET['From'] ?? null,
-    'method' => $_SERVER['REQUEST_METHOD'] ?? null,
-  ];
-  @file_put_contents($logFile, json_encode($entry) . PHP_EOL, FILE_APPEND);
-} catch (\Throwable $e) {
-  // ignore logging errors
-}
+    'event' => 'incoming_v4',
+    'ip' => $_SERVER['REMOTE_ADDR'] ?? 'unknown',
+    'method' => $_SERVER['REQUEST_METHOD'] ?? 'unknown',
+    'from' => $_POST['From'] ?? $_POST['caller'] ?? '',
+    'to' => $_POST['To'] ?? $_POST['called'] ?? '',
+    'call_sid' => $_POST['CallSid'] ?? $_POST['call_id'] ?? ''
+];
+@file_put_contents($logFile, json_encode($entry) . "\n", FILE_APPEND);
+
+// Config
+$to = '+19046634789';
+$from = $_POST['From'] ?? $_POST['caller'] ?? '+19047066669';
+$baseUrl = 'https://mechanicstaugustine.com/voice';
 
 echo '<?xml version="1.0" encoding="UTF-8"?>';
 ?>
 <Response>
-  <!-- Quick audible marker so we know the webhook responded -->
-  <Say voice="alice">Connecting you now.</Say>
-  <Pause length="1" />
-  <Dial record="record-from-answer-dual"
-        recordingTrack="both"
-        timeLimit="14400"
-        answerOnBridge="true"
-        callerId="<?=htmlspecialchars($callerId, ENT_QUOTES)?>"
-    action="<?=htmlspecialchars('https://' . $host . '/voice/recording_callback.php?action=dial', ENT_QUOTES)?>"
-        method="POST"
-        recordingStatusCallback="<?=htmlspecialchars($callback, ENT_QUOTES)?>"
-        recordingStatusCallbackMethod="POST"
-        <?php if (defined('TWILIO_TRANSCRIBE_ENABLED') && TWILIO_TRANSCRIBE_ENABLED): ?>
-        recordingTranscribe="true"
-        recordingTranscribeCallback="<?=htmlspecialchars($callback, ENT_QUOTES)?>"
-        <?php endif; ?>
-        timeout="60">
-    <Number><?=htmlspecialchars($to, ENT_QUOTES)?></Number>
-  </Dial>
-  <!-- Simple hangup if no answer - no voicemail prompts -->
-  <Hangup />
+    <Dial timeout="25" 
+          callerId="<?= htmlspecialchars($from) ?>"
+          action="<?= $baseUrl ?>/dial_result.php"
+          method="POST"
+          record="record-from-answer-dual"
+          recordingStatusCallback="<?= $baseUrl ?>/recording_callback.php"
+          recordingStatusCallbackMethod="POST">
+        <Number><?= $to ?></Number>
+    </Dial>
 </Response>

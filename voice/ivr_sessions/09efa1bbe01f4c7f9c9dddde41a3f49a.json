@@ -1,0 +1,25 @@
+{
+    "from": "+19046156899",
+    "to": "+19047066669",
+    "call_sid": "09efa1bb-e01f-4c7f-9c9d-ddde41a3f49a",
+    "last_step": 6,
+    "updated": "2025-12-16T17:37:33+00:00",
+    "recordings": {
+        "name": "https:\/\/mobilemechanic.signalwire.com\/api\/laml\/2010-04-01\/Accounts\/ce4806cb-ccb0-41e9-8bf1-7ea59536adfd\/Calls\/09efa1bb-e01f-4c7f-9c9d-ddde41a3f49a\/Recordings\/c215bed8-4e8b-4850-b668-4c05763b85a1",
+        "year": "https:\/\/mobilemechanic.signalwire.com\/api\/laml\/2010-04-01\/Accounts\/ce4806cb-ccb0-41e9-8bf1-7ea59536adfd\/Calls\/09efa1bb-e01f-4c7f-9c9d-ddde41a3f49a\/Recordings\/38590f19-6ce7-4cfb-82ce-b7416531f8fb",
+        "make": "https:\/\/mobilemechanic.signalwire.com\/api\/laml\/2010-04-01\/Accounts\/ce4806cb-ccb0-41e9-8bf1-7ea59536adfd\/Calls\/09efa1bb-e01f-4c7f-9c9d-ddde41a3f49a\/Recordings\/9e32f1b3-b372-460b-8cdc-180934f6f4c4",
+        "model": "https:\/\/mobilemechanic.signalwire.com\/api\/laml\/2010-04-01\/Accounts\/ce4806cb-ccb0-41e9-8bf1-7ea59536adfd\/Calls\/09efa1bb-e01f-4c7f-9c9d-ddde41a3f49a\/Recordings\/48c2aa4e-4ebd-4553-8f6c-c8a4b252fd7e",
+        "engine": "https:\/\/mobilemechanic.signalwire.com\/api\/laml\/2010-04-01\/Accounts\/ce4806cb-ccb0-41e9-8bf1-7ea59536adfd\/Calls\/09efa1bb-e01f-4c7f-9c9d-ddde41a3f49a\/Recordings\/6e023585-ccae-490a-8a79-25f23451b961",
+        "problem": "https:\/\/mobilemechanic.signalwire.com\/api\/laml\/2010-04-01\/Accounts\/ce4806cb-ccb0-41e9-8bf1-7ea59536adfd\/Calls\/09efa1bb-e01f-4c7f-9c9d-ddde41a3f49a\/Recordings\/b13175b9-a747-459d-a64d-759a74aa7392"
+    },
+    "recording_sids": {
+        "name": "c215bed8-4e8b-4850-b668-4c05763b85a1",
+        "year": "38590f19-6ce7-4cfb-82ce-b7416531f8fb",
+        "make": "9e32f1b3-b372-460b-8cdc-180934f6f4c4",
+        "model": "48c2aa4e-4ebd-4553-8f6c-c8a4b252fd7e",
+        "engine": "6e023585-ccae-490a-8a79-25f23451b961",
+        "problem": "b13175b9-a747-459d-a64d-759a74aa7392"
+    },
+    "complete": true,
+    "completed_at": "2025-12-16T17:37:32+00:00"
+}

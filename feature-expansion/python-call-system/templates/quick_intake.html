@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Service Request - Mechanic St. Augustine</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background: #f5f5f5; }
+        .container { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        h1 { color: #2c5aa0; text-align: center; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input, textarea, select { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px; }
+        textarea { height: 80px; resize: vertical; }
+        .submit-btn { background: #2c5aa0; color: white; padding: 12px 30px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; width: 100%; }
+        .submit-btn:hover { background: #1e3d6f; }
+        .roadside { background: #ffeb3b; padding: 15px; border-radius: 4px; margin-bottom: 20px; text-align: center; }
+        .phone { color: #2c5aa0; font-weight: bold; font-size: 18px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚗 Mobile Mechanic Service Request</h1>
+        
+        <div class="roadside">
+            <strong>Need immediate help?</strong><br>
+            Call us directly: <span class="phone">904-217-5152</span>
+        </div>
+
+        <form action="/quick-submit" method="POST">
+            <div class="form-group">
+                <label for="first_name">First Name:</label>
+                <input type="text" id="first_name" name="first_name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="last_name">Last Name:</label>
+                <input type="text" id="last_name" name="last_name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone Number:</label>
+                <input type="tel" id="phone" name="phone" required>
+            </div>
+
+            <div class="form-group">
+                <label for="address">Location/Address:</label>
+                <input type="text" id="address" name="address" placeholder="Street address or current location" required>
+            </div>
+
+            <div style="display: flex; gap: 10px;">
+                <div class="form-group" style="flex: 1;">
+                    <label for="vehicle_year">Year:</label>
+                    <input type="text" id="vehicle_year" name="vehicle_year" placeholder="2018">
+                </div>
+                <div class="form-group" style="flex: 1;">
+                    <label for="vehicle_make">Make:</label>
+                    <input type="text" id="vehicle_make" name="vehicle_make" placeholder="Honda">
+                </div>
+                <div class="form-group" style="flex: 1;">
+                    <label for="vehicle_model">Model:</label>
+                    <input type="text" id="vehicle_model" name="vehicle_model" placeholder="Civic">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="problem_description">What's wrong? Describe the problem:</label>
+                <textarea id="problem_description" name="problem_description" placeholder="Engine won't start, making strange noise, check engine light, etc." required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="urgency">How urgent is this?</label>
+                <select id="urgency" name="urgency" required>
+                    <option value="">Select urgency level</option>
+                    <option value="5">🚨 Emergency - Need help now!</option>
+                    <option value="4">⚡ Urgent - Need it today</option>
+                    <option value="3">📅 Soon - Within a few days</option>
+                    <option value="2">📋 This week - No major rush</option>
+                    <option value="1">💭 Just estimate - Planning ahead</option>
+                </select>
+            </div>
+
+            <button type="submit" class="submit-btn">🔧 Request Service</button>
+        </form>
+
+        <div style="margin-top: 20px; text-align: center; color: #666; font-size: 14px;">
+            Serving St. Augustine & surrounding areas<br>
+            Licensed • Insured • Honest Service
+        </div>
+    </div>
+</body>
+</html>

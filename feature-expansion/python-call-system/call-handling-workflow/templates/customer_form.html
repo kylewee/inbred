@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review Your Information - Mechanic St. Augustine</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background: #f5f5f5; }
+        .container { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        h1 { color: #2c5aa0; text-align: center; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input, textarea, select { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px; }
+        textarea { height: 80px; resize: vertical; }
+        .submit-btn { background: #2c5aa0; color: white; padding: 12px 30px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; }
+        .submit-btn:hover { background: #1e3d6f; }
+        .note { background: #e8f4fd; padding: 15px; border-left: 4px solid #2c5aa0; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 Review Your Service Request</h1>
+        
+        <div class="note">
+            <strong>Please review the information below.</strong> Make any corrections needed and submit to confirm your service request.
+        </div>
+
+        <form action="/customer/update/{{ call_id }}" method="POST">
+            <div class="form-group">
+                <label for="first_name">First Name:</label>
+                <input type="text" id="first_name" name="first_name" value="{{ customer.first_name or '' }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="last_name">Last Name:</label>
+                <input type="text" id="last_name" name="last_name" value="{{ customer.last_name or '' }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="phone_number">Phone Number:</label>
+                <input type="tel" id="phone_number" name="phone_number" value="{{ customer.phone_number or '' }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="address">Service Address:</label>
+                <input type="text" id="address" name="address" value="{{ customer.address or '' }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="vehicle_year">Vehicle Year:</label>
+                <input type="text" id="vehicle_year" name="vehicle_year" value="{{ customer.vehicle_year or '' }}">
+            </div>
+
+            <div class="form-group">
+                <label for="vehicle_make">Make:</label>
+                <input type="text" id="vehicle_make" name="vehicle_make" value="{{ customer.vehicle_make or '' }}">
+            </div>
+
+            <div class="form-group">
+                <label for="vehicle_model">Model:</label>
+                <input type="text" id="vehicle_model" name="vehicle_model" value="{{ customer.vehicle_model or '' }}">
+            </div>
+
+            <div class="form-group">
+                <label for="engine_size">Engine Size (if known):</label>
+                <input type="text" id="engine_size" name="engine_size" value="{{ customer.engine_size or '' }}" placeholder="e.g., 2.4L, V6, 4-cyl">
+            </div>
+
+            <div class="form-group">
+                <label for="problem_description">Problem Description:</label>
+                <textarea id="problem_description" name="problem_description" required>{{ customer.problem_description or '' }}</textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="urgency">Service Urgency:</label>
+                <select id="urgency" name="urgency">
+                    <option value="1" {{ 'selected' if customer.urgency == '1' else '' }}>1 - Just need estimate, no rush</option>
+                    <option value="2" {{ 'selected' if customer.urgency == '2' else '' }}>2 - Within a week</option>
+                    <option value="3" {{ 'selected' if customer.urgency == '3' else '' }}>3 - Within a few days</option>
+                    <option value="4" {{ 'selected' if customer.urgency == '4' else '' }}>4 - Need it soon</option>
+                    <option value="5" {{ 'selected' if customer.urgency == '5' else '' }}>5 - Emergency/immediate help</option>
+                </select>
+            </div>
+
+            <button type="submit" class="submit-btn">✅ Confirm Information</button>
+        </form>
+    </div>
+</body>
+</html>

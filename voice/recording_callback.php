@@ -1,6 +1,11 @@
 <?php
 declare(strict_types=1);
 
+// Load config
+$envPath = __DIR__ . '/../api/.env.local.php';
+if (file_exists($envPath)) { require_once $envPath; }
+
+
 function extract_customer_data_ai($transcript) {
   if (!defined('OPENAI_API_KEY') || !OPENAI_API_KEY) {
     // Fallback to pattern matching if no AI configured
@@ -828,8 +833,16 @@ function crm_autodiscover_fields(): array {
 }
 // Load env as early as possible for all routes (download/recordings/dial)
 $env = __DIR__ . '/../api/.env.local.php';
-if (is_file($env)) {
-  require $env;
+if (is_file($env) && !defined('CRM_API_URL')) {
+  require_once $env;
+}
+
+// Auto-estimation system
+if (!function_exists('auto_estimate_from_transcript')) {
+  require_once __DIR__ . '/../scraper/auto_estimate.php';
+}
+if (!function_exists('request_estimate_approval')) {
+  require_once __DIR__ . '/sms_estimate.php';
 }
 
 // Inline router for auxiliary features so we don't depend on separate files
@@ -907,37 +920,68 @@ if ($__action === 'download') {
       exit;
     }
   }
-  $sid = isset($_GET['sid']) ? preg_replace('/[^A-Za-z0-9]/', '', (string)$_GET['sid']) : '';
+  $sid = isset($_GET['sid']) ? preg_replace('/[^A-Za-z0-9\-]/', '', (string)$_GET['sid']) : '';
   // (token already validated above when relevant)
   if ($sid === '') {
     http_response_code(400);
     echo 'Missing sid';
     exit;
   }
-  $acct = defined('TWILIO_ACCOUNT_SID') ? (string)TWILIO_ACCOUNT_SID : '';
-  $auth = defined('TWILIO_AUTH_TOKEN') ? (string)TWILIO_AUTH_TOKEN : '';
-  if ($acct === '' || $auth === '') {
-    http_response_code(500);
-    echo 'Twilio credentials not configured';
-    exit;
+  
+  $bin = false;
+  $http = 0;
+  $errn = 0;
+  $erre = '';
+  
+  // Try SignalWire first
+  $swProject = defined('SIGNALWIRE_PROJECT_ID') ? (string)SIGNALWIRE_PROJECT_ID : '';
+  $swToken = defined('SIGNALWIRE_API_TOKEN') ? (string)SIGNALWIRE_API_TOKEN : '';
+  $swSpace = defined('SIGNALWIRE_SPACE') ? (string)SIGNALWIRE_SPACE : '';
+  
+  if ($swProject !== '' && $swToken !== '' && $swSpace !== '') {
+    // SignalWire recording URL format - try to get recording directly
+    $url = 'https://' . rawurlencode($swSpace) . '/api/laml/2010-04-01/Accounts/' . rawurlencode($swProject) . '/Recordings/' . rawurlencode($sid) . '.mp3';
+    $ch = curl_init($url);
+    curl_setopt_array($ch, [
+      CURLOPT_USERPWD => $swProject . ':' . $swToken,
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_FOLLOWLOCATION => true,
+      CURLOPT_TIMEOUT => 30,
+      CURLOPT_CONNECTTIMEOUT => 10,
+    ]);
+    $bin = curl_exec($ch);
+    $http = (int)curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    $errn = curl_errno($ch);
+    $erre = curl_error($ch);
+    curl_close($ch);
+    voice_log_event('signalwire_download_attempt', ['sid' => $sid, 'http' => $http, 'size' => strlen($bin ?: '')]);
   }
-  $url = 'https://api.twilio.com/2010-04-01/Accounts/' . rawurlencode($acct) . '/Recordings/' . rawurlencode($sid) . '.mp3';
-  $ch = curl_init($url);
-  curl_setopt_array($ch, [
-    CURLOPT_USERPWD => $acct . ':' . $auth,
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_FOLLOWLOCATION => true,
-    CURLOPT_TIMEOUT => 20,
-    CURLOPT_CONNECTTIMEOUT => 8,
-  ]);
-  $bin = curl_exec($ch);
-  $http = (int)curl_getinfo($ch, CURLINFO_HTTP_CODE);
-  $errn = curl_errno($ch);
-  $erre = curl_error($ch);
-  curl_close($ch);
-  if ($errn !== 0 || $http < 200 || $http >= 300 || $bin === false) {
+  
+  // Fall back to Twilio if SignalWire failed
+  if ($bin === false || strlen($bin) < 1000 || $http < 200 || $http >= 300) {
+    $acct = defined('TWILIO_ACCOUNT_SID') ? (string)TWILIO_ACCOUNT_SID : '';
+    $auth = defined('TWILIO_AUTH_TOKEN') ? (string)TWILIO_AUTH_TOKEN : '';
+    if ($acct !== '' && $auth !== '') {
+      $url = 'https://api.twilio.com/2010-04-01/Accounts/' . rawurlencode($acct) . '/Recordings/' . rawurlencode($sid) . '.mp3';
+      $ch = curl_init($url);
+      curl_setopt_array($ch, [
+        CURLOPT_USERPWD => $acct . ':' . $auth,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_TIMEOUT => 20,
+        CURLOPT_CONNECTTIMEOUT => 8,
+      ]);
+      $bin = curl_exec($ch);
+      $http = (int)curl_getinfo($ch, CURLINFO_HTTP_CODE);
+      $errn = curl_errno($ch);
+      $erre = curl_error($ch);
+      curl_close($ch);
+    }
+  }
+  
+  if ($bin === false || strlen($bin) < 1000 || $errn !== 0 || $http < 200 || $http >= 300) {
     http_response_code(502);
-    echo 'Failed to fetch recording';
+    echo 'Failed to fetch recording from SignalWire or Twilio';
     voice_log_event('download_error', ['sid' => $sid, 'http' => $http, 'errno' => $errn, 'error' => $erre]);
     exit;
   }
@@ -1350,6 +1394,15 @@ function request_ci_transcript(string $recordingSid): array {
  * Fetch Twilio recording MP3 by SID using Account SID/Auth Token
  */
 function fetch_twilio_recording_mp3(string $recordingSid): array {
+  // Try SignalWire first if credentials are available
+  if (defined('SIGNALWIRE_PROJECT_ID') && defined('SIGNALWIRE_API_TOKEN') && defined('SIGNALWIRE_SPACE')) {
+    $result = fetch_signalwire_recording_mp3($recordingSid);
+    if (!empty($result['ok'])) {
+      return $result;
+    }
+  }
+  
+  // Fall back to Twilio
   $acct = defined('TWILIO_ACCOUNT_SID') ? (string)TWILIO_ACCOUNT_SID : '';
   $auth = defined('TWILIO_AUTH_TOKEN') ? (string)TWILIO_AUTH_TOKEN : '';
   if ($acct === '' || $auth === '') return ['ok'=>false,'error'=>'no_twilio_creds'];
@@ -1368,6 +1421,33 @@ function fetch_twilio_recording_mp3(string $recordingSid): array {
   $err  = curl_error($ch);
   curl_close($ch);
   return ['ok'=>($errno===0 && $http>=200 && $http<300 && $bin!==false), 'http'=>$http, 'curl_errno'=>$errno, 'curl_error'=>$err, 'data'=>$bin];
+}
+
+/**
+ * Fetch SignalWire recording MP3 by SID
+ */
+function fetch_signalwire_recording_mp3(string $recordingSid): array {
+  $projectId = defined('SIGNALWIRE_PROJECT_ID') ? (string)SIGNALWIRE_PROJECT_ID : '';
+  $apiToken = defined('SIGNALWIRE_API_TOKEN') ? (string)SIGNALWIRE_API_TOKEN : '';
+  $space = defined('SIGNALWIRE_SPACE') ? (string)SIGNALWIRE_SPACE : '';
+  if ($projectId === '' || $apiToken === '' || $space === '') {
+    return ['ok'=>false,'error'=>'no_signalwire_creds'];
+  }
+  $url = 'https://' . rawurlencode($space) . '/api/laml/2010-04-01/Accounts/' . rawurlencode($projectId) . '/Recordings/' . rawurlencode($recordingSid) . '.mp3';
+  $ch = curl_init($url);
+  curl_setopt_array($ch, [
+    CURLOPT_USERPWD => $projectId . ':' . $apiToken,
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_FOLLOWLOCATION => true,
+    CURLOPT_TIMEOUT => 60,
+    CURLOPT_CONNECTTIMEOUT => 15,
+  ]);
+  $bin = curl_exec($ch);
+  $http = (int)curl_getinfo($ch, CURLINFO_HTTP_CODE);
+  $errno = curl_errno($ch);
+  $err  = curl_error($ch);
+  curl_close($ch);
+  return ['ok'=>($errno===0 && $http>=200 && $http<300 && $bin!==false && strlen($bin) > 1000), 'http'=>$http, 'curl_errno'=>$errno, 'curl_error'=>$err, 'data'=>$bin, 'size'=>strlen($bin)];
 }
 
 /**
@@ -1452,27 +1532,54 @@ if (!empty($transcriptText)) {
   $transcript = $in['TranscriptionText'];
 }
 
-// If From/To missing but we have CallSid, try to fetch call details from Twilio to enrich
-if (($from === '' || $to === '') && $callSid && defined('TWILIO_ACCOUNT_SID') && defined('TWILIO_AUTH_TOKEN')) {
-  try {
-    $url = 'https://api.twilio.com/2010-04-01/Accounts/' . rawurlencode((string)TWILIO_ACCOUNT_SID) . '/Calls/' . rawurlencode($callSid) . '.json';
-    $ch = curl_init($url);
-    curl_setopt_array($ch, [
-      CURLOPT_USERPWD => (string)TWILIO_ACCOUNT_SID . ':' . (string)TWILIO_AUTH_TOKEN,
-      CURLOPT_RETURNTRANSFER => true,
-      CURLOPT_TIMEOUT => 10,
-      CURLOPT_CONNECTTIMEOUT => 6,
-    ]);
-    $resp = curl_exec($ch);
-    $http = (int)curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    curl_close($ch);
-    $cj = json_decode((string)$resp, true);
-    if ($http === 200 && is_array($cj)) {
-      if ($from === '' && !empty($cj['from'])) $from = (string)$cj['from'];
-      if ($to === '' && !empty($cj['to'])) $to = (string)$cj['to'];
+// If From/To missing but we have CallSid, try to fetch call details to enrich
+if (($from === '' || $to === '') && $callSid) {
+  // Try SignalWire first (check for SignalWire credentials)
+  if (defined('SIGNALWIRE_PROJECT_ID') && defined('SIGNALWIRE_API_TOKEN') && defined('SIGNALWIRE_SPACE')) {
+    try {
+      $url = 'https://' . rawurlencode((string)SIGNALWIRE_SPACE) . '/api/laml/2010-04-01/Accounts/' . rawurlencode((string)SIGNALWIRE_PROJECT_ID) . '/Calls/' . rawurlencode($callSid) . '.json';
+      $ch = curl_init($url);
+      curl_setopt_array($ch, [
+        CURLOPT_USERPWD => (string)SIGNALWIRE_PROJECT_ID . ':' . (string)SIGNALWIRE_API_TOKEN,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_TIMEOUT => 10,
+        CURLOPT_CONNECTTIMEOUT => 6,
+      ]);
+      $resp = curl_exec($ch);
+      $http = (int)curl_getinfo($ch, CURLINFO_HTTP_CODE);
+      curl_close($ch);
+      $cj = json_decode((string)$resp, true);
+      if ($http === 200 && is_array($cj)) {
+        if ($from === '' && !empty($cj['from'])) $from = (string)$cj['from'];
+        if ($to === '' && !empty($cj['to'])) $to = (string)$cj['to'];
+        $log['signalwire_lookup'] = ['ok' => true, 'from' => $from, 'to' => $to];
+      }
+    } catch (Throwable $e) {
+      $log['signalwire_lookup'] = ['ok' => false, 'error' => $e->getMessage()];
     }
-  } catch (Throwable $e) {
-    // ignore; best-effort enrichment
+  }
+  // Fall back to Twilio if From/To still empty
+  if (($from === '' || $to === '') && defined('TWILIO_ACCOUNT_SID') && defined('TWILIO_AUTH_TOKEN')) {
+    try {
+      $url = 'https://api.twilio.com/2010-04-01/Accounts/' . rawurlencode((string)TWILIO_ACCOUNT_SID) . '/Calls/' . rawurlencode($callSid) . '.json';
+      $ch = curl_init($url);
+      curl_setopt_array($ch, [
+        CURLOPT_USERPWD => (string)TWILIO_ACCOUNT_SID . ':' . (string)TWILIO_AUTH_TOKEN,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_TIMEOUT => 10,
+        CURLOPT_CONNECTTIMEOUT => 6,
+      ]);
+      $resp = curl_exec($ch);
+      $http = (int)curl_getinfo($ch, CURLINFO_HTTP_CODE);
+      curl_close($ch);
+      $cj = json_decode((string)$resp, true);
+      if ($http === 200 && is_array($cj)) {
+        if ($from === '' && !empty($cj['from'])) $from = (string)$cj['from'];
+        if ($to === '' && !empty($cj['to'])) $to = (string)$cj['to'];
+      }
+    } catch (Throwable $e) {
+      // ignore; best-effort enrichment
+    }
   }
 }
 
@@ -1647,6 +1754,42 @@ if (($recordingUrl && $transcript) || (!$recordingUrl && $transcript)) {
   $crmResult = create_crm_lead($leadData);
   $log['crm_lead'] = $leadData;
   $log['crm_result'] = $crmResult;
+
+  // Generate auto-estimate from transcript
+  $autoEstimate = null;
+  if (!empty($transcript) && function_exists('auto_estimate_from_transcript')) {
+    $autoEstimate = auto_estimate_from_transcript(
+      $transcript,
+      (string)($leadData['year'] ?? ''),
+      (string)($leadData['make'] ?? ''),
+      (string)($leadData['model'] ?? '')
+    );
+    $log['auto_estimate'] = $autoEstimate;
+    
+    // If estimate generated, send approval SMS to mechanic
+    if (!empty($autoEstimate['success']) && function_exists('request_estimate_approval')) {
+      $approvalResult = request_estimate_approval($autoEstimate, $leadData);
+      $log['estimate_approval_sms'] = $approvalResult;
+    }
+  }
+
+  // Generate auto-estimate from transcript
+  $autoEstimate = null;
+  if (!empty($transcript) && function_exists('auto_estimate_from_transcript')) {
+    $autoEstimate = auto_estimate_from_transcript(
+      $transcript,
+      (string)($leadData['year'] ?? ''),
+      (string)($leadData['make'] ?? ''),
+      (string)($leadData['model'] ?? '')
+    );
+    $log['auto_estimate'] = $autoEstimate;
+    
+    // If estimate generated, send approval SMS to mechanic
+    if (!empty($autoEstimate['success']) && function_exists('request_estimate_approval')) {
+      $approvalResult = request_estimate_approval($autoEstimate, $leadData);
+      $log['estimate_approval_sms'] = $approvalResult;
+    }
+  }
 
   $quoteForward = auto_quote_from_call($leadData, [
     'recording_url' => $playableRecordingUrl,

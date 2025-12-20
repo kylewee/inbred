@@ -1,0 +1,21 @@
+{
+    "from": "+19046156899",
+    "call_sid": "44ac942f-d9f1-4e69-942e-a043ef2902b8",
+    "last_step": 2,
+    "updated": "2025-12-16T18:58:59+00:00",
+    "recordings": {
+        "vehicle": "https:\/\/files.signalwire.com\/b1fea176-91e4-44fb-942f-5d52f0ac179d\/ce4806cb-ccb0-41e9-8bf1-7ea59536adfd\/recordings\/640d31bb-05bc-473d-8820-2eccff5d323d.wav",
+        "name": "https:\/\/mobilemechanic.signalwire.com\/api\/laml\/2010-04-01\/Accounts\/ce4806cb-ccb0-41e9-8bf1-7ea59536adfd\/Calls\/44ac942f-d9f1-4e69-942e-a043ef2902b8\/Recordings\/640d31bb-05bc-473d-8820-2eccff5d323d",
+        "problem": "https:\/\/files.signalwire.com\/b1fea176-91e4-44fb-942f-5d52f0ac179d\/ce4806cb-ccb0-41e9-8bf1-7ea59536adfd\/recordings\/c8631259-7bbd-4594-b4d0-5de10dcfa192.wav",
+        "year": "https:\/\/mobilemechanic.signalwire.com\/api\/laml\/2010-04-01\/Accounts\/ce4806cb-ccb0-41e9-8bf1-7ea59536adfd\/Calls\/44ac942f-d9f1-4e69-942e-a043ef2902b8\/Recordings\/c8631259-7bbd-4594-b4d0-5de10dcfa192"
+    },
+    "recording_sids": {
+        "name": "640d31bb-05bc-473d-8820-2eccff5d323d",
+        "year": "c8631259-7bbd-4594-b4d0-5de10dcfa192"
+    },
+    "transcripts": {
+        "name": "It's a 96 Ford F-150.",
+        "year": "I think I have meningitis and breast cancer. No, that's not good. I just need a new starter. That's all. And a blowjob."
+    },
+    "complete": true
+}

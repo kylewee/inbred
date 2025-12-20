@@ -8,7 +8,7 @@ services:
       MYSQL_USER: mechanic
       MYSQL_PASSWORD: mechanic
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - db_data:/var/lib/mysql
     networks:
@@ -46,7 +46,7 @@ services:
     ports:
       - "8080:80"
       - "8443:443"
-      - "443:443/udp"
+      - "8444:443/udp"
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
       - .:/srv

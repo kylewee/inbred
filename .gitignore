@@ -4,6 +4,8 @@ node_modules/
 # Build outputs
 dist/
 .build/
+.gocache/
+*/.gocache/
 
 # Environment and configuration
 .env
@@ -46,6 +48,7 @@ admin/*.log
 *.sql
 *.sqlite
 *.db
+backup_crm_part_*
 
 # OS files
 .DS_Store
@@ -55,3 +58,14 @@ Thumbs.db
 vendor/
 composer.lock
 SESSION_SUMMARY.md
+
+# Exclude entire CRM directory (third-party Rukovoditel app)
+crm/
+
+# But track custom SMS module integrations
+!crm/plugins/
+!crm/plugins/ext/
+!crm/plugins/ext/sms_modules/
+!crm/plugins/ext/sms_modules/signalwire/
+!crm/plugins/ext/sms_modules/signalwire/**
+inbred-mechanic-confusion.json

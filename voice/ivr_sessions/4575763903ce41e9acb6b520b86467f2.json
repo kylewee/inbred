@@ -1,0 +1,30 @@
+{
+    "from": "+19046156899",
+    "to": "+19047066669",
+    "call_sid": "45757639-03ce-41e9-acb6-b520b86467f2",
+    "last_step": 6,
+    "updated": "2025-12-16T18:01:45+00:00",
+    "recordings": {
+        "name": "https:\/\/mobilemechanic.signalwire.com\/api\/laml\/2010-04-01\/Accounts\/ce4806cb-ccb0-41e9-8bf1-7ea59536adfd\/Calls\/45757639-03ce-41e9-acb6-b520b86467f2\/Recordings\/d05b23d6-00ed-4f85-ab5a-be3efd3f1d23",
+        "year": "https:\/\/mobilemechanic.signalwire.com\/api\/laml\/2010-04-01\/Accounts\/ce4806cb-ccb0-41e9-8bf1-7ea59536adfd\/Calls\/45757639-03ce-41e9-acb6-b520b86467f2\/Recordings\/360626e6-4865-4cfd-932f-6dd2db42c588",
+        "make": "https:\/\/mobilemechanic.signalwire.com\/api\/laml\/2010-04-01\/Accounts\/ce4806cb-ccb0-41e9-8bf1-7ea59536adfd\/Calls\/45757639-03ce-41e9-acb6-b520b86467f2\/Recordings\/3b842ce2-c995-4502-92e2-3377d3d8b8c3",
+        "model": "https:\/\/mobilemechanic.signalwire.com\/api\/laml\/2010-04-01\/Accounts\/ce4806cb-ccb0-41e9-8bf1-7ea59536adfd\/Calls\/45757639-03ce-41e9-acb6-b520b86467f2\/Recordings\/b6a281f0-a7ef-427c-96b6-1ab877f3ecb8",
+        "engine": "https:\/\/mobilemechanic.signalwire.com\/api\/laml\/2010-04-01\/Accounts\/ce4806cb-ccb0-41e9-8bf1-7ea59536adfd\/Calls\/45757639-03ce-41e9-acb6-b520b86467f2\/Recordings\/dc7eb8f4-e209-4c18-9cff-4daa9fa7c740",
+        "problem": "https:\/\/mobilemechanic.signalwire.com\/api\/laml\/2010-04-01\/Accounts\/ce4806cb-ccb0-41e9-8bf1-7ea59536adfd\/Calls\/45757639-03ce-41e9-acb6-b520b86467f2\/Recordings\/6c144ec4-f3d9-405d-aae7-8e7b277b50c5"
+    },
+    "recording_sids": {
+        "name": "d05b23d6-00ed-4f85-ab5a-be3efd3f1d23",
+        "year": "360626e6-4865-4cfd-932f-6dd2db42c588",
+        "make": "3b842ce2-c995-4502-92e2-3377d3d8b8c3",
+        "model": "b6a281f0-a7ef-427c-96b6-1ab877f3ecb8",
+        "engine": "dc7eb8f4-e209-4c18-9cff-4daa9fa7c740",
+        "problem": "6c144ec4-f3d9-405d-aae7-8e7b277b50c5"
+    },
+    "transcripts": {
+        "name": "Well, it's Billy Ray Cyrus.",
+        "make": "\u77e5\u9053\u4e86",
+        "problem": "Just a tire change"
+    },
+    "complete": true,
+    "completed_at": "2025-12-16T18:01:43+00:00"
+}

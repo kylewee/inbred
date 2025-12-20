@@ -1,21 +1,24 @@
-:80 {
-	root * /srv
-	
-	# Redirect /admin to /crm for admin interface
-	redir /admin /crm/index.php permanent
-	redir /admin/* /crm{uri} permanent
-	
-	# Enable PHP processing
-	php_fastcgi php:9000
-	
-	# Serve static files
-	file_server browse
+{
+    email sodjacksonville@gmail.com
+    admin off
+}
 
-	# Try files in order, fallback to index.html
-	try_files {path} {path}/ /index.html
+mechanicstaugustine.com, www.mechanicstaugustine.com {
+    root * /home/kylewee/mechanicsaintaugustine.com/site
+    
+    # PHP processing
+    php_fastcgi unix//run/php/php8.3-fpm.sock
+    
+    # Serve static files
+    file_server
+}
 
-	# Log requests
-	log {
-		output file /var/log/caddy/access.log
-	}
+localhost:8092 {
+    root * /home/kylewee/mechanicsaintaugustine.com/site
+    
+    # PHP processing
+    php_fastcgi unix//run/php/php8.3-fpm.sock
+    
+    # Serve static files
+    file_server
 }

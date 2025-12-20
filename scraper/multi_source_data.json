@@ -1,0 +1,194 @@
+[
+  {
+    "vehicle": {
+      "year": 2023,
+      "make": "Honda",
+      "model": "Civic"
+    },
+    "repairs": {
+      "Oil Change": {
+        "vehicle": {
+          "year": 2023,
+          "make": "Honda",
+          "model": "Civic"
+        },
+        "repair_type": "Oil Change",
+        "parts": [
+          {
+            "name": "Oil Filter",
+            "price": 12.99,
+            "part_number": "OF2023HO"
+          },
+          {
+            "name": "Motor Oil (5qt)",
+            "price": 24.99,
+            "part_number": "OIL5W30"
+          }
+        ],
+        "total_parts_cost": 37.98,
+        "labor_time": 0.5,
+        "labor_complexity": "Basic",
+        "data_source": "enhanced_fallback",
+        "fetched_at": "2025-10-13T14:52:07.627594"
+      },
+      "Brake Pads Replacement": {
+        "vehicle": {
+          "year": 2023,
+          "make": "Honda",
+          "model": "Civic"
+        },
+        "repair_type": "Brake Pads Replacement",
+        "parts": [
+          {
+            "name": "Front Brake Pads",
+            "price": 89.99,
+            "part_number": "BP2023HOF"
+          },
+          {
+            "name": "Brake Cleaner",
+            "price": 8.99,
+            "part_number": "BC789"
+          }
+        ],
+        "total_parts_cost": 98.97999999999999,
+        "labor_time": 1.5,
+        "labor_complexity": "Intermediate",
+        "data_source": "enhanced_fallback",
+        "fetched_at": "2025-10-13T14:52:08.797254"
+      }
+    },
+    "updated_at": "2025-10-13T14:52:09.797527"
+  },
+  {
+    "vehicle": {
+      "year": 2018,
+      "make": "Ford",
+      "model": "F-150"
+    },
+    "repairs": {
+      "Oil Change": {
+        "vehicle": {
+          "year": 2018,
+          "make": "Ford",
+          "model": "F-150"
+        },
+        "repair_type": "Oil Change",
+        "parts": [
+          {
+            "name": "Oil Filter",
+            "price": 15.59,
+            "part_number": "OF2018FO"
+          },
+          {
+            "name": "Motor Oil (5qt)",
+            "price": 29.99,
+            "part_number": "OIL5W30"
+          }
+        ],
+        "total_parts_cost": 45.58,
+        "labor_time": 0.5,
+        "labor_complexity": "Basic",
+        "data_source": "enhanced_fallback",
+        "fetched_at": "2025-10-13T14:52:09.950002"
+      },
+      "Brake Pads Replacement": {
+        "vehicle": {
+          "year": 2018,
+          "make": "Ford",
+          "model": "F-150"
+        },
+        "repair_type": "Brake Pads Replacement",
+        "parts": [
+          {
+            "name": "Front Brake Pads",
+            "price": 107.99,
+            "part_number": "BP2018FOF"
+          },
+          {
+            "name": "Brake Cleaner",
+            "price": 10.79,
+            "part_number": "BC789"
+          }
+        ],
+        "total_parts_cost": 118.78,
+        "labor_time": 1.5,
+        "labor_complexity": "Intermediate",
+        "data_source": "enhanced_fallback",
+        "fetched_at": "2025-10-13T14:52:11.102366"
+      }
+    },
+    "updated_at": "2025-10-13T14:52:12.102547"
+  },
+  {
+    "vehicle": {
+      "year": 2012,
+      "make": "Toyota",
+      "model": "Camry"
+    },
+    "repairs": {
+      "Oil Change": {
+        "vehicle": {
+          "year": 2012,
+          "make": "Toyota",
+          "model": "Camry",
+          "characteristics": {
+            "is_luxury": false,
+            "is_truck": false,
+            "is_old": true,
+            "price_multiplier": 0.9
+          }
+        },
+        "repair_type": "Oil Change",
+        "parts": [
+          {
+            "name": "Oil Filter",
+            "price": 11.69,
+            "part_number": "OF2012TO"
+          },
+          {
+            "name": "Motor Oil (5qt)",
+            "price": 22.49,
+            "part_number": "OIL5W30"
+          }
+        ],
+        "total_parts_cost": 34.18,
+        "labor_time": 0.5,
+        "labor_complexity": "Basic",
+        "data_source": "charm_li",
+        "fetched_at": "2025-10-13T14:52:17.760454"
+      },
+      "Brake Pads Replacement": {
+        "vehicle": {
+          "year": 2012,
+          "make": "Toyota",
+          "model": "Camry",
+          "characteristics": {
+            "is_luxury": false,
+            "is_truck": false,
+            "is_old": true,
+            "price_multiplier": 0.9
+          }
+        },
+        "repair_type": "Brake Pads Replacement",
+        "parts": [
+          {
+            "name": "Front Brake Pads",
+            "price": 80.99,
+            "part_number": "BP2012TOF"
+          },
+          {
+            "name": "Brake Cleaner",
+            "price": 8.09,
+            "part_number": "BC789"
+          }
+        ],
+        "total_parts_cost": 89.08,
+        "labor_time": 1.5,
+        "labor_complexity": "Intermediate",
+        "data_source": "charm_li",
+        "fetched_at": "2025-10-13T14:52:22.970358"
+      }
+    },
+    "updated_at": "2025-10-13T14:52:23.972529"
+  }
+]
