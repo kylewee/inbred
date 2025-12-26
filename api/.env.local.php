@@ -5,11 +5,11 @@
  */
 
 // CRM API Configuration
-define('CRM_API_URL', 'http://localhost:8080/crm/api/rest.php');
+define('CRM_API_URL', 'https://mechanicstaugustine.com/crm/api/rest.php');
 define('CRM_LEADS_ENTITY_ID', 26);
 define('CRM_USERNAME', 'kylewee2');
 define('CRM_PASSWORD', 'rainonin');
-define('CRM_API_KEY', 'mech4n1c5A1d3c7f9b2e8a4d6c0f3b5a7e9d1c3f5');
+define('CRM_API_KEY', 'VMm87uzSFFyWAWCDzCXEK2AajBbHIOOIwtfhMWbA');
 define('CRM_CREATED_BY_USER_ID', 2);
 
 // CRM Field Mapping - ENTITY 26 VERIFIED CORRECT

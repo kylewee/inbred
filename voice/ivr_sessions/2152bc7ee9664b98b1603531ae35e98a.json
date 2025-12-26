@@ -1,0 +1,51 @@
+{
+    "from": "+19046156899",
+    "to": "+19047066669",
+    "call_sid": "2152bc7e-e966-4b98-b160-3531ae35e98a",
+    "last_step": 6,
+    "updated": "2025-12-21T10:57:46+00:00",
+    "recordings": {
+        "name": "https:\/\/mobilemechanic.signalwire.com\/api\/laml\/2010-04-01\/Accounts\/ce4806cb-ccb0-41e9-8bf1-7ea59536adfd\/Calls\/2152bc7e-e966-4b98-b160-3531ae35e98a\/Recordings\/acd3a98b-3134-45f0-baae-775a3a0e365d",
+        "year": "https:\/\/files.signalwire.com\/b1fea176-91e4-44fb-942f-5d52f0ac179d\/ce4806cb-ccb0-41e9-8bf1-7ea59536adfd\/recordings\/c3be3f46-7a91-444e-9d76-303edc684921.wav",
+        "make": "https:\/\/files.signalwire.com\/b1fea176-91e4-44fb-942f-5d52f0ac179d\/ce4806cb-ccb0-41e9-8bf1-7ea59536adfd\/recordings\/beb76924-bc33-4f63-835a-7fc51ca517f3.wav",
+        "model": "https:\/\/files.signalwire.com\/b1fea176-91e4-44fb-942f-5d52f0ac179d\/ce4806cb-ccb0-41e9-8bf1-7ea59536adfd\/recordings\/348d03d3-4171-4e46-a621-cf9535c27360.wav",
+        "engine": "https:\/\/files.signalwire.com\/b1fea176-91e4-44fb-942f-5d52f0ac179d\/ce4806cb-ccb0-41e9-8bf1-7ea59536adfd\/recordings\/a89b8332-dd75-487f-b671-1ecc1f26f076.wav",
+        "problem": "https:\/\/files.signalwire.com\/b1fea176-91e4-44fb-942f-5d52f0ac179d\/ce4806cb-ccb0-41e9-8bf1-7ea59536adfd\/recordings\/15a4f29e-080d-4bc9-8b97-85d6a6fd87b0.wav"
+    },
+    "recording_sids": {
+        "name": "acd3a98b-3134-45f0-baae-775a3a0e365d"
+    },
+    "complete": true,
+    "completed_at": "2025-12-21T10:57:46+00:00",
+    "transcripts": {
+        "name": "John"
+    },
+    "lead_data": {
+        "phone": "+19046156899",
+        "first_name": "John",
+        "last_name": "",
+        "name": "John",
+        "year": "",
+        "make": "",
+        "model": "",
+        "engine": "",
+        "notes": "",
+        "source": "IVR",
+        "transcript": "Name: John",
+        "created_at": "2025-12-21T10:57:48+00:00"
+    },
+    "crm_result": {
+        "http": 200,
+        "curl_errno": 0,
+        "curl_error": "",
+        "body": "{\"status\":\"success\",\"data\":{\"id\":\"303\"}}",
+        "api_response": {
+            "status": "success",
+            "data": {
+                "id": "303"
+            }
+        }
+    },
+    "processed": true,
+    "processed_at": "2025-12-21T10:57:49+00:00"
+}

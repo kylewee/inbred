@@ -83,6 +83,7 @@ if ($step < $totalSteps) {
     $actionUrl = "ivr_intake.php?step={$nextStep}";
     
     echo "  <Say voice=\"Polly.Matthew\">{$question}</Say>\n";
+    echo "  <Pause length=\"1\"/>\n";
     echo "  <Record maxLength=\"30\" playBeep=\"true\" timeout=\"3\" action=\"{$actionUrl}\" recordingStatusCallback=\"ivr_recording.php?step={$step}\" />\n";
     echo "  <Say voice=\"Polly.Matthew\">I didn't catch that. Let me ask again.</Say>\n";
     echo "  <Redirect>{$actionUrl}</Redirect>\n";

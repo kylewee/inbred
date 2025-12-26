@@ -5,6 +5,10 @@ declare(strict_types=1);
 $envPath = __DIR__ . '/../api/.env.local.php';
 if (file_exists($envPath)) { require_once $envPath; }
 
+// Load call tracking hook for A/B test attribution
+$callTrackingHook = __DIR__ . '/call_tracking_hook.php';
+if (file_exists($callTrackingHook)) { require_once $callTrackingHook; }
+
 
 function extract_customer_data_ai($transcript) {
   if (!defined('OPENAI_API_KEY') || !OPENAI_API_KEY) {
@@ -1532,6 +1536,40 @@ if (!empty($transcriptText)) {
   $transcript = $in['TranscriptionText'];
 }
 
+// ALWAYS download and save recordings when RecordingSid exists (regardless of transcript status)
+if ($recordingSid && defined('OPENAI_API_KEY') && OPENAI_API_KEY) {
+  $dl = fetch_twilio_recording_mp3($recordingSid);
+  if (!empty($dl['ok'])) {
+    // Save recording to local filesystem
+    $recordingsDir = __DIR__ . '/recordings';
+    if (!file_exists($recordingsDir)) {
+      @mkdir($recordingsDir, 0755, true);
+    }
+    $localFilePath = $recordingsDir . '/' . $recordingSid . '.mp3';
+    $savedBytes = @file_put_contents($localFilePath, (string)$dl['data']);
+    if ($savedBytes !== false && $savedBytes > 0) {
+      $log['recording_saved'] = ['path' => $localFilePath, 'size' => $savedBytes];
+      // Update the recording URL to point to the local file
+      $recordingUrl = 'https://mechanicstaugustine.com/voice/recordings/' . $recordingSid . '.mp3';
+    } else {
+      $log['recording_save_failed'] = ['path' => $localFilePath, 'error' => error_get_last()];
+    }
+
+    // If no transcript provided, transcribe the recording with Whisper
+    if ($transcript === '') {
+      $wx = whisper_transcribe_bytes((string)$dl['data'], $recordingSid . '.mp3');
+      if (!empty($wx['ok'])) {
+        $transcript = (string)$wx['text'];
+        $log['auto_whisper'] = ['ok' => true, 'length' => strlen($transcript)];
+      } else {
+        $log['auto_whisper'] = ['ok' => false, 'error' => $wx];
+      }
+    }
+  } else {
+    $log['recording_download_error'] = $dl;
+  }
+}
+
 // If From/To missing but we have CallSid, try to fetch call details to enrich
 if (($from === '' || $to === '') && $callSid) {
   // Try SignalWire first (check for SignalWire credentials)
@@ -1669,28 +1707,8 @@ if ($transcript) {
   }
 }
 
-// AUTO-TRANSCRIBE: If we received a recording without transcript, automatically transcribe with Whisper
-$log['debug_auto_transcribe'] = [
-  'transcript_empty' => ($transcript === ''),
-  'has_recording_sid' => !empty($recordingSid),
-  'openai_defined' => defined('OPENAI_API_KEY'),
-  'openai_value' => defined('OPENAI_API_KEY') ? (OPENAI_API_KEY ? 'yes' : 'empty') : 'undefined'
-];
-if ($transcript === '' && $recordingSid && defined('OPENAI_API_KEY') && OPENAI_API_KEY) {
-  $dl = fetch_twilio_recording_mp3($recordingSid);
-  if (!empty($dl['ok'])) {
-    $wx = whisper_transcribe_bytes((string)$dl['data'], $recordingSid . '.mp3');
-    if (!empty($wx['ok'])) {
-      $transcript = (string)$wx['text'];
-      $log['auto_whisper'] = ['ok' => true, 'length' => strlen($transcript)];
-      // Continue processing with the transcript we just generated
-    } else {
-      $log['auto_whisper'] = ['ok' => false, 'error' => $wx];
-    }
-  } else {
-    $log['auto_whisper'] = ['ok' => false, 'download_error' => $dl];
-  }
-}
+// Recording download and transcription now happens earlier (line ~1535)
+// This ensures recordings are ALWAYS saved when RecordingSid exists
 
 // --- CRM Integration ---
 // Handle both recording+transcription and transcription-only callbacks
@@ -1712,13 +1730,21 @@ if (($recordingUrl && $transcript) || (!$recordingUrl && $transcript)) {
   $playableRecordingUrl = "https://mechanicstaugustine.com/voice/recording_callback.php?action=download&sid=" . $recordingSid;
   }
   
+  // Get A/B attribution data for CRM source field
+  $abAttribution = [];
+  if (function_exists('get_ab_attribution_for_crm')) {
+    $abAttribution = get_ab_attribution_for_crm($from);
+  }
+
   $leadData = [
     'phone'         => $from,
     'recording_url' => $playableRecordingUrl ?: 'transcription-only',
     'transcript'    => $transcript,
-    'source'        => 'Phone',
+    'source'        => $abAttribution['source'] ?? 'Phone Call',
     'created_at'    => $now,
     '_bypass_dedupe'=> $bypassDedupe,
+    '_ab_experiment'=> $abAttribution['experiment'] ?? '',
+    '_ab_variant'   => $abAttribution['variant'] ?? '',
   ];
 
   $leadData = array_merge($leadData, $extracted);
@@ -1755,6 +1781,40 @@ if (($recordingUrl && $transcript) || (!$recordingUrl && $transcript)) {
   $log['crm_lead'] = $leadData;
   $log['crm_result'] = $crmResult;
 
+  // Trigger CRM SMS Rule #1 (Lead Created Confirmation)
+  $leadId = null;
+  if (!empty($crmResult['api_response']['data']['id'])) {
+    $leadId = (int)$crmResult['api_response']['data']['id'];
+  } elseif (!empty($crmResult['fallback']['id'])) {
+    $leadId = (int)$crmResult['fallback']['id'];
+  }
+
+  if ($leadId && class_exists('sms')) {
+    try {
+      require_once(__DIR__ . '/../crm/plugins/ext/classes/sms.php');
+      sms::send_by_id(26, $leadId, 1);  // Entity 26, Lead ID, Rule ID 1
+      $log['sms_triggered'] = true;
+    } catch (Exception $e) {
+      $log['sms_error'] = $e->getMessage();
+    }
+  }
+
+  // Track call for A/B testing attribution
+  if (function_exists('track_call_for_ab') && $callSid) {
+    $wasAnswered = ($duration > 0);
+    $abTrackResult = track_call_for_ab(
+      $callSid,
+      $from,
+      $to,
+      $duration,
+      $leadId,
+      $wasAnswered,
+      $playableRecordingUrl ?? $recordingUrl,
+      $transcript
+    );
+    $log['ab_tracking'] = $abTrackResult;
+  }
+
   // Generate auto-estimate from transcript
   $autoEstimate = null;
   if (!empty($transcript) && function_exists('auto_estimate_from_transcript')) {
@@ -1765,7 +1825,7 @@ if (($recordingUrl && $transcript) || (!$recordingUrl && $transcript)) {
       (string)($leadData['model'] ?? '')
     );
     $log['auto_estimate'] = $autoEstimate;
-    
+
     // If estimate generated, send approval SMS to mechanic
     if (!empty($autoEstimate['success']) && function_exists('request_estimate_approval')) {
       $approvalResult = request_estimate_approval($autoEstimate, $leadData);
@@ -1783,7 +1843,14 @@ if (($recordingUrl && $transcript) || (!$recordingUrl && $transcript)) {
       (string)($leadData['model'] ?? '')
     );
     $log['auto_estimate'] = $autoEstimate;
-    
+
+    // Send mobile quote SMS via CustomerFlow (1-2-3-4-5 system)
+    if (!empty($autoEstimate['success']) && !empty($from)) {
+      require_once(__DIR__ . '/../lib/CustomerFlow/integrate.php');
+      $quoteResult = send_customer_quote($from, $leadData, $autoEstimate, $leadId);
+      $log['quote_sms_sent'] = $quoteResult;
+    }
+
     // If estimate generated, send approval SMS to mechanic
     if (!empty($autoEstimate['success']) && function_exists('request_estimate_approval')) {
       $approvalResult = request_estimate_approval($autoEstimate, $leadData);

@@ -43,14 +43,19 @@ echo "\n<Response>\n";
 $noAnswer = in_array($dialStatus, ['no-answer', 'busy', 'failed', 'canceled', ''], true);
 
 if ($noAnswer || $dialStatus === '') {
-    // Redirect to IVR intake with full URL
-    echo "  <Redirect>{$baseUrl}/ivr_intake.php?step=0</Redirect>\n";
+    // Simple voicemail - AI will extract info from recording
+    echo "  <Say voice=\"Polly.Matthew\">Hi, you've reached St. Augustine Mobile Mechanic. Please leave your name, phone number, and what you need help with after the beep.</Say>\n";
+    echo "  <Record maxLength=\"120\" playBeep=\"true\" timeout=\"5\" transcribe=\"false\" recordingStatusCallback=\"{$baseUrl}/recording_callback.php\" />\n";
+    echo "  <Say voice=\"Polly.Matthew\">Thanks, I'll call you back soon.</Say>\n";
+    echo "  <Hangup />\n";
 } elseif ($dialStatus === 'completed') {
     // Call was answered - recording callback will handle the rest
     echo "  <Hangup />\n";
 } else {
-    // Unknown status - redirect to IVR anyway
-    echo "  <Redirect>{$baseUrl}/ivr_intake.php?step=0</Redirect>\n";
+    // Unknown status - simple voicemail
+    echo "  <Say voice=\"Polly.Matthew\">Please leave a message after the beep.</Say>\n";
+    echo "  <Record maxLength=\"120\" playBeep=\"true\" timeout=\"5\" transcribe=\"false\" recordingStatusCallback=\"{$baseUrl}/recording_callback.php\" />\n";
+    echo "  <Hangup />\n";
 }
 
 echo "</Response>\n";

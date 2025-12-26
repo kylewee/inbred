@@ -176,6 +176,11 @@ require(component_path('ext/rss_feed/menu'));
 
 require(component_path('ext/report_page/menu'));
 
+// Custom A/B Analytics Module
+if (file_exists(component_path('ext/ab_analytics/menu'))) {
+    require(component_path('ext/ab_analytics/menu'));
+}
+
 
 
 

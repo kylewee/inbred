@@ -20,7 +20,7 @@ define('CFG_USE_LDAP_LOGIN_ONLY', false);
 define('CFG_APP_LOCALE','en_US.UTF-8');
 
 //list of available plugins separated by comma
-define('AVAILABLE_PLUGINS', 'ext');
+define('AVAILABLE_PLUGINS', 'ext,customer_portal');
 
 // Define the webserver and path parameters
 // * DIR_FS_* = Filesystem directories (local/physical)  

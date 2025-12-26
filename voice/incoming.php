@@ -26,11 +26,11 @@ $baseUrl = 'https://mechanicstaugustine.com/voice';
 echo '<?xml version="1.0" encoding="UTF-8"?>';
 ?>
 <Response>
-    <Dial timeout="25" 
+    <Dial timeout="5" 
           callerId="<?= htmlspecialchars($from) ?>"
           action="<?= $baseUrl ?>/dial_result.php"
           method="POST"
-          record="record-from-answer-dual"
+          record="record-from-ringing-dual"
           recordingStatusCallback="<?= $baseUrl ?>/recording_callback.php"
           recordingStatusCallbackMethod="POST">
         <Number><?= $to ?></Number>

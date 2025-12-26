@@ -1,0 +1,2372 @@
+hanks for sharing the Email Notification documentation! This is a powerful CRM feature that could enhance the customer portal workflow.
+
+  Email Notification Integration Opportunities
+
+  Based on this functionality, here are some potential integrations with the Customer Portal Plugin:
+
+  1. Quote Ready Notification
+
+  Send customers an email when their quote is created:
+  - Trigger: New lead added to Entity 26 (Leads)
+  - Filter: Stage = "New" or "Pending"
+  - Email Body:
+    - Quote summary
+    - Link to portal: https://mechanicstaugustine.com/crm/index.php?module=customer_portal/quote/view&id=[url]
+    - Call to action: "Click here to approve or decline"
+
+  2. Admin Approval Notification
+
+  Notify you when customers approve/decline quotes:
+  - Trigger: Daily summary
+  - Filter: Stage = "Approved" OR Stage = "Declined"
+  - Email Body: List of all approvals/declines from the past 24 hours
+
+  3. Abandoned Quote Reminder
+
+  Send follow-up to customers who haven't responded:
+  - Trigger: Daily at 10am
+  - Filter: Stage = "Pending" AND date_added > 3 days ago
+  - Email Body: "Your quote is still waiting for your approval"
+
+  ---
+  Current SMS vs Email
+
+  Right now, the system uses SMS for customer notifications (via SignalWire). With email notifications, you could:
+
+  - SMS: Quick link immediately after call
+  - Email: Detailed quote breakdown with estimates table
+  - Both: Maximum customer reach
+
+  ---
+  Implementation Notes
+
+  The customer portal is already set up with:
+  - ✅ Direct quote links: ...quote/view&id=291
+  - ✅ Status tracking (Approved/Declined)
+  - ✅ Field 228 (Stage) updates for filtering
+
+  To set up email notifications in CRM:
+  1. Extension → Extra → Mail Notification
+  2. Create rule for Entity 26 (Leads)
+  3. Configure filters (e.g., field_228 = 'Pending')
+  4. Add ${items} in message body with link to portal
+  5. Test with "Send Test Email"
+
+  ---
+  Would you like me to help configure any of these email notification scenarios, or is there another feature from the CRM documentation you'd like to explore?
+
+> instead of email can they be texts? 
+
+● Yes! Rukovoditel CRM has SMS Modules that work just like the Email Notifications but send texts instead.
+
+  SMS Rules for Customer Portal
+
+  From the customer portal README (crm/plugins/customer_portal/README.md:144-164), here's how to set it up:
+
+  Automatic SMS When Quote is Created
+
+  Setup Path:
+  1. CRM: Extension → Modules → SMS Modules
+  2. Click: Sending SMS Rules → Create New
+
+  Configuration:
+  - Module: Twilio (SignalWire)
+  - Entity: Leads (ID 26)
+  - Event: Send SMS when creating a record
+  - Send to: Number specified in the entry (Field 227)
+  - Message Template:
+  Thanks for calling! Your quote is ready.
+
+  View estimate & approve online:
+  https://mechanicstaugustine.com/crm/index.php?module=customer_portal/quote/index
+
+  Or call: (904) 706-6669
+
+  ---
+  How It Works
+
+  When a new lead is created in Entity 26:
+  1. CRM SMS Rule triggers → Sends text to field_227 (customer phone)
+  2. Customer clicks link → Opens portal on their phone
+  3. Customer enters phone number → Views quote
+  4. Customer approves/declines → CRM updates field_228
+
+  ---
+  Current Integration Status
+
+  The voice system (voice/recording_callback.php) already has SMS integration code ready:
+
+  // After creating CRM lead
+  if ($leadId) {
+      // Trigger SMS rule ID 1 for entity 26
+      sms::send_by_id(26, $leadId, 1);
+  }
+
+  This would automatically send the SMS after each call transcription creates a CRM lead.
+
+  ---
+  Next Steps
+
+  Would you like me to:
+  1. Check current SMS rules in the CRM database to see what's configured?
+  2. Add SMS trigger code to recording_callback.php to auto-send portal link after calls?
+  3. Create SMS template optimized for the customer portal workflow?
+
+  The SMS system is already connected (SignalWire) - we just need to configure the rule in the CRM or add the trigger code.
+
+> Payment Modules
+If you need to provide your customers with the ability to make payments without leaving the system,
+ payment modules will help you. For example, customers can pay bills for work performed or certain 
+services.  After payment, the customer is returned back to the system.
+
+Setting up payment modules takes place in two stages:
+
+Step 1: install and configure the payment module.
+Step 2: create a payment button.
+Installing the payment module
+Go to the "Extension - Modules - Payment Modules" page and click the "Install module" button. A 
+list of available modules will appear on the screen. If the service you need is not in the list, 
+add a suggestion on the forum for its integration.
+
+
+
+After installing the module, you must configure it. Each payment  service has its own unique 
+settings, which you need to clarify in the service’s documentation.
+
+However, all modules have common settings:
+
+Custom Title - the name that will be displayed for the client
+Purpose of payment 
+Payment Total - is the ID of the field whose value will be used for the total payment amount
+
+
+Button "Pay"
+The payment button is created through "Automate Actions". That is, you create a process and link 
+payment modules to this process. For example, let's create a process "Pay". On the "Payment 
+Modules" tab, select the required modules.
+
+
+
+As a result, the button will appear on the record page.
+
+
+
+After clicking on the "Pay" button, the customer will go to the page with the choice of payment 
+method.
+
+
+
+By clicking on the "Pay" button, the client gets to the payment page of the selected service and, 
+after successful payment, returns to the record page. Payment details are recorded in the comment 
+to the record.
+
+
+
+In the automation of actions, we can configure additional actions for the "Pay" button, for 
+example, to change the status of the record. These actions will be performed in the background 
+after successful payment.
+
+Please note: the payment module can only be linked to the process button once. This is because the 
+Order number that the record ID is used for must be unique.
+
+Check out our video review, where an example shows how the payment modules are configured and how 
+they work.
+
+
+
+The following modules are currently implemented:
+
+International
+PayPal www.paypal.com
+2Checkout www.2checkout.com
+Stripe stripe.com
+Russia
+PayAnyWay payanyway.ru
+Yandex.Money money.yandex.ru
+Ukraine
+InterKassa www.interkassa.com
+LiqPay www.liqpay.ua 
+
+● Excellent! Payment Modules would be a perfect addition to the customer portal workflow. This completes the entire customer journey from quote to payment.
+
+  Complete Customer Journey with Payments
+
+  Here's how it would flow:
+
+  1. Customer calls → AI creates quote in CRM
+  2. SMS sent → "Your quote is ready - view & approve"
+  3. Customer visits portal → Views estimate breakdown
+  4. Customer clicks "Approve" → Quote approved in CRM
+  5. Customer clicks "Pay Now" → Chooses payment method (PayPal/Stripe/etc.)
+  6. Payment processed → Returns to portal with confirmation
+  7. Service automatically scheduled → Customer receives appointment details
+
+  ---
+  Payment Integration with Customer Portal
+
+  Current Portal Flow
+
+  crm/plugins/customer_portal/modules/quote/views/view.php shows:
+  - Estimate breakdown (labor/parts/total)
+  - ✅ Approve button
+  - ✅ Decline button
+
+  Enhanced with Payments
+
+  After approval, add:
+  - 💳 "Pay Deposit Now" button (e.g., 50% down payment)
+  - 💳 "Pay Full Amount" button (100% upfront)
+
+  ---
+  Implementation Approach
+
+  Step 1: Configure Payment Module in CRM
+
+  1. Extension → Modules → Payment Modules
+  2. Install module (e.g., Stripe or PayPal)
+  3. Configure settings:
+    - Custom Title: "Quote Payment"
+    - Payment Total: field_230 (or create new field for total)
+
+  Step 2: Create Automated Action
+
+  1. Automate Actions → Create "Pay Quote" button
+  2. Link payment modules (PayPal, Stripe, etc.)
+  3. Add background actions:
+    - Change field_228 (Stage) to "Paid"
+    - Trigger dispatch job creation
+    - Send confirmation SMS
+
+  Step 3: Add Payment Button to Portal
+
+  Modify approve.php view to show payment button after approval:
+
+  <?php if ($is_approved && !$is_paid): ?>
+      <a href="<?= url_for('ext/payment/process', 'entity_id=26&record_id=' . $lead_id) ?>"
+         class="btn btn-success">
+          💳 Pay Now - $<?= number_format($estimate['total'], 2) ?>
+      </a>
+  <?php endif; ?>
+
+  ---
+  Payment Module Options
+
+  Recommended for US:
+  - ✅ Stripe (stripe.com) - Best for cards, low fees (2.9% + 30¢)
+  - ✅ PayPal (paypal.com) - Widely trusted, similar fees
+  - ✅ 2Checkout (2checkout.com) - Alternative processor
+
+  Benefits:
+  - Customer pays immediately after approval
+  - No manual invoicing needed
+  - Payment tracked in CRM automatically
+  - Faster cash flow (deposit before service)
+
+  ---
+  Database Considerations
+
+  You might want to add a new field to Entity 26 (Leads):
+  - field_236: Payment Status (Unpaid/Deposit Paid/Paid in Full)
+  - field_237: Payment Amount
+  - field_238: Payment Date
+  - field_239: Transaction ID
+
+  Or create a separate Payments Entity linked to Leads.
+
+  ---
+  Security Note
+
+  Payment modules in Rukovoditel:
+  - ✅ Use official payment processor APIs (PCI compliant)
+  - ✅ Customer redirected to secure payment page
+  - ✅ No card data stored in your CRM
+  - ✅ Transaction ID logged in comments
+
+  ---
+  Would you like me to:
+  1. Set up payment fields in Entity 26 (Leads)?
+  2. Create the payment button integration for the customer portal?
+  3. Configure a specific payment module (Stripe/PayPal)?
+
+  The customer portal plugin is already built - adding payments would just be enhancing the approval workflow with a "Pay Now" step.
+
+───────────────────────────────────────────────────────────────────────────────────────────────────────
+> add auto-SMS when quote created                                                               ↵ send
+───────────────────────────────────────────────────────────────────────────────────────────────────────
+  ⏵⏵ accept edits on (shift+tab to cycle)
+
+ sms::send_by_id(26, $leadId, $ruleId);  // Entity 26, lead ID, SMS rule ID
+
+  ---
+  🚀 Implementation Plan
+
+  Phase 1: Configure SMS Module (30 mins)
+
+  Step 1: Install Twilio Module in CRM
+  1. Login to CRM: https://mechanicstaugustine.com/crm/
+  2. Go to: Extension → Modules → SMS Modules
+  3. Click "Install Module" → Select "Twilio"
+  4. Configure with SignalWire credentials:
+     - Account SID: ce4806cb-ccb0-41e9-8bf1-7ea59536adfd (SIGNALWIRE_PROJECT_ID)
+     - Auth Token: PT1c8cf22d1446d4d9daaf580a26ad92729e48a4a33beb769a (SIGNALWIRE_API_TOKEN)
+     - From Number: +19047066669
+     - API URL: https://mobilemechanic.signalwire.com (not api.twilio.com)
+
+  Step 2: Create SMS Rules
+  Extension → Modules → SMS Modules → Sending SMS Rules → Create New
+
+  Rule 1: Lead Created Confirmation
+  - Module: Twilio
+  - Entity: Leads (ID 26)
+  - Event: "Send SMS when creating a record"
+  - Send to: "Number specified in the entry" (Field 227 - Phone)
+  - Message Template:
+    "Thanks for calling! We received your request.
+     Vehicle: [232] [233]
+     We'll call you back shortly at [227]."
+
+  Rule 2: Quote Approved
+  - Module: Twilio
+  - Entity: Leads (ID 26)
+  - Event: "Send SMS when editing a record"
+  - Condition: "Notify when changing field" → quote_approved = 1
+  - Message:
+    "Your quote is approved! We'll contact you to schedule service."
+
+  Rule 3: Job Scheduled
+  - Module: Twilio
+  - Entity: Dispatch Jobs
+  - Event: "Send SMS when creating a record"
+  - Message:
+    "Appointment scheduled for [job_date] at [arrival_window]. 
+     We'll see you then!"
+
+  Phase 2: Configure Telephony (15 mins)
+
+  Step 1: Set Phone Field Type
+  1. CRM → Entities → Configure → Entity 26 → Fields
+  2. Edit Field 227 (Phone)
+  3. Type: "Phone" (not just "Input")
+  4. Assign: Twilio telephony module
+  5. Save
+
+  Step 2: Create Telephony Lookup Script
+  Create /crm/api/telephony_lookup.php:
+  <?php
+  // Find customer by phone and open their page
+  require_once('../includes/config.php');
+  require_once('../includes/application.php');
+
+  $phone = preg_replace('/[^\d]/', '', $_GET['phone'] ?? '');
+
+  if ($phone) {
+      $query = db_query("
+          SELECT id 
+          FROM app_entity_26 
+          WHERE field_227 LIKE '%{$phone}%' 
+          ORDER BY id DESC 
+          LIMIT 1
+      ");
+
+      if ($row = db_fetch_array($query)) {
+          // Redirect to customer page
+          header("Location: /crm/items/info.php?id={$row['id']}&path=26");
+          exit;
+      }
+  }
+
+  // If not found, go to leads list
+  header("Location: /crm/items/items_list.php?path=26");
+
+  Step 3: Configure SignalWire Webhooks
+  In SignalWire dashboard:
+  Incoming Call Webhook:
+  https://mechanicstaugustine.com/voice/incoming.php
+
+  Recording Status Callback:
+  https://mechanicstaugustine.com/voice/recording_callback.php
+
+  Call Status Webhook (NEW):
+  https://mechanicstaugustine.com/crm/api/telephony_lookup.php?phone={From}
+
+  Phase 3: Update Recording Callback (10 mins)
+
+  Remove manual SMS code and use CRM instead:
+
+  // In voice/recording_callback.php, after CRM lead created:
+
+  // OLD CODE (remove this):
+  // send_signalwire_sms($phone, "Thanks for calling...");
+
+  // NEW CODE (use CRM SMS rules):
+  if (!empty($crmResult['data']['id'])) {
+      $leadId = $crmResult['data']['id'];
+
+      // Trigger SMS rule #1 (Lead Created Confirmation)
+      // This will be sent automatically by CRM based on rules
+
+      // Or manually trigger if needed:
+      // sms::send_by_id(26, $leadId, 1);  // Entity 26, lead ID, rule ID 1
+  }
+
+  ---
+  📊 Benefits of CRM-Based SMS
+
+  Advantages
+
+  ✅ No code changes - Configure rules in UI
+  ✅ SMS history - Stored in CRM automatically
+  ✅ Template management - Edit messages without code deploy
+  ✅ Conditional logic - Only send when field changes
+  ✅ User-friendly - Non-technical users can modify
+  ✅ Tracking - See delivery status in CRM
+  ✅ Cost tracking - Monitor SMS usage per customer
+
+  vs Custom PHP Code
+
+  ❌ Hardcoded messages
+  ❌ No history tracking
+  ❌ Requires code deploy to change
+  ❌ No conditional logic
+  ❌ Developer-only access
+
+  ---
+  🎯 Recommended SMS Workflow
+
+  Customer calls → Recording saved → Lead created
+      ↓
+  CRM SMS Rule #1: "Thanks for calling! We received your request."
+      ↓
+  (Manual or auto-estimate) → Quote added to notes
+      ↓
+  Admin clicks "Approve" in /admin/leads_approval.php
+      ↓
+  CRM SMS Rule #2: "Your quote for $XXX is approved!"
+      ↓
+  Dispatch job created in /admin/dispatch.php
+      ↓
+  CRM SMS Rule #3: "Appointment: Monday 2-4pm. See you then!"
+      ↓
+  Parts arrive → Status updated
+      ↓
+  CRM SMS Rule #4: "Parts arrived! Ready to schedule your repair."
+      ↓
+  Job completed → Status: completed
+      ↓
+  CRM SMS Rule #5: "Thanks for choosing us! Please leave a review."
+
+  ---
+  🔧 Next Steps
+
+  Priority 1 (Do now):
+  1. Install Twilio module in CRM with SignalWire credentials
+  2. Create SMS Rule #1 (Lead Created Confirmation)
+  3. Test by making a call → verify SMS sent
+
+  Priority 2 (This weekend):
+  1. Create remaining SMS rules (quote approved, job scheduled)
+  2. Set up telephony lookup script
+  3. Configure Field 227 as Phone type
+
+  Priority 3 (Next week):
+  1. Remove manual SMS code from recording_callback.php
+  2. Add call history to CRM
+  3. Test click-to-call from CRM interface
+
+  ---
+  Want me to help you configure the SMS module in CRM right now? I can create the SQL to insert SMS rules directly, or walk you through the CRM UI setup.
+
+> Creating Plugin
+If you plan to modify the app to fit your needs, then you can do it by developing your own plugin. 
+Thus, your modification will be compatible with app updates.
+
+In this article, using the example of the “Hello, world!” plugin, I will explain how to create your
+ own plugin in the app.
+
+Prehistory
+Initially, the project used the Symfony PHP Framework version 1.3. But over time, support for this 
+version of the framework has ceased, and I decided not to use any framework in order not to depend 
+on it, however, when writing a program, I created a similar architecture.
+
+Libs
+By default app using: jQuery, jQuery UI, Bootstrap 3 and you can use the functions of these 
+libraries.
+
+Start of work
+Download the “Hello world!” Plugin and unpack the archive into the /plugins folder
+Open file /config/server.php and in option AVAILABLE_PLUGINS add “hello” in result you should have 
+next code:
+define('AVAILABLE_PLUGINS','ext,hello');
+
+This variable lists all available plugins that will be automatically connected.
+
+Link to the page
+As a result, as a system administrator, you should see a link to the “Hello world!” Page in the 
+left menu. Click on it and you will be taken to the page with the “Send Message” button.
+
+The link looks like this:
+[your site]index.php?module=hello/my_page/index
+hello — Plugin name.
+my_page — Page name.
+index — Action name.
+
+Program behavior
+When you open “index.php?module=hello/my_page/index” then run next actions:
+
+plugins\hello\application_top.php (not required file)
+In this file you can include all libs
+plugins\hello\modules\my_page\module_top.php (not required file)
+This file is included in any actions on this page. Can be used for access checks, etc.
+plugins\hello\modules\my_page\actions\index.php (not required file)
+Action handler.
+plugins\hello\modules\my_page\views\index.php
+Content output.
+The link in the app is formed using a special function url_for()
+url_for('hello/my_page/index','action=send')
+The functions for working with links are located in the file. includes\functions\urls.php
+
+HTML form and popup
+After clicking on the “Send message” button, a pop-up window will open with a simple field for 
+entering text. An example of this form is located in the file 
+plugins\hello\modules\my_page\views\form.php
+Functions for working with html forms are located in the file includes\functions\html.php
+
+MySQL Query
+An example of a database query can be found in the file plugins\hello\classes\my_class.php
+$user_info_query = db_query("select * from app_entity_1 where id='" . $app_user['id'] . "'");
+if($user_info = db_fetch_array($user_info_query))
+In this request, we select information about the current user.
+Functions for working with the database are in the file includes\functions\database.php
+
+$app_user - this is a session variable that stores information about the current user.. group_id — 
+this is the current access group. For administrators group_id=0.
+
+Menu
+File plugins\hello\menu.php included automatically. In this file, you can specify a link to a page 
+in the menu.
+$app_plugin_menu['menu'][] = 
+array('title'=>TEXT_PLUGIN_HELLO_WORLD,'url'=>url_for('hello/my_page/index'),'class'=>'fa-anchor');
+menu — main manu
+reports — menu “Reports”
+account_menu — user menu in the upper right corner.
+
+In the main menu, you can create nested menus, for example:
+$s = array();
+$s[] = 
+array('title'=>TEXT_PLUGIN_HELLO_WORLD,'url'=>url_for('hello/my_page/index'),'class'=>'fa-anchor');
+$app_plugin_menu['menu'][] = array('title'=>TEXT_PLUGIN_HELLO_WORLD,'url'=>url_for('hello/my_page/i
+ndex'),'class'=>'fa-anchor','submenu'=>$s);
+
+Public Page
+To allow access to the page without logging in, create a public_modules.php file in the plugin 
+folder and add the following code:
+
+<?php
+$allowed_modules[] = 'hello/my_page/index';
+Then open the file plugins\hello\modules\my_page\actions\index.php and add the following code to 
+the end of the file:
+
+$app_layout = 'public_layout.php';
+File public_layout.php located in the folder template\public_layout.php . Based on it, you can 
+create your own template, for example my_public_layout.php , and use it in the $app_layout 
+variable. 
+
+● Excellent! This Rukovoditel plugin system is perfect for extending your system! This means we can add custom features WITHOUT modifying core CRM files (stays update-compatible).
+
+  🎯 High-Value Plugins for Your System
+
+  Based on your discovered features and needs, here are the plugins I recommend building:
+
+  ---
+  1. 📞 Voice Call Manager Plugin
+
+  Purpose: Better interface for viewing calls, recordings, and transcripts
+
+  Features:
+  - List all calls with playback
+  - View full transcripts
+  - Re-transcribe failed calls
+  - Link recordings to CRM leads
+  - Search calls by customer/date/keyword
+
+  Structure:
+  plugins/voice_manager/
+  ├── application_top.php          # Load dependencies
+  ├── menu.php                      # Add to main menu
+  ├── modules/
+  │   └── calls/
+  │       ├── module_top.php        # Access check
+  │       ├── actions/
+  │       │   ├── index.php         # List calls
+  │       │   ├── view.php          # View single call
+  │       │   └── retranscribe.php  # Re-run transcription
+  │       └── views/
+  │           ├── index.php         # Calls table
+  │           └── view.php          # Call details + player
+  └── classes/
+      └── voice_call.php            # Database queries
+
+  Menu Entry (menu.php):
+  <?php
+  $app_plugin_menu['menu'][] = array(
+      'title' => 'Voice Calls',
+      'url' => url_for('voice_manager/calls/index'),
+      'class' => 'fa-phone'
+  );
+
+  Database Query (classes/voice_call.php):
+  <?php
+  class voice_call {
+      public static function get_recent_calls($limit = 50) {
+          $calls = [];
+
+          // Parse voice.log file
+          $logFile = '/home/kylewee/code/inbred/voice/voice.log';
+          if (file_exists($logFile)) {
+              $lines = file($logFile, FILE_IGNORE_NEW_LINES);
+              foreach (array_reverse(array_slice($lines, -$limit)) as $line) {
+                  $data = json_decode($line, true);
+                  if ($data && isset($data['summary'])) {
+                      $calls[] = [
+                          'timestamp' => $data['ts'] ?? '',
+                          'from' => $data['summary']['from'] ?? '',
+                          'duration' => $data['summary']['duration'] ?? 0,
+                          'transcript' => $data['summary']['transcript'] ?? '',
+                          'recording_url' => $data['summary']['url'] ?? '',
+                          'recording_saved' => !empty($data['recording_saved']),
+                          'crm_lead_id' => $data['crm_result']['data']['id'] ?? null
+                      ];
+                  }
+              }
+          }
+
+          return $calls;
+      }
+
+      public static function get_call_by_sid($recording_sid) {
+          // Search voice.log for specific RecordingSid
+          // Return full call data
+      }
+  }
+
+  View (views/index.php):
+  <?php
+  $calls = voice_call::get_recent_calls(100);
+  ?>
+
+  <h3 class="page-title">Recent Voice Calls</h3>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Time</th>
+        <th>From</th>
+        <th>Duration</th>
+        <th>Transcript Preview</th>
+        <th>Recording</th>
+        <th>CRM Lead</th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php foreach ($calls as $call): ?>
+      <tr>
+        <td><?= htmlspecialchars($call['timestamp']) ?></td>
+        <td><?= htmlspecialchars($call['from']) ?></td>
+        <td><?= $call['duration'] ?>s</td>
+        <td><?= substr(htmlspecialchars($call['transcript']), 0, 100) ?>...</td>
+        <td>
+          <?php if ($call['recording_saved']): ?>
+            <audio controls src="<?= htmlspecialchars($call['recording_url']) ?>" style="width: 200px;"></audio>
+          <?php else: ?>
+            <span class="text-muted">Not saved</span>
+          <?php endif; ?>
+        </td>
+        <td>
+          <?php if ($call['crm_lead_id']): ?>
+            <a href="/crm/items/info.php?id=<?= $call['crm_lead_id'] ?>&path=26">
+              Lead #<?= $call['crm_lead_id'] ?>
+            </a>
+          <?php else: ?>
+            <span class="text-muted">No lead</span>
+          <?php endif; ?>
+        </td>
+      </tr>
+      <?php endforeach; ?>
+    </tbody>
+  </table>
+
+  ---
+  2. 💰 Customer Quote Portal Plugin
+
+  Purpose: Public page where customers can check quote status and approve online
+
+  Features:
+  - Check quote status by phone number
+  - View estimate breakdown (labor + parts)
+  - Approve/decline online
+  - Track job progress
+  - No login required
+
+  Structure:
+  plugins/customer_portal/
+  ├── public_modules.php            # Allow public access
+  ├── menu.php                      # (optional - not in main menu)
+  ├── modules/
+  │   └── quote/
+  │       ├── actions/
+  │       │   ├── index.php         # Search by phone
+  │       │   ├── view.php          # Show quote details
+  │       │   └── approve.php       # Approve/decline quote
+  │       └── views/
+  │           ├── index.php         # Phone lookup form
+  │           ├── view.php          # Quote details
+  │           └── approved.php      # Confirmation
+  └── classes/
+      └── customer_quote.php
+
+  Public Access (public_modules.php):
+  <?php
+  $allowed_modules[] = 'customer_portal/quote/index';
+  $allowed_modules[] = 'customer_portal/quote/view';
+  $allowed_modules[] = 'customer_portal/quote/approve';
+
+  Action (actions/index.php):
+  <?php
+  $app_layout = 'public_layout.php';  // Use public template
+
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+      $phone = preg_replace('/[^\d]/', '', $_POST['phone'] ?? '');
+
+      if ($phone) {
+          // Find customer by phone
+          $query = db_query("
+              SELECT id, field_219, field_220, field_227, field_230 
+              FROM app_entity_26 
+              WHERE field_227 LIKE '%{$phone}%' 
+              ORDER BY id DESC 
+              LIMIT 1
+          ");
+
+          if ($lead = db_fetch_array($query)) {
+              // Redirect to quote view
+              redirect_to('customer_portal/quote/view', 'id=' . $lead['id']);
+          } else {
+              $error = 'No quote found for this phone number.';
+          }
+      }
+  }
+
+  View (views/index.php):
+  <div class="container" style="max-width: 600px; margin-top: 50px;">
+    <h2>Check Your Quote Status</h2>
+    <p>Enter your phone number to view your service quote.</p>
+
+    <?php if (isset($error)): ?>
+      <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
+    <?php endif; ?>
+
+    <form method="POST" class="form-horizontal">
+      <div class="form-group">
+        <label>Phone Number</label>
+        <input type="tel" name="phone" class="form-control"
+               placeholder="(904) 555-1234" required>
+      </div>
+      <button type="submit" class="btn btn-primary btn-lg">Check Status</button>
+    </form>
+  </div>
+
+  Quote View (views/view.php):
+  <?php
+  $lead_id = (int)($_GET['id'] ?? 0);
+  $query = db_query("
+      SELECT * FROM app_entity_26 WHERE id = {$lead_id}
+  ");
+  $lead = db_fetch_array($query);
+
+  // Parse auto-estimate from notes
+  $notes = $lead['field_230'] ?? '';
+  // Extract estimate JSON if present
+  ?>
+
+  <div class="container" style="max-width: 800px; margin-top: 50px;">
+    <h2>Your Service Quote</h2>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Customer Information</h3>
+      </div>
+      <div class="panel-body">
+        <p><strong>Name:</strong> <?= htmlspecialchars($lead['field_219'] . ' ' . $lead['field_220']) ?></p>
+        <p><strong>Phone:</strong> <?= htmlspecialchars($lead['field_227']) ?></p>
+        <p><strong>Vehicle:</strong> <?= htmlspecialchars($lead['field_231'] . ' ' . $lead['field_232'] . ' ' . $lead['field_233']) ?></p>
+      </div>
+    </div>
+
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Estimate Breakdown</h3>
+      </div>
+      <div class="panel-body">
+        <!-- Parse and display estimate -->
+        <table class="table">
+          <tr>
+            <th>Service</th>
+            <th>Labor</th>
+            <th>Parts</th>
+            <th>Total</th>
+          </tr>
+          <!-- Show estimate details -->
+        </table>
+
+        <h4 class="text-right">Total: $XXX.XX</h4>
+      </div>
+    </div>
+
+    <div class="text-center">
+      <a href="<?= url_for('customer_portal/quote/approve', 'id=' . $lead_id . '&action=approve') ?>"
+         class="btn btn-success btn-lg">
+        <i class="fa fa-check"></i> Approve Quote
+      </a>
+      <a href="<?= url_for('customer_portal/quote/approve', 'id=' . $lead_id . '&action=decline') ?>"
+         class="btn btn-danger btn-lg">
+        <i class="fa fa-times"></i> Decline
+      </a>
+    </div>
+  </div>
+
+  ---
+  3. 📊 Analytics Dashboard Plugin
+
+  Purpose: Business metrics and KPIs
+
+  Features:
+  - Call volume by day/week/month
+  - Quote approval rates
+  - Revenue tracking
+  - Customer satisfaction scores
+  - Conversion funnel (calls → quotes → jobs)
+
+  Menu Entry:
+  $app_plugin_menu['reports'][] = array(
+      'title' => 'Business Analytics',
+      'url' => url_for('analytics/dashboard/index'),
+      'class' => 'fa-line-chart'
+  );
+
+  Queries:
+  // Calls this month
+  $calls_count = db_fetch_array(db_query("
+      SELECT COUNT(*) as total 
+      FROM voice_calls_log  -- You'd create this table
+      WHERE created_at >= DATE_SUB(NOW(), INTERVAL 30 DAY)
+  "))['total'];
+
+  // Quote approval rate
+  $approved = db_fetch_array(db_query("
+      SELECT COUNT(*) as total 
+      FROM app_entity_26 
+      WHERE quote_approved = 1
+  "))['total'];
+
+  $total = db_fetch_array(db_query("
+      SELECT COUNT(*) as total 
+      FROM app_entity_26
+  "))['total'];
+
+  $approval_rate = ($total > 0) ? round(($approved / $total) * 100, 1) : 0;
+
+  ---
+  4. 🗺️ Dispatch Map Plugin
+
+  Purpose: Visual dispatch board with Google Maps
+
+  Features:
+  - Map view of scheduled jobs
+  - Route optimization
+  - Technician location tracking
+  - Drive time estimates
+
+  Uses: Google Maps API + dispatch_jobs table
+
+  ---
+  🚀 Implementation Priority
+
+  Phase 1: This Weekend
+
+  Plugin #2: Customer Quote Portal
+  - Highest ROI - customers can self-serve
+  - Reduces phone calls for status checks
+  - Increases approval rate (24/7 access)
+  - Public page (no CRM login needed)
+
+  Phase 2: Next Week
+
+  Plugin #1: Voice Call Manager
+  - Better call review interface
+  - Easy transcript search
+  - Re-transcribe failures
+
+  Phase 3: Future
+
+  Plugin #3: Analytics Dashboard
+  Plugin #4: Dispatch Map
+
+  ---
+  💡 Quick Start: Customer Portal
+
+  Want me to create the complete customer portal plugin right now? I can:
+
+  1. Generate all plugin files (structure + code)
+  2. Install in CRM (copy to /plugins/customer_portal/)
+  3. Test the flow (phone lookup → quote view → approve)
+  4. Integrate with SMS (send portal link via SMS instead of full quote)
+
+  This would allow customers to:
+  - Get SMS: "Your quote is ready! Check status: https://mechanicstaugustine.com/index.php?module=customer_portal/quote/index"
+  - Enter phone number
+  - View detailed estimate
+  - Click "Approve" or "Decline"
+  - You get notification in CRM
+
+  Should I build the Customer Portal plugin now? It's probably 200-300 lines of code total and would significantly improve customer experience.
+
+───────────────────────────────────────────────────────────────────────────────────────────────────────
+> build the customer portal plugin now                                                          ↵ send
+───────────────────────────────────────────────────────────────────────────────────────────────────────
+  ? for shortcuts
+╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
+    1 # 🎯 COMPREHENSIVE SYSTEM PLAN
+    2 **Mobile Mechanic Business Automation Platform**
+    3 **Date**: December 21, 2025
+    4 **Status**: Integration & Optimization Phase
+    5 
+    6 ---
+    7 
+    8 ## 📋 EXECUTIVE SUMMARY
+    9 
+   10 This system automates a mobile mechanic business from initial customer co
+      ntact through job completion, using:
+   11 - **SignalWire** for voice/SMS communication (replacing Twilio)
+   12 - **OpenAI Whisper + GPT** for call transcription and data extraction
+   13 - **Rukovoditel CRM** for lead and customer management
+   14 - **Go REST API** for modern backend services
+   15 - **PHP** for voice webhooks and web integrations
+   16 - **Python** for data scraping and AI features
+   17 
+   18 **Current State**: Core systems working, needs integration and optimizati
+      on
+   19 **Goal**: Fully automated quote-to-completion workflow with minimal manua
+      l intervention
+   20 
+   21 ---
+   22 
+   23 ## 🏗️ SYSTEM ARCHITECTURE
+   24 
+   25 ### Technology Stack
+   26 
+   27 ```
+   28 ┌─────────────────────────────────────────────────────────┐
+   29 │                    CUSTOMER TOUCHPOINTS                   │
+   30 ├─────────────────────────────────────────────────────────┤
+   31 │  Phone Calls (SignalWire) │ Web Forms │ SMS Messages    │
+   32 └────────────┬────────────────┴───────────┴────────────────┘
+   33              │
+   34              ▼
+   35 ┌─────────────────────────────────────────────────────────┐
+   36 │                   PROCESSING LAYER                        │
+   37 ├─────────────────────────────────────────────────────────┤
+   38 │  Voice Webhooks (PHP)  │  Quote Handler (PHP)            │
+   39 │  OpenAI Transcription  │  Auto-Estimate Engine (PHP)     │
+   40 │  AI Data Extraction    │  Labor Time Lookup (Python)     │
+   41 └────────────┬────────────────────────────────────────────┘
+   42              │
+   43              ▼
+   44 ┌─────────────────────────────────────────────────────────┐
+   45 │                     DATA LAYER                            │
+   46 ├─────────────────────────────────────────────────────────┤
+   47 │  Rukovoditel CRM (MySQL)  │  Go API (PostgreSQL)         │
+   48 │  Recordings (Local FS)    │  Labor Times (JSON/DB)       │
+   49 └────────────┬────────────────────────────────────────────┘
+   50              │
+   51              ▼
+   52 ┌─────────────────────────────────────────────────────────┐
+   53 │                  BUSINESS OPERATIONS                      │
+   54 ├─────────────────────────────────────────────────────────┤
+   55 │  Lead Approval  │  Dispatch  │  Parts Orders  │  Jobs   │
+   56 └─────────────────────────────────────────────────────────┘
+   57 ```
+   58 
+   59 ### Language & Framework Decisions
+   60 
+   61 **PHP 8.3**:
+   62 - ✅ Voice/SMS webhooks (SignalWire compatibility)
+   63 - ✅ CRM integration (Rukovoditel is PHP-based)
+   64 - ✅ Web forms and quote handlers
+   65 - ✅ Admin interfaces with existing code
+   66 
+   67 **Go**:
+   68 - ✅ Modern REST API for scalability
+   69 - ✅ Customer/vehicle/quote management
+   70 - ✅ JWT authentication
+   71 - ⚠️ Currently minimal usage - needs integration plan
+   72 
+   73 **Python**:
+   74 - ✅ Data scraping (charm.li, PartsTech)
+   75 - ✅ ML/AI features (vehicle risk assessment)
+   76 - ✅ Data processing and integration
+   77 - ⚠️ Flask call-handling app exists but not integrated
+   78 
+   79 **JavaScript/HTML**:
+   80 - ✅ Admin dashboard UI
+   81 - ✅ Customer-facing web forms
+   82 
+   83 ---
+   84 
+   85 ## 🎯 COMPLETE FEATURE INVENTORY
+   86 
+   87 ### ✅ WORKING FEATURES (Production Ready)
+   88 
+   89 #### 1. Voice Call System
+   90 **Location**: `/voice/`
+   91 **Status**: ✅ Operational with SignalWire
+   92 
+   93 **Features**:
+   94 - Incoming call handling with TwiML
+   95 - Call recording (MP3 format)
+   96 - Call forwarding to mechanic's cell
+   97 - Recording callback webhooks
+   98 - OpenAI Whisper transcription
+   99 - GPT-4 customer data extraction
+  100 - Auto-CRM lead creation
+  101 - SMS confirmations
+  102 
+  103 **Integration Points**:
+  104 - SignalWire API (voice + recordings)
+  105 - OpenAI API (transcription + extraction)
+  106 - Rukovoditel CRM API
+  107 - Local filesystem (recording storage)
+  108 
+  109 **Recent Fixes**:
+  110 - ✅ CRM API key corrected
+  111 - ✅ Local recording storage implemented
+  112 - ⚠️ Needs testing: transcription not triggering
+  113 
+  114 #### 2. Auto-Estimate System
+  115 **Location**: `/scraper/auto_estimate.php`
+  116 **Status**: ✅ Production ready, needs voice integration
+  117 
+  118 **Capabilities**:
+  119 - Keyword detection from transcripts (10+ repair types)
+  120 - Labor time lookup from charm_data.json
+  121 - Parts cost estimation with fallbacks
+  122 - Vehicle-specific pricing adjustments (luxury, truck, age)
+  123 - Multi-repair quotes
+  124 - Complexity-based labor rates
+  125 
+  126 **Repair Types Supported**:
+  127 ```
+  128 - Oil Change (0.5 hrs)
+  129 - Brake Pads (1.5 hrs)
+  130 - Battery Replacement (0.5 hrs)
+  131 - Alternator Replacement (2.0 hrs)
+  132 - Starter Replacement (2.3 hrs)
+  133 - Timing Belt (4.5 hrs)
+  134 - AC Recharge (1.0 hr)
+  135 - Engine Diagnostic (1.0 hr)
+  136 - Transmission Service (2.5 hrs)
+  137 - Spark Plugs (1.5 hrs)
+  138 ```
+  139 
+  140 **Data Sources**:
+  141 - charm_data.json (27KB scraped labor times)
+  142 - Enhanced fallback system
+  143 - Vehicle-aware pricing rules
+  144 
+  145 **Integration Status**: ⚠️ Called by recording_callback.php but needs veri
+      fication
+  146 
+  147 #### 3. Dispatch & Scheduling System
+  148 **Location**: `/admin/dispatch.php`
+  149 **Status**: ✅ Deployed and working
+  150 
+  151 **Features**:
+  152 - Job scheduling with date/time
+  153 - Arrival window management
+  154 - Technician assignment
+  155 - Status tracking pipeline:
+  156   - scheduled → confirmed → en route → on site → completed
+  157 - Lead integration (links to CRM)
+  158 - Prevents double-booking
+  159 
+  160 **Database**: `dispatch_jobs` table in MySQL
+  161 
+  162 #### 4. Lead Approval System
+  163 **Location**: `/admin/leads_approval.php`
+  164 **Status**: ✅ Working
+  165 
+  166 **Workflow**:
+  167 1. Quote created (from call or web form)
+  168 2. Admin reviews in approval panel
+  169 3. Click "Approve" → triggers:
+  170    - quote_approved flag set
+  171    - approved_at timestamp
+  172    - Auto-create parts order
+  173    - Ready for dispatch
+  174 
+  175 #### 5. Parts Ordering System
+  176 **Location**: `/admin/parts_orders.php`
+  177 **Status**: ✅ Deployed
+  178 
+  179 **Lifecycle**: requested → ordered → received
+  180 
+  181 **Features**:
+  182 - Supplier tracking (name, contact)
+  183 - Line items with part numbers
+  184 - Quantity and unit cost management
+  185 - Timestamp tracking for each status
+  186 - Auto-populated from approved quotes
+  187 - One order per lead (UNIQUE constraint)
+  188 
+  189 **Database Tables**:
+  190 - `parts_orders` - Order header
+  191 - `parts_order_items` - Line items
+  192 
+  193 #### 6. Customer Web Forms
+  194 **Location**: `/quote/`
+  195 **Status**: ✅ Live on website
+  196 
+  197 **Forms**:
+  198 - Quote request form (index.html)
+  199 - Customer information collection
+  200 - Vehicle details (year/make/model/engine)
+  201 - Service description
+  202 
+  203 **Processing**: `quote/quote_intake_handler.php`
+  204 - AI extraction from descriptions
+  205 - Auto-quote generation
+  206 - CRM lead creation
+  207 - SMS confirmation
+  208 
+  209 #### 7. CRM Integration
+  210 **Location**: Multiple touchpoints
+  211 **Status**: ✅ Working (API key fixed Dec 21)
+  212 
+  213 **Rukovoditel CRM Entity 26 (Leads)**:
+  214 ```
+  215 Field 219: First Name
+  216 Field 220: Last Name
+  217 Field 227: Phone
+  218 Field 228: Stage
+  219 Field 229: Source (Phone/Web)
+  220 Field 230: Notes (transcript + recording URL)
+  221 Field 231: Vehicle Year
+  222 Field 232: Vehicle Make
+  223 Field 233: Vehicle Model
+  224 Field 234: Address
+  225 Field 235: Email
+  226 ```
+  227 
+  228 **API Credentials**:
+  229 - URL: `http://localhost:8080/crm/api/rest.php`
+  230 - Username: `kylewee2`
+  231 - Password: `rainonin`
+  232 - API Key: `VMm87uzSFFyWAWCDzCXEK2AajBbHIOOIwtfhMWbA`
+  233 
+  234 **Integration Points**:
+  235 - Voice system (auto-lead creation)
+  236 - Web forms (quote submissions)
+  237 - Admin panels (read/update)
+  238 
+  239 ### 🔧 PARTIAL/NEEDS INTEGRATION
+  240 
+  241 #### 8. Labor Time Scraper
+  242 **Location**: `/scraper/charm_scraper.py`
+  243 **Status**: ⚠️ Working but needs regular updates
+  244 
+  245 **What It Does**:
+  246 - Scrapes charm.li for labor times
+  247 - Outputs to charm_data.json
+  248 - Integration script: integrate_data.py
+  249 
+  250 **Usage**:
+  251 ```bash
+  252 python3 scraper/charm_scraper.py
+  253 python3 scraper/integrate_data.py
+  254 ```
+  255 
+  256 **Status**: Data is 27KB and being used, needs scheduled updates
+  257 
+  258 #### 9. PartsTech API Integration
+  259 **Location**: `/scraper/partstech_api.py`
+  260 **Status**: ⚠️ Credentials exist, needs endpoint configuration
+  261 
+  262 **Credentials**:
+  263 - API Key: `c522bfbb64174741b59c3a4681db7558`
+  264 - Location: `sodjacksonville@gmail.com`
+  265 
+  266 **Issue**: Endpoints returning 404, needs correct URLs from PartsTech
+  267 
+  268 **When Fixed**: Real-time parts availability, accurate pricing, supplier 
+      inventory
+  269 
+  270 #### 10. Multi-Source Data Manager
+  271 **Location**: `/scraper/multi_source_manager.py`
+  272 **Status**: ✅ Production ready, needs call integration
+  273 
+  274 **Intelligent Routing**:
+  275 - 2014+: PartsTech → Gale → Enhanced Fallback
+  276 - 1990-2013: charm.li → Gale → Enhanced Fallback
+  277 - Pre-1990: Gale → Enhanced Fallback
+  278 
+  279 **Enhanced Fallback**:
+  280 - Luxury brands: +30% markup
+  281 - Trucks/SUVs: +25% markup
+  282 - Old vehicles: +20% markup
+  283 - Realistic parts costs
+  284 - Complexity-based labor
+  285 
+  286 #### 11. Vehicle Risk Assessment
+  287 **Location**: `/data/scania_component_x_summary.json` + quote handler
+  288 **Status**: ⚠️ Data exists, needs integration
+  289 
+  290 **Scania ML Data**: Component failure risk analysis
+  291 
+  292 **Potential Use**: Warn customers about high-risk components during quote
+  293 
+  294 #### 12. Go Backend API
+  295 **Location**: `/backend/`
+  296 **Status**: ✅ Working but underutilized
+  297 
+  298 **Capabilities**:
+  299 - Customer CRUD
+  300 - Vehicle tracking (VIN, year, make, model, engine, mileage)
+  301 - Quote management
+  302 - Line items with labor hours
+  303 - JWT authentication
+  304 - PostgreSQL storage
+  305 
+  306 **Integration Status**: ⚠️ Minimal usage - PHP handles most operations
+  307 
+  308 **Consideration**: Migrate more features to Go for scalability?
+  309 
+  310 #### 13. Python Call-Handling Flask App
+  311 **Location**: `/feature-expansion/python-call-system/`
+  312 **Status**: ⚠️ Built but not integrated
+  313 
+  314 **Features**:
+  315 - Call/SMS logging
+  316 - Mechanic dispatch
+  317 - Priority tracking
+  318 - Status management
+  319 
+  320 **Decision Needed**: Integrate or archive? (PHP system working)
+  321 
+  322 ---
+  323 
+  324 ## 🎯 RECOMMENDED SYSTEM FLOW (Target State)
+  325 
+  326 ### Customer Journey: Phone Call
+  327 
+  328 ```
+  329 1. Customer calls +19047066669 (SignalWire number)
+  330    ↓
+  331 2. SignalWire → /voice/incoming.php
+  332    - Answer with greeting
+  333    - Forward to mechanic's cell (+19046634789)
+  334    - Record entire conversation (MP3)
+  335    ↓
+  336 3. Call ends → SignalWire webhook → /voice/recording_callback.php
+  337    - Download MP3 from SignalWire
+  338    - Save to /voice/recordings/{RecordingSid}.mp3
+  339    - Send to OpenAI Whisper for transcription
+  340    ↓
+  341 4. Transcription complete → AI Extraction
+  342    - GPT-4 extracts: name, phone, vehicle, issue
+  343    - Auto-estimate system analyzes transcript
+  344    - Detects repair keywords
+  345    - Looks up labor times (charm_data.json)
+  346    - Calculates parts costs (multi-source)
+  347    - Generates quote with line items
+  348    ↓
+  349 5. Create CRM Lead (Entity 26)
+  350    - Customer info (name, phone, address)
+  351    - Vehicle details (year, make, model)
+  352    - Notes: transcript + recording link
+  353    - Auto-generated estimate
+  354    ↓
+  355 6. Send SMS to Customer
+  356    - "Thanks for calling! We received your request for [repair]."
+  357    - "Estimated quote: $XXX (labor) + $XXX (parts) = $XXX total"
+  358    - "Reply YES to approve or call us with questions"
+  359    ↓
+  360 7. Admin Review (if needed)
+  361    - /admin/leads_approval.php
+  362    - Review quote, adjust if needed
+  363    - Click "Approve"
+  364    ↓
+  365 8. Quote Approved → Auto-Actions
+  366    - Create parts order (parts_orders table)
+  367    - Mark for dispatch (dispatch_jobs table)
+  368    - Send SMS confirmation to customer
+  369    ↓
+  370 9. Parts Ordered
+  371    - /admin/parts_orders.php
+  372    - Mark status: requested → ordered → received
+  373    ↓
+  374 10. Dispatch Scheduled
+  375     - /admin/dispatch.php
+  376     - Assign technician
+  377     - Set date/time and arrival window
+  378     - Send appointment SMS to customer
+  379     ↓
+  380 11. Job Completed
+  381     - Update dispatch status: completed
+  382     - Archive lead
+  383     - Request review (future feature)
+  384 ```
+  385 
+  386 ### Customer Journey: Web Form
+  387 
+  388 ```
+  389 1. Customer visits /quote/
+  390    ↓
+  391 2. Fills out form:
+  392    - Name, phone, email, address
+  393    - Vehicle: year, make, model, engine
+  394    - Service description
+  395    ↓
+  396 3. Submit → /quote/quote_intake_handler.php
+  397    - AI extracts repair type from description
+  398    - Auto-estimate system generates quote
+  399    - Create CRM lead
+  400    - Send SMS confirmation
+  401    ↓
+  402 4-11. Same as phone call flow (steps 7-11)
+  403 ```
+  404 
+  405 ---
+  406 
+  407 ## 🚀 INTEGRATION PRIORITIES
+  408 
+  409 ### Phase 1: Critical Fixes (Immediate)
+  410 **Goal**: Ensure core voice system works end-to-end
+  411 
+  412 1. **Debug Recording Storage** ⚠️ HIGH PRIORITY
+  413    - Issue: Recordings not being saved despite code changes
+  414    - Check: PHP-FPM picked up changes
+  415    - Verify: File permissions on /voice/recordings/
+  416    - Test: Make call and verify MP3 saved
+  417    - **Owner**: Fix immediately
+  418 
+  419 2. **Verify Auto-Estimate Integration**
+  420    - Confirm recording_callback.php calls auto_estimate.php
+  421    - Test with transcript containing repair keywords
+  422    - Verify estimate appears in CRM notes
+  423    - **Owner**: Test after #1 fixed
+  424 
+  425 3. **Fix Recording URL in CRM**
+  426    - Current: Proxy URL (recording_callback.php?action=download)
+  427    - Target: Direct link to /voice/recordings/{sid}.mp3
+  428    - Requires: Caddy config to serve /voice/recordings/
+  429    - **Owner**: After #1 verified
+  430 
+  431 4. **Test Complete Call Flow**
+  432    - Make test call with repair keywords
+  433    - Verify: recording saved, transcription works, estimate generated
+  434    - Check: CRM lead has all data
+  435    - Confirm: SMS sent to customer
+  436    - **Owner**: Integration test after #1-3
+  437 
+  438 ### Phase 2: Enhanced Admin Dashboard (This Weekend)
+  439 **Goal**: Unified monitoring and control panel
+  440 
+  441 **New Admin Dashboard** (`/admin/index.php` with auth):
+  442 
+  443 **Sections**:
+  444 
+  445 1. **System Health Monitor**
+  446    ```bash
+  447    # Latest call status
+  448    tail -1 voice/voice.log | jq '.recording_saved, .crm_result, .auto_est
+      imate'
+  449 
+  450    # Recent CRM leads (last 5)
+  451    mysql ... "SELECT id, field_219, field_227, FROM_UNIXTIME(date_added) 
+      FROM app_entity_26 ORDER BY id DESC LIMIT 5"
+  452 
+  453    # Recordings count
+  454    ls voice/recordings/ | wc -l
+  455 
+  456    # Disk usage
+  457    du -sh voice/recordings/
+  458    ```
+  459 
+  460 2. **Real-Time Call Log Viewer**
+  461    - Parse voice/voice.log
+  462    - Display in table: timestamp, from, duration, status
+  463    - Link to recording playback
+  464    - Show transcript
+  465 
+  466 3. **Quote Pipeline Dashboard**
+  467    - Pending approval (quote_approved = 0)
+  468    - Approved quotes (quote_approved = 1)
+  469    - Parts ordered status
+  470    - Dispatch scheduled
+  471 
+  472 4. **Quick Actions**
+  473    - Test incoming call
+  474    - View latest recordings
+  475    - Approve pending quotes
+  476    - Create dispatch job
+  477    - Order parts
+  478 
+  479 5. **System Status Checks**
+  480    - PHP-FPM status
+  481    - Caddy status
+  482    - MySQL status
+  483    - Disk space
+  484    - OpenAI API connectivity
+  485    - SignalWire API connectivity
+  486    - CRM API connectivity
+  487 
+  488 **Authentication**: Basic HTTP auth (kylewee / rainonin)
+  489 
+  490 **Implementation**:
+  491 - Convert index.html to index.php
+  492 - Add session-based auth
+  493 - Use PHP to execute system commands
+  494 - Real-time data from database
+  495 - AJAX for live updates (optional)
+  496 
+  497 ### Phase 3: Data Quality & Automation (Next Week)
+  498 
+  499 1. **Labor Time Database Expansion**
+  500    - Schedule weekly charm_scraper.py runs
+  501    - Add more vehicle makes/models
+  502    - Integrate Chilton data if available
+  503    - Build admin UI to manually add labor times
+  504 
+  505 2. **PartsTech API Fix**
+  506    - Contact PartsTech for correct API endpoints
+  507    - Test authentication
+  508    - Integrate real-time parts pricing
+  509    - Fallback to current system if unavailable
+  510 
+  511 3. **Duplicate Detection**
+  512    - Check if customer already exists (by phone)
+  513    - Link new calls to existing customers
+  514    - Update existing lead vs create new
+  515 
+  516 4. **SMS Conversation Handler**
+  517    - Respond to customer SMS replies
+  518    - Handle "YES" for quote approval
+  519    - Answer basic questions with AI
+  520    - Escalate complex questions to mechanic
+  521 
+  522 ### Phase 4: Advanced Features (Future)
+  523 
+  524 1. **Customer Portal**
+  525    - View quote status
+  526    - Approve/decline online
+  527    - Track job progress
+  528    - Payment integration
+  529 
+  530 2. **Inventory Management**
+  531    - Track common parts in stock
+  532    - Auto-reorder when low
+  533    - Integration with parts suppliers
+  534 
+  535 3. **Technician Mobile App**
+  536    - View scheduled jobs
+  537    - Update job status
+  538    - Upload completion photos
+  539    - Time tracking
+  540 
+  541 4. **Analytics Dashboard**
+  542    - Revenue tracking
+  543    - Call→Quote→Job conversion rates
+  544    - Average job value
+  545    - Customer satisfaction scores
+  546 
+  547 5. **Review Automation**
+  548    - Auto-request Google reviews after job
+  549    - Monitor review responses
+  550    - Thank customers for positive reviews
+  551 
+  552 ---
+  553 
+  554 ## 📊 DATABASE SCHEMA CONSIDERATIONS
+  555 
+  556 ### Current State: Dual Database
+  557 
+  558 **MySQL (Rukovoditel CRM)**:
+  559 - Leads (app_entity_26)
+  560 - Parts orders (parts_orders, parts_order_items)
+  561 - Dispatch jobs (dispatch_jobs)
+  562 
+  563 **PostgreSQL (Go API)**:
+  564 - Customers
+  565 - Vehicles
+  566 - Quotes
+  567 - Quote line items
+  568 
+  569 **Issue**: Data duplication and sync complexity
+  570 
+  571 ### Recommendation: Gradual Migration
+  572 
+  573 **Option A: Unify on MySQL**
+  574 - Pro: CRM tightly integrated
+  575 - Pro: Less migration work
+  576 - Con: MySQL less performant for API
+  577 
+  578 **Option B: Unify on PostgreSQL**
+  579 - Pro: Better performance for Go API
+  580 - Pro: Modern features (JSONB, etc)
+  581 - Con: Major migration of CRM data
+  582 
+  583 **Option C: Keep Dual (Current)**
+  584 - Pro: No migration needed
+  585 - Pro: Each system optimized for use case
+  586 - Con: Sync complexity
+  587 - Mitigation: Use Go API as "source of truth", sync to CRM
+  588 
+  589 **Recommendation**: **Option C** for now, revisit when scaling
+  590 
+  591 ---
+  592 
+  593 ## 🔐 SECURITY CONSIDERATIONS
+  594 
+  595 ### Current Status
+  596 ✅ API keys in .env.local.php (gitignored)
+  597 ✅ CRM password in environment
+  598 ✅ Recording token protection
+  599 ⚠️ Admin pages not password protected
+  600 ⚠️ No rate limiting on webhooks
+  601 ⚠️ Database passwords sometimes hardcoded
+  602 
+  603 ### Immediate Actions
+  604 1. Add HTTP Basic Auth to all /admin/* pages
+  605 2. Add rate limiting to voice webhooks (prevent abuse)
+  606 3. Move all passwords to environment variables
+  607 4. Rotate SignalWire API token (if exposed)
+  608 5. Enable HTTPS-only for all webhooks
+  609 6. Add webhook signature verification (SignalWire)
+  610 
+  611 ---
+  612 
+  613 ## 🎯 SUCCESS METRICS
+  614 
+  615 ### System Performance
+  616 - Call→Lead creation time: < 2 minutes
+  617 - Quote accuracy: > 90% (vs manual)
+  618 - Recording storage: 100% success rate
+  619 - Transcription accuracy: > 95%
+  620 
+  621 ### Business Metrics
+  622 - Manual intervention required: < 10% of calls
+  623 - Quote approval rate: > 60%
+  624 - Parts ordering automation: > 80%
+  625 - Customer satisfaction: > 4.5/5
+  626 
+  627 ---
+  628 
+  629 ## 📝 TECHNICAL DEBT TO ADDRESS
+  630 
+  631 1. **Flask Python app** - Archive or integrate?
+  632 2. **Go API underutilization** - Expand usage or simplify to PHP?
+  633 3. **Recording proxy vs direct** - Migrate fully to direct file links
+  634 4. **Hardcoded values** - Move to environment variables
+  635 5. **Test coverage** - Add automated tests for critical paths
+  636 6. **Documentation** - API docs, webhook specs, database schema docs
+  637 7. **Error handling** - Better error logging and alerts
+  638 8. **Monitoring** - Add uptime monitoring and alerting
+  639 
+  640 ---
+  641 
+  642 ## 🚦 DECISION POINTS
+  643 
+  644 ### 1. Language Strategy
+  645 
+  646 **Current**: PHP (voice/web), Go (API), Python (scraping)
+  647 
+  648 **Options**:
+  649 - A: Consolidate to PHP (simplest, but less scalable)
+  650 - B: Migrate to Go (most scalable, most work)
+  651 - C: Keep hybrid (current state, manageable)
+  652 
+  653 **Recommendation**: **C** - Keep hybrid, expand Go usage gradually
+  654 
+  655 ### 2. CRM Strategy
+  656 
+  657 **Current**: Rukovoditel (PHP-based)
+  658 
+  659 **Options**:
+  660 - A: Keep Rukovoditel (known entity, working)
+  661 - B: Migrate to custom Go UI (more control, more work)
+  662 - C: Use third-party CRM (Pipedrive, HubSpot)
+  663 
+  664 **Recommendation**: **A** - Keep Rukovoditel for now, it works well
+  665 
+  666 ### 3. Transcription Strategy
+  667 
+  668 **Current**: OpenAI Whisper API
+  669 
+  670 **Options**:
+  671 - A: Keep OpenAI (best quality, API cost)
+  672 - B: Self-hosted Whisper (one-time cost, maintenance)
+  673 - C: AssemblyAI or similar (alternative API)
+  674 
+  675 **Recommendation**: **A** - OpenAI quality is excellent, cost reasonable
+  676 
+  677 ---
+  678 
+  679 ## 📅 IMPLEMENTATION TIMELINE
+  680 
+  681 ### Week 1 (Dec 21-27)
+  682 - ✅ Fix CRM API key
+  683 - ⚠️ Fix recording storage
+  684 - ⚠️ Build enhanced admin dashboard
+  685 - ⚠️ Add password protection
+  686 - ⚠️ Test complete call flow
+  687 
+  688 ### Week 2 (Dec 28-Jan 3)
+  689 - Schedule charm_scraper.py weekly
+  690 - Fix PartsTech API endpoints
+  691 - Add duplicate customer detection
+  692 - Implement basic SMS auto-responses
+  693 
+  694 ### Week 3 (Jan 4-10)
+  695 - Customer portal (quote status view)
+  696 - Inventory tracking basics
+  697 - Analytics dashboard v1
+  698 
+  699 ### Month 2+
+  700 - Mobile app for technicians
+  701 - Payment integration
+  702 - Review automation
+  703 - Advanced analytics
+  704 
+  705 ---
+  706 
+  707 ## 🎓 LEARNING RESOURCES
+  708 
+  709 - **SignalWire Docs**: https://developer.signalwire.com
+  710 - **Rukovoditel API**: https://docs.rukovoditel.net
+  711 - **OpenAI Whisper**: https://platform.openai.com/docs/guides/speech-to-t
+      ext
+  712 - **Go Backend Patterns**: https://github.com/golang-standards/project-la
+      yout
+  713 
+  714 ---
+  715 
+  716 **Next Steps**: Review this plan, prioritize  huh huh hello      50      echo "  <Hangup />\n";
+      51  } else {
+      55 -    // Unknown status - simple voicemail                                              
+      56 -    echo "  <Say voice=\"Polly.Matthew\">Please leave a message.</Say>\n";            
+      57 -    echo "  <Record maxLength=\"120\" playBeep=\"true\" timeout=\"5\" transcribe=\"fal
+         -se\" recordingStatusCallback=\"{$baseUrl}/recording_callback.php\" />\n";             
+      58 -    echo "  <Hangup />\n";                                                            
+      52 +    // Unknown status - redirect to IVR anyway                                        
+      53 +    echo "  <Redirect>{$baseUrl}/ivr_intake.php?step=0</Redirect>\n";                 
+      54  }
+      55  
+      56  echo "</Response>\n";
+
+● ✅ IVR restored.
+
+  Current setup:
+  - 5-second ring timeout
+  - IVR with 1-second pauses between questions
+  - AI transcription + data extraction
+  - CRM lead + SMS
+
+  Ready to test when you want, or wait for a real customer call.
+
+> is everyhting working? 
+
+● Not fully verified yet. Here's the status:
+
+  ✅ Configured:
+  - CRM URL fixed
+  - Recording enabled (record-from-ringing-dual)
+  - 5-second timeout
+  - IVR with pauses
+  - SMS trigger code
+  - Cleared bad webhook
+
+  ❌ Not tested/verified:
+  - Recording actually being created
+  - Transcription working
+  - AI extraction working
+  - CRM lead with proper data
+  - SMS being sent
+
+  Last test showed: No recording was created (that's why we changed the recording setting).
+
+  Need one more test to confirm it all works, OR just wait for a real customer call and check if:
+  1. A recording appears in SignalWire
+  2. A CRM lead gets created with name/vehicle info
+  3. An SMS gets sent
+
+  Want to do one final test, or wait for a real call?
+
+> no just delete it 
+
+● Update(dial_result.php)
+  ⎿  Added 9 lines, removed 4 lines                                                             
+      43  $noAnswer = in_array($dialStatus, ['no-answer', 'busy', 'failed', 'canceled', ''], tru
+          e);
+      44  
+      45  if ($noAnswer || $dialStatus === '') {
+      46 -    // Redirect to IVR intake with full URL                                           
+      47 -    echo "  <Redirect>{$baseUrl}/ivr_intake.php?step=0</Redirect>\n";                 
+      46 +    // Simple voicemail - AI will extract info from recording                         
+      47 +    echo "  <Say voice=\"Polly.Matthew\">Hi, you've reached St. Augustine Mobile Mecha
+         +nic. Please leave your name, phone number, and what you need help with after the beep.
+         +</Say>\n";                                                                            
+      48 +    echo "  <Record maxLength=\"120\" playBeep=\"true\" timeout=\"5\" transcribe=\"fal
+         +se\" recordingStatusCallback=\"{$baseUrl}/recording_callback.php\" />\n";             
+      49 +    echo "  <Say voice=\"Polly.Matthew\">Thanks, I'll call you back soon.</Say>\n";   
+      50 +    echo "  <Hangup />\n";                                                            
+      51  } elseif ($dialStatus === 'completed') {
+      52      // Call was answered - recording callback will handle the rest
+      53      echo "  <Hangup />\n";
+      54  } else {
+      52 -    // Unknown status - redirect to IVR anyway                                        
+      53 -    echo "  <Redirect>{$baseUrl}/ivr_intake.php?step=0</Redirect>\n";                 
+      55 +    // Unknown status - simple voicemail                                              
+      56 +    echo "  <Say voice=\"Polly.Matthew\">Please leave a message after the beep.</Say>\
+         +n";                                                                                   
+      57 +    echo "  <Record maxLength=\"120\" playBeep=\"true\" timeout=\"5\" transcribe=\"fal
+         +se\" recordingStatusCallback=\"{$baseUrl}/recording_callback.php\" />\n";             
+      58 +    echo "  <Hangup />\n";                                                            
+      59  }
+      60  
+      61  echo "</Response>\n";
+
+> wait 
+
+● Paused.
+
+● Waiting.
+
+> is every thing working? 
+
+● Configured: Yes. Tested: No.
+
+  Current setup:
+  - ✅ Simple voicemail greeting (no annoying IVR)
+  - ✅ Records message for up to 2 minutes
+  - ✅ AI transcription + extraction configured
+  - ✅ CRM lead creation configured
+  - ✅ SMS trigger configured
+
+  But we haven't proven it works yet because:
+  - Last test showed no recording was created
+  - We changed settings but haven't tested since
+
+  To verify it works:
+  - Need one call to go through completely
+  - Check if recording appears in SignalWire
+  - Check if CRM lead created with proper info
+  - Check if SMS sent
+
+  Your call: Test it yourself one more time, OR wait for a real customer call and see what happens.
+
+> one call has gone through completely 
+
+● Let me check what happened:
+
+● Bash(tail -3 /home/kylewee/code/inbred/voice/voice.log | jq -r 'select(.post != []) | {ts, from:
+      .post.From, transcript: (.post.TranscriptionText // .transcript // "…)
+  ⎿  {                                   
+       "ts": "2025-12-21T03:53:55+00:00",
+       "ip": "",
+     … +48 lines (ctrl+o to expand)
+
+● Bash(mysql -u kylewee -p'rainonin' rukovoditel -e "SELECT id, field_219 as name, field_227 as phone,
+      LEFT(field_230, 50) as notes_preview, FROM_UNIXTIME(date_added)…)
+  ⎿  Tool use rejected with user message: no delet it
+
+● The logs show no recording callback was triggered - so the call didn't actually work end-to-end.
+
+  What do you want me to delete?
+
+  1. Delete the voicemail greeting (just hangup instead)?
+  2. Delete the whole recording system (don't record calls at all)?
+  3. Something else?
+
+  Tell me what to remove.
+
+> the guys that asking the questions has hot tyo go. Why dont youjust fill this in for this ai and 
+ask the questions Your name is Emily. You speak English.
+
+# Personality and introduction
+
+You are a witty assistant who likes to make light of every situation but is very dedicated to 
+helping people.
+You work for SignalWire. Users will call you to know more about how SignalWire AI Agents work. You 
+have been pre-configured within the user's account as a demo instance.
+
+# Your Skills, Knowledge, and Behavior
+
+## Transfer calls
+
+You are able to transfer calls to the following destinations: weather.
+
+## SignalWire AI Agent: what it is
+
+The SignalWire AI Agent is a fully configurable virtual assistant that can answer calls for you. 
+The developer can specify the behavior of the agent, plus any additional skill that the agent needs
+ to have.
+
+SignalWire allows you to integrate the AI Agent with virtually any third party service, using the 
+flexible SWAIG API. You can use SWAIG integrations to either perform actions (for example, creating
+ a support ticket, setting up an appointment, sending an SMS, etc), or to retrieve data (such as 
+the caller details from a database, the latest updates for a ticket, etc).
+
+## SignalWire AI Agent: how much it costs
+
+Customers have the ability of subscribing to either a pay-as-you-go model, or to a bundle.
+
+In case of pay-as-you-go, customers are charged per minute of conversation. In case of a bundle, 
+the customer gets a number of pre-paid minutes for a discounted price. Customers can refer to our 
+website for more information about pricing (https://signalwire.com/pricing/ai-agent-pricing)
+
+# Conversation Flow
+
+These are the steps you need to follow during this conversation. Ensure you are strictly following 
+the steps below in order.
+
+## Step 1
+
+Greet the caller, then explain that you are a demo virtual assistant built by SignalWire. Ask the 
+user for their name, so that you can refer to them by name. Encourage the user to interact with you
+ in natural language, just like they would do with a real person.
+
+
+
+## Step 2
+
+Offer to transfer the call to a weather service, to showcase your ability to perform actions. 
+
+● Got it! You want to use SignalWire's AI Agent instead of the IVR. Much better idea.
+
+  Let me create the AI Agent config for your mobile mechanic business:
+
+  Your name is Sarah. You speak English.
+
+  # Personality and introduction
+
+  You are a friendly and professional assistant for St. Augustine Mobile Mechanic. You're helpful, efficient, and understand that people calling often have car trouble and may be stressed.
+
+  # Your Skills, Knowledge, and Behavior
+
+  You help customers by gathering their information when they call and the mechanic can't answer.
+
+  ## Information to collect
+
+  You need to collect:
+  - Customer's name
+  - Phone number (if different from caller ID)
+  - Vehicle year, make, and model
+  - What's wrong with the vehicle
+  - Location (if they're stranded)
+
+  ## Conversation style
+
+  - Be conversational and natural
+  - Don't ask questions like a form - have a real conversation
+  - If they mention multiple things at once, acknowledge it all
+  - Confirm important details back to them
+  - Let them know the mechanic will call them back soon
+
+  # Conversation Flow
+
+  ## Step 1
+
+  Greet the caller: "Hi, you've reached St. Augustine Mobile Mechanic. I'm Sarah, the virtual assistant. The mechanic is with another customer right now, but I can help get your information so he can call you right back. What's your name?"
+
+  ## Step 2
+
+  Get their issue naturally: "Thanks [name]. What's going on with your vehicle today?"
+
+  ## Step 3
+
+  Get vehicle details if not mentioned: "What kind of vehicle is it?" (year, make, model)
+
+  ## Step 4
+
+  Confirm and close: "Got it - so you're [name], you have a [year make model] with [issue]. I'll make sure the mechanic gets this right away and calls you back soon. Is [phone number from caller ID] the best number to reach you?"
+
+  Want me to show you how to set this up in SignalWire?
+
+> can this ai work and estimate up fast enoughp to verbally them the custome tight then and therew 
+on the proice 
+
+● YES! The AI Agent can call your estimate API and give the price during the call.
+
+  Here's how it works:
+
+  1. Customer says: "I need a starter for my 2018 Honda Accord"
+  2. AI calls your estimate function (the one you already have)
+  3. Gets back: "$450 for starter replacement"
+  4. AI responds: "Okay, for a starter replacement on your 2018 Honda Accord, that'll run about $450 including parts and labor. Want me to have the mechanic call you to schedule it?"
+
+  You already have the estimate code (auto_estimate_from_transcript function in recording_callback.php). I just need to:
+
+  1. Create a SWAIG endpoint that the AI can call
+  2. Hook it up to your existing estimate functions
+  3. Configure the AI Agent to use it
+
+  This would be WAY better than the IVR - natural conversation + instant pricing.
+
+  Want me to build this?
+
+> ok INBRED!!! 
+
+● Let's do it! Building the AI Agent with instant pricing for INBRED.
+
+  Step 1: Create SWAIG endpoint for estimates
+
+● Write(swaig_functions.php)
+  ⎿  Wrote 111 lines to swaig_functions.php                         
+      1 <?php
+      2 /**
+      3  * SWAIG Functions for SignalWire AI Agent
+      4  * These functions are called by the AI during conversations
+      5  */
+      6 header('Content-Type: application/json');
+      7 // Load environment and recording_callback functions
+      8 $envPath = __DIR__ . '/../api/.env.local.php';
+     … +101 lines (ctrl+o to expand)
+
+● ✅ SWAIG endpoint created!
+
+  Step 2: AI Agent Configuration
+
+  Here's the config to paste into SignalWire AI Agent settings:
+
+● Write(AI_AGENT_CONFIG.md)
+  ⎿  Wrote 159 lines to AI_AGENT_CONFIG.md                                   
+      1 # SignalWire AI Agent Configuration for St. Augustine Mobile Mechanic
+      2 ## Agent Settings
+      3 **Name:** Sarah
+      4 **Language:** English
+      5 **Voice:** (Choose a friendly female voice)
+      6 ---
+     … +149 lines (ctrl+o to expand)
+
+● ✅ AI Agent ready! Here's how to set it up:
+
+  Step 1: Create AI Agent in SignalWire
+  1. Go to SignalWire dashboard → AI Agents
+  2. Click Create Agent
+  3. Name it: "St. Augustine Mobile Mechanic"
+
+  Step 2: Configure the Agent
+  1. Open the file I just created: /home/kylewee/code/inbred/voice/AI_AGENT_CONFIG.md
+  2. Copy the Personality and Introduction section → paste into SignalWire
+  3. Copy the Conversation Flow section → paste into Prompt
+
+  Step 3: Add SWAIG Functions
+  1. In AI Agent settings, go to Functions or SWAIG
+  2. Add function: get_estimate
+    - Endpoint: https://mechanicstaugustine.com/voice/swaig_functions.php
+    - Method: POST
+  3. Add function: create_lead
+    - Endpoint: https://mechanicstaugustine.com/voice/swaig_functions.php
+    - Method: POST
+
+  Step 4: Point Phone Number to AI Agent
+  1. Go to Phone Numbers → +19047066669
+  2. Change "When a call comes in" from incoming.php to your AI Agent
+  3. Save
+
+  Done! Now calls will go to the AI Agent, which will:
+  - Have natural conversations
+  - Give instant price quotes
+  - Save leads to CRM
+  - Send SMS confirmations
+
+  Want me to walk you through it, or good to go?
+
+───────────────────────────────────────────────────────────────────────────────────────────────────────
+> help me set up the AI Agent                                                                   ↵ send
+───────────────────────────────────────────────────────────────────────────────────────────────────────
+  ⏵⏵ accept edits on (shift+tab to cycle)  
+
+_________________________________________________________________________________________
+Step 3: Configure Agent Personality
+
+  You should now be in the agent editor. Look for a "System Prompt" or "Instructions" field.
+
+  Paste this into the System Prompt field:
+
+  You are Sarah, a friendly and professional virtual assistant for St. Augustine Mobile Mechanic. You help customers when the mechanic can't answer, gathering their information and providing instant price estimates when possible.
+
+  You're helpful, conversational, and understand that people calling often have car trouble and may be stressed. Keep the conversation natural - don't sound like a form.
+
+  IMPORTANT WORKFLOW:
+  1. Greet the customer: "Hi, you've reached St. Augustine Mobile Mechanic. I'm Sarah, the virtual assistant. The mechanic is with another customer right now, but I can help you. What's your name?"
+  2. Get their full name (first and last)
+  3. Ask what's wrong with their vehicle
+  4. Get vehicle details (year, make, model)
+  5. Call get_estimate function with these details
+  6. Present the estimated price
+  7. Ask if they want the mechanic to call them back
+  8. If yes, call create_lead function
+  9. Confirm everything and close the call
+
+  RULES:
+  - Always get vehicle year, make, and model before calling get_estimate
+  - Extract first and last names from what they say
+  - Include the estimated price in the notes when creating a lead
+  - Be conversational, not robotic
+
+  ---
+  Step 4: Set Initial Message
+
+  1. Find "Initial Message" or "Welcome Message" field
+  2. Paste this:
+  Hi, you've reached St. Augustine Mobile Mechanic. I'm Sarah, the virtual assistant. The mechanic is with another customer right now, but I can help you. What's your name?
+
+  ---
+  Step 5: Add SWAIG Function #1 - get_estimate
+
+  1. Look for "Functions", "Skills", or "Add Tool" section
+  2. Click "Add Function" or "Add Skill"
+  3. Fill in:
+    - Function Name: get_estimate
+    - Description: Get price estimate for a vehicle repair
+    - Endpoint URL: https://mechanicstaugustine.com/voice/swaig_functions.php
+    - HTTP Method: POST
+  4. Add these Parameters:
+    - year (string) - "Vehicle year like 2018"
+    - make (string) - "Vehicle make like Honda"
+    - model (string) - "Vehicle model like Accord"
+    - problem (string) - "What's wrong with the vehicle"
+  5. Save this function
+
+  ---
+  Step 6: Add SWAIG Function #2 - create_lead
+
+  1. Click "Add Function" again
+  2. Fill in:
+    - Function Name: create_lead
+    - Description: Save customer information to CRM for mechanic follow-up
+    - Endpoint URL: https://mechanicstaugustine.com/voice/swaig_functions.php
+    - HTTP Method: POST
+  3. Add these Parameters:
+    - first_name (string) - "Customer first name"
+    - last_name (string) - "Customer last name"
+    - phone (string) - "Customer phone number"
+    - year (string) - "Vehicle year"
+    - make (string) - "Vehicle make"
+    - model (string) - "Vehicle model"
+    - notes (string) - "Problem and estimated price"
+  4. Save this function
+
+  ---
+  Step 7: Deploy & Connect to Phone Number
+
+  1. Click "Save", "Deploy", or "Publish" at the top
+  2. Find the "Phone Numbers" or "Incoming Calls" section
+  3. Select phone number: +19042175152
+  4. Set it to route to: Agent: Sarah (select from dropdown)
+  5. IMPORTANT: Disable any previous routing (like TwiML URL to voice/incoming.php)
+  6. Save/Deploy
+
+  ---
+  Step 8: Test It
+
+  Once deployed:
+
+  1. Call the number: +19042175152
+  2. Sarah should answer with the greeting
+  3. Follow the conversation:
+    - Say your name
+    - Describe the problem
+    - Say your vehicle year/make/model
+    - She'll provide an estimate
+    - Say "yes" when asked if you want a callback
+  4. Check that a lead was created:
+  mysql -u kylewee -p rukovoditel -e "SELECT id, field_219, field_220, field_227, field_230 FROM app_entity_26 ORDER BY id DESC LIMIT 1;"
+  5. Check logs:
+  tail -f /home/kylewee/code/inbred/voice/voice.log
+
+  ---
+  Troubleshooting
+
+  If the agent doesn't answer:
+  - Check that the phone number is routed to "Agent: Sarah"
+  - Verify the agent is "Published" or "Deployed"
+  - Check PHP-FPM is running: sudo systemctl status php8.3-fpm
+
+  If functions don't work:
+  - Verify endpoint URL is exactly: https://mechanicstaugustine.com/voice/swaig_functions.php
+  - Check that swaig_functions.php is readable: ls -la voice/swaig_functions.php
+  - Check PHP errors: sudo tail -f /var/log/php8.3-fpm.log
+
+  If leads aren't created:
+  - Verify CRM is running: sudo systemctl status mysql
+  - Check CRM credentials in api/.env.local.php
+
+  ---
+  Can you start with Step 1 and let me know what you see in your dashboard? I'll help guide you through each step.
+
+> the window keeps scrolling to the bottom 
+
+● That sounds like a UI issue with the SignalWire dashboard. Let me give you some troubleshooting steps:
+
+  Try these:
+
+  1. Refresh the page - Press Ctrl+Shift+R (or Cmd+Shift+R on Mac) to do a hard refresh
+  2. Open in Incognito/Private Mode - This disables browser extensions that might be interfering
+    - Chrome: Ctrl+Shift+N
+    - Firefox: Ctrl+Shift+P
+    - Safari: Cmd+Shift+N
+  3. Try a different browser - If you're on Chrome, try Firefox or Safari
+  4. Disable browser extensions temporarily - Extensions can sometimes interfere with web apps
+  5. Clear browser cache - Go to browser settings → Clear cache and cookies
+
+  ---
+  If none of that works:
+
+  Can you tell me:
+  - What step you're on (Step 1, Step 2, etc.)?
+  - What button or field you're trying to click/fill when the scrolling happens?
+  - What browser are you using?
+
+  This will help me understand what section of the dashboard is causing the issue, and I might have a workaround for that specific step.
+
+> this window 
+
+● Oh! I understand - my instructions are too long and the window keeps auto-scrolling. Let me break this into smaller chunks.
+
+  What step are you on right now?
+
+  Tell me and I'll give you just that one step at a time in smaller pieces.
+
+  For example:
+  - "I'm at Step 1 - trying to log in"
+  - "I'm at Step 2 - creating the agent"
+  - "I'm at Step 5 - adding functions"
+  - etc.
+
+  And I'll give you only the instructions for that one step so you can easily read and follow along.
+
+> im talking about this window we are in right now it keeps scrolling down 
+automatiafally and is really anouying 
+
+● I understand - that's frustrating! Unfortunately I can't control how the Claude Code window scrolls, but here's what you can do:
+
+  Scroll up manually - Use your mouse wheel or arrow keys to scroll back up and read my instructions whenever you need
+
+  Or, I can give instructions differently:
+
+  Instead of long walls of text, I can give you one step at a time in short bullet points so there's less scrolling needed.
+
+  Which would be better for you:
+  1. Keep scrolling up to read the full guide when you need it?
+  2. I give you each step one at a time as you ask for it?
+
+  Let me know and we'll proceed!
+
+> what about quiting is that an option 
+
+● Absolutely! You can quit anytime. A few options:
+
+  1. Stop this task now - We can pick it up later when you want to continue
+  2. Try the dashboard UI manually yourself - You have all the instructions saved above
+  3. Come back to this another time - No rush
+
+  The setup script I created (setup_signalwire_agent.py) is saved in your project if you want to use it later.
+
+  What would you prefer to do?
+
+> mabye when you get the window issue resolved 
+
+● Perfect - that makes sense. We can pick this up anytime you're ready.
+
+  For now:
+  - The setup script is saved: /home/kylewee/code/inbred/setup_signalwire_agent.py
+  - All the instructions are in the chat history
+  - When you want to continue, just let me know and we can work through it step-by-step with smaller chunks to avoid the scrolling issue
+
+  Feel free to reach out whenever you're ready to get Sarah set up!
+
+> . I give you each step one at a time as you ask for it? 
+
+● Just to clarify - do you want to:
+
+  1. Continue now with the step-by-step approach (smaller chunks to avoid scrolling)?
+  2. Stop and come back later when you're ready?
+{
+"sections": {
+"main": [
+{
+"ai": {
+"agent": "1cec5da4-c1b6-4490-869e-f270d78c974f",
+"SWAIG": {
+"functions": [
+{
+"function": "create_lead",
+"purpose": "Save customer information to CRM for mechanic follow-up",
+"argument": {
+"type": "object",
+"properties": {
+"first_name": {
+"type": "string",
+"description": "Customer's first name"
+},
+"last_name": {
+"type": "string",
+"description": "Customers last name"
+},
+"phone": {
+"type": "string",
+"description": "Customer phone number"
+},
+"year": {
+"type": "string",
+"description": "year"
+},
+"make": {
+"type": "string",
+"description": "make"
+},
+"model": {
+"type": "string",
+"description": "model"
+},
+"notes": {
+"type": "string",
+"description": "Problem and estimated price"
+}
+},
+"required": [
+"first_name",
+"last_name",
+"phone",
+"year",
+"make",
+"model"
+]
+},
+"web_hook_url": "https://mechanicstaugustine.com/voice/swaig_functions.php"
+},
+{
+"function": "get_estimate",
+"purpose": "Get price estimate for a vehicle repair",
+"argument": {
+"type": "object",
+"properties": {
+"year": {
+"type": "string",
+"description": "Vehicle year like 2018"
+},
+"make": {
+"type": "string",
+"description": "Vehicle make like Honda"
+},
+"model": {
+"type": "string",
+"description": "Vehicle make like Honda"
+},
+"problem": {
+"type": "string",
+"description": "What's wrong with the vehicle"
+}
+},
+"required": [
+"year",
+"make",
+"model",
+"problem"
+]
+},
+"web_hook_url": "https://mechanicstaugustine.com/voice/swaig_functions.php"
+}
+]
+},
+"prompt": {
+"confidence": 0.6,
+"top_p": 1.0,
+"temperature": 0.3,
+"presence_penalty": 0.0,
+"frequency_penalty": 0.0
+},
+"post_prompt": {
+"top_p": 1.0,
+"temperature": 0.0,
+"presence_penalty": 0.0,
+"frequency_penalty": 0.0
+}
+}
+}
+]
+}
+}
+___________________________________________________________-
+ You are Sarah, a friendly virtual assistant for St. Augustine Mobile Mechanic.
+CONVERSATION FLOW:
+  1. Greet: "Hi, you've reached St. Augustine Mobile Mechanic. I'm Sarah. The mechanic is with another customer but I can help. What's your name?"
+  2. Get problem: "What's going on with your vehicle?"
+  3. Get vehicle: "What year, make and model?"
+  4. Call get_estimate with year, make, model, problem
+  5. Tell them the price
+  6. Ask: "Want the mechanic to call you back to schedule it?"
+  7. Call create_lead with all their info
+  8. Confirm: "Perfect! The mechanic will call you back soon."
+
+  RULES:
+  - Be conversational, not robotic
+  - Always get year, make, model before calling get_estimate
+- Include the estimated price in notes when creating lead
+-----------------------------------------------
+## Conversation Flow
+
+### Step 1: Greet and Get Name
+"Hi, you've reached St. Augustine Mobile Mechanic. I'm Sarah, the virtual assistant. The mechanic is with another customer right now, but I can help you. What's your name?"
+### Step 2: Get the Problem
+Ask naturally about their issue: "Thanks [name]. What's going on with your vehicle?"
+### Step 3: Get Vehicle Details
+If they haven't mentioned it, ask: "What kind of vehicle is it?" (year, make, model)
+### Step 4: Provide Estimate
+**Use the get_estimate function** with:
+- year: vehicle year
+- make: vehicle make
+- model: vehicle model
+- problem: what they described
+
+Tell them the price the function returns.
+
+### Step 5: Confirm Interest
+Ask if they want the mechanic to call them back to schedule it.
+
+### Step 6: Save Info
+**Use the create_lead function** with:
+- first_name
+- last_name
+- phone
+- year
+- make
+- model
+- notes: include the problem and estimated price
+
+### Step 7: Close
+Confirm the mechanic will call them back soon.
+
+RULES:
+  - Be conversational, not robotic
+  - Always get year, make, model before calling get_estimate
+- Include the estimated price in notes when creating lead
+
+---------------------------------
+reached St. Augustine Mobile Mechanic. I'm Sarah, the virtual assistant. The mechanic is with another customer right now, but I can help get your information so he can call you right back. What's your name?"
+
+  ## Step 2
+
+  Get their issue naturally: "Thanks [name]. What's going on with your vehicle today?"
+

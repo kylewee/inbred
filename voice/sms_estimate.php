@@ -12,13 +12,15 @@ if (file_exists($envPath) && !defined('SIGNALWIRE_PROJECT_ID')) {
     require_once $envPath;
 }
 
-header('Content-Type: application/xml');
+// Only execute main logic if called directly as a webhook (not when included)
+if (basename(__FILE__) === basename($_SERVER['SCRIPT_FILENAME'] ?? '')) {
+    header('Content-Type: application/xml');
 
-// Get SMS data
-$from = $_REQUEST['From'] ?? '';
-$to = $_REQUEST['To'] ?? '';
-$body = trim($_REQUEST['Body'] ?? '');
-$messageSid = $_REQUEST['MessageSid'] ?? '';
+    // Get SMS data
+    $from = $_REQUEST['From'] ?? '';
+    $to = $_REQUEST['To'] ?? '';
+    $body = trim($_REQUEST['Body'] ?? '');
+    $messageSid = $_REQUEST['MessageSid'] ?? '';
 
 // Log incoming SMS
 $log = [
@@ -150,6 +152,8 @@ foreach ($pending as $id => $est) {
     }
 }
 file_put_contents($pendingFile, json_encode($pending, JSON_PRETTY_PRINT));
+}
+// End of main execution block
 
 /**
  * Send estimate to customer via SMS
