@@ -5,6 +5,8 @@
  * Sends mobile-optimized quotes with AI explainer callback
  */
 
+require_once __DIR__ . '/CRMHelper.php';
+
 class QuoteSMS {
     private $db;
     private $signalwireProjectId;
@@ -84,12 +86,24 @@ class QuoteSMS {
         // Send SMS
         $smsResult = $this->sendQuoteSMS($quoteData['customer_phone'], $quoteId, $quoteUrl, $totalPrice, $quoteData['vehicle']);
 
+        // Update CRM lead stage to "Quote Sent" if lead_id provided
+        $crmResult = null;
+        if (!empty($quoteData['lead_id'])) {
+            $leadId = (int)$quoteData['lead_id'];
+            $crmResult = CRMHelper::transitionStage(
+                $leadId,
+                CRMHelper::STAGE_QUOTE_SENT,
+                "📋 **Quote Sent**\nQuote ID: {$quoteId}\nTotal: $" . number_format($totalPrice, 2) . "\nVehicle: " . ($quoteData['vehicle'] ?? 'N/A') . "\nURL: {$quoteUrl}"
+            );
+        }
+
         return [
             'success' => true,
             'quote_id' => $quoteId,
             'sms_sent' => $smsResult['success'] ?? false,
             'quote_url' => $quoteUrl,
-            'sms_sid' => $smsResult['sid'] ?? null
+            'sms_sid' => $smsResult['sid'] ?? null,
+            'crm_updated' => $crmResult['success'] ?? false
         ];
     }
 
@@ -246,7 +260,21 @@ class QuoteSMS {
         $stmt = $this->db->prepare("UPDATE quotes SET viewed_at = :now WHERE quote_id = :id AND viewed_at IS NULL");
         $stmt->bindValue(':now', date('c'), SQLITE3_TEXT);
         $stmt->bindValue(':id', $quoteId, SQLITE3_TEXT);
-        return $stmt->execute() !== false;
+        $result = $stmt->execute() !== false;
+
+        // Update CRM stage to "Quote Viewed" if we have a lead_id
+        if ($result) {
+            $quote = $this->getQuote($quoteId);
+            if ($quote && !empty($quote['lead_id'])) {
+                CRMHelper::transitionStage(
+                    (int)$quote['lead_id'],
+                    CRMHelper::STAGE_QUOTE_VIEWED,
+                    "👁️ **Quote Viewed**\nQuote ID: {$quoteId}\nViewed at: " . date('Y-m-d H:i:s')
+                );
+            }
+        }
+
+        return $result;
     }
 
     /**
@@ -256,7 +284,21 @@ class QuoteSMS {
         $stmt = $this->db->prepare("UPDATE quotes SET status = 'approved', approved_at = :now WHERE quote_id = :id");
         $stmt->bindValue(':now', date('c'), SQLITE3_TEXT);
         $stmt->bindValue(':id', $quoteId, SQLITE3_TEXT);
-        return $stmt->execute() !== false;
+        $result = $stmt->execute() !== false;
+
+        // Update CRM stage to "Quote Approved" if we have a lead_id
+        if ($result) {
+            $quote = $this->getQuote($quoteId);
+            if ($quote && !empty($quote['lead_id'])) {
+                CRMHelper::transitionStage(
+                    (int)$quote['lead_id'],
+                    CRMHelper::STAGE_QUOTE_APPROVED,
+                    "✅ **Quote Approved**\nQuote ID: {$quoteId}\nApproved at: " . date('Y-m-d H:i:s') . "\nTotal: $" . number_format($quote['total_price'] ?? 0, 2)
+                );
+            }
+        }
+
+        return $result;
     }
 
     /**

@@ -5,7 +5,14 @@
  * Usage: php quick_estimate.php "2004 BMW 330xi" "power steering hose" 1.5
  */
 
-require_once __DIR__ . '/scraper/auto_estimate.php';
+// CLI only - redirect web visitors to the proper estimate page
+if (php_sapi_name() !== 'cli') {
+    header('Location: /get-estimate.php');
+    exit;
+}
+
+// OLD: require_once __DIR__ . '/scraper/auto_estimate.php';
+// Scraper system archived - this script needs updating to use GPT estimates
 
 // Labor rates
 define('LABOR_FIRST_HOUR', 150.00);

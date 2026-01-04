@@ -11,7 +11,7 @@ require_once __DIR__ . '/../../lib/PostServiceFlow.php';
 session_start();
 $authenticated = isset($_SESSION['admin_auth']) && $_SESSION['admin_auth'] === true;
 if (!$authenticated && isset($_POST['password'])) {
-    if ($_POST['password'] === 'EZmechanic2025!') {
+    if ($_POST['password'] === 'EZlead2025!') {
         $_SESSION['admin_auth'] = true;
         $authenticated = true;
     }
@@ -87,7 +87,7 @@ FROM quotes", true);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quote System Admin - EZ Mobile Mechanic</title>
+    <title>Quote System Admin - EzLead4U</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 

@@ -6,6 +6,8 @@
 
 header('Content-Type: application/json');
 
+// Load config
+require_once __DIR__ . '/../config/bootstrap.php';
 require_once __DIR__ . '/../lib/QuoteSMS.php';
 
 try {
@@ -26,10 +28,14 @@ try {
     // Approve quote
     $quoteSMS->approveQuote($quoteId);
 
-    // Send confirmation SMS
-    $confirmMessage = "✓ Quote approved! We'll contact you within 2 hours to schedule your service.\n\n";
-    $confirmMessage .= "EZ Mobile Mechanic\n";
-    $confirmMessage .= "(904) 217-5152";
+    // Send confirmation SMS using config
+    $siteName = config('site.name', 'our company');
+    $sitePhone = config('site.phone', '');
+    $confirmMessage = "Quote approved! We'll contact you within 2 hours to schedule your service.\n\n";
+    $confirmMessage .= "{$siteName}";
+    if ($sitePhone) {
+        $confirmMessage .= "\n" . $sitePhone;
+    }
 
     // TODO: Trigger CRM notification/task creation
     // Could integrate with Rukovoditel API to create a task or update lead status

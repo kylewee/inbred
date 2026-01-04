@@ -1,0 +1,27 @@
+{
+    "call_sid": "BLOCKTEST",
+    "from": " 19045559999",
+    "started_at": "2025-12-27T14:38:17+00:00",
+    "messages": [
+        {
+            "role": "user",
+            "content": "I need a quote for my 2020 Toyota Tundra brake pads"
+        },
+        {
+            "role": "assistant",
+            "content": "Hey there! What\u2019s your name? I\u2019ll get that quote for the Tundra brake pads sorted out for you. Looks like you've already gotten a few estimates today. Give the mechanic a call at 904-706-6669 to discuss."
+        }
+    ],
+    "collected": {
+        "name": "",
+        "phone": "19045559999",
+        "year": "2020",
+        "make": "Toyota",
+        "model": "Tundra",
+        "problem": "brake pads"
+    },
+    "estimate_given": false,
+    "lead_created": true,
+    "turn_count": 1,
+    "lead_id": "338"
+}

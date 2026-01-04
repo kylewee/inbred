@@ -74,7 +74,7 @@ You should see a dark blue form that says "Get a Quote"
 
 ### Step 2: Find Your Phone Number
 1. Click "Phone Numbers" in the left menu
-2. Find the number: **+1 904-217-5152**
+2. Find the number: **+1 904-706-6669**
 3. Click on it to edit
 
 ### Step 3: Set the Voice Webhook
@@ -115,7 +115,7 @@ Click the blue "Save" button at the bottom.
 5. You should get a text on your phone asking to approve
 
 ### Test 2: Phone Call (IVR)
-1. Call **904-217-5152** from any phone
+1. Call **904-706-6669** from any phone
 2. You should hear "Please hold while I connect you"
 3. Your cell phone (+1 904-663-4789) should ring
 4. DON'T answer your cell
@@ -128,7 +128,7 @@ Click the blue "Save" button at the bottom.
    - You get approval text
 
 ### Test 3: Answer the Call
-1. Call **904-217-5152**
+1. Call **904-706-6669**
 2. Answer on your cell phone
 3. Have a conversation
 4. Hang up
@@ -154,7 +154,7 @@ Click the blue "Save" button at the bottom.
 ## 🔑 IMPORTANT NUMBERS & CREDENTIALS
 
 ### Phone Numbers
-- **Business Line (SignalWire):** +1 904-217-5152
+- **Business Line (SignalWire):** +1 904-706-6669
 - **Your Cell Phone:** +1 904-663-4789
 
 ### SignalWire Account
@@ -268,7 +268,7 @@ Example: `https://abc123.ngrok-free.app/quote/customer_form.php`
 
 ## 🎯 WHAT HAPPENS WHEN (Flow Summary)
 
-### When Someone CALLS 904-217-5152:
+### When Someone CALLS 904-706-6669:
 ```
 Call comes in
     ↓

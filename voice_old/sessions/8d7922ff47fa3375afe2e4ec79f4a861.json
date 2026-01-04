@@ -1,0 +1,27 @@
+{
+    "call_sid": "FLOWTEST02",
+    "from": " 19041234888",
+    "started_at": "2025-12-27T13:14:07+00:00",
+    "messages": [
+        {
+            "role": "user",
+            "content": "yeah my name is Mike and I have a 2019 Ford F150 and the engine is making a knocking noise"
+        },
+        {
+            "role": "assistant",
+            "content": "Hey Mike, got it! That knocking noise isn\u2019t fun. I can text you a quick estimate for that. Cool? I just texted you the estimate."
+        }
+    ],
+    "collected": {
+        "name": "Mike",
+        "phone": "19041234888",
+        "year": "2019",
+        "make": "Ford",
+        "model": "F150",
+        "problem": "engine making a knocking noise"
+    },
+    "estimate_given": true,
+    "lead_created": true,
+    "turn_count": 1,
+    "lead_id": "335"
+}

@@ -7,7 +7,7 @@
 </head>
 <body>
   <h1>Mobile Mechanic Service</h1>
-  <p>Call us: <a href="tel:9042175152">904-217-5152</a></p>
+  <p>Call us: <a href="tel:9047066669">904-706-6669</a></p>
 
   <h2>Get a Price Quote</h2>
   <form id="quoteForm">
@@ -59,7 +59,7 @@
   <h2>Call Recording & Transcription</h2>
   <p><em>Automatic call recording and transcription will be added here.</em></p>
   <form id="callForm">
-    <label>Phone Number: <input name="phone" value="904-217-5152" readonly></label><br>
+    <label>Phone Number: <input name="phone" value="904-706-6669" readonly></label><br>
     <button type="button" onclick="alert('Call recording feature coming soon!')">Start Recording</button>
   </form>
 

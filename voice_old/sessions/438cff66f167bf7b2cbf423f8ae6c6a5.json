@@ -1,0 +1,54 @@
+{
+    "call_sid": "ce732ef0-388b-4a19-9d6a-ae456cd5b280",
+    "from": "+19046156899",
+    "started_at": "2025-12-29T17:52:16+00:00",
+    "messages": [
+        {
+            "role": "assistant",
+            "content": "Hey there! This is EZ Mobile Mechanic. What's going on with your vehicle?"
+        },
+        {
+            "role": "user",
+            "content": "oh well hi there easy mobile mechanic I've got a problem with my the pressure  the pressure um"
+        },
+        {
+            "role": "assistant",
+            "content": "Got it! Can you tell me the year, make, and model of your vehicle?"
+        },
+        {
+            "role": "user",
+            "content": "you know the pressure in my um my my brake system  like it's really hard to push the brake"
+        },
+        {
+            "role": "assistant",
+            "content": "Sounds like a brake issue! Can I get the year, make, and model of your vehicle?"
+        },
+        {
+            "role": "user",
+            "content": "yeah it's a 2024 Chevy Cavalier"
+        },
+        {
+            "role": "assistant",
+            "content": "Thanks for that! Just to confirm, your name?"
+        },
+        {
+            "role": "user",
+            "content": "night talk  mhm"
+        },
+        {
+            "role": "assistant",
+            "content": "Thanks, Night Talk! So, you have a 2024 Chevy Cavalier with hard brake pressure. Would you like me to text you a quick estimate?"
+        }
+    ],
+    "collected": {
+        "name": "",
+        "phone": "19046156899",
+        "year": "",
+        "make": "",
+        "model": "",
+        "problem": ""
+    },
+    "estimate_given": false,
+    "lead_created": false,
+    "turn_count": 4
+}

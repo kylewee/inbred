@@ -1,0 +1,22 @@
+{
+    "call_sid": "call_694f7596a7d6b",
+    "from": "",
+    "started_at": "2025-12-27T05:58:46+00:00",
+    "messages": [
+        {
+            "role": "assistant",
+            "content": "Hey there! What\u2019s going on with your ride?"
+        }
+    ],
+    "collected": {
+        "name": "",
+        "phone": "",
+        "year": "",
+        "make": "",
+        "model": "",
+        "problem": ""
+    },
+    "estimate_given": false,
+    "lead_created": false,
+    "turn_count": 0
+}

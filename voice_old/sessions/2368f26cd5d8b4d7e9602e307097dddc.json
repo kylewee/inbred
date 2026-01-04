@@ -1,0 +1,86 @@
+{
+    "call_sid": "0e7dcead-a889-4992-a757-b1efa9c018ca",
+    "from": "+19046156899",
+    "started_at": "2025-12-29T17:25:03+00:00",
+    "messages": [
+        {
+            "role": "assistant",
+            "content": "Hi there! Thanks for calling EZ Mobile Mechanic. What seems to be going on with your vehicle?"
+        },
+        {
+            "role": "user",
+            "content": "my front brakes are bad  my front brakes the long delay long delay um"
+        },
+        {
+            "role": "assistant",
+            "content": "Got it! Can I get the year, make, and model of your vehicle?"
+        },
+        {
+            "role": "user",
+            "content": "very beginning  if I was a customer I might hang up"
+        },
+        {
+            "role": "assistant",
+            "content": "I understand, thanks for the feedback! Let's get this sorted out. Can you tell me the year, make, and model of your vehicle?"
+        },
+        {
+            "role": "user",
+            "content": "I would"
+        },
+        {
+            "role": "assistant",
+            "content": "Sounds good! Just let me know the year, make, and model when you're ready."
+        },
+        {
+            "role": "user",
+            "content": "uh 2020  Ford Fiesta"
+        },
+        {
+            "role": "assistant",
+            "content": "Great, a 2020 Ford Fiesta! So, you mentioned the front brakes are having a long delay. Is there anything else going on with the vehicle?"
+        },
+        {
+            "role": "user",
+            "content": "for fiesta  2020"
+        },
+        {
+            "role": "assistant",
+            "content": "Got it, 2020 Ford Fiesta with front brake issues. Would you like me to text you a quick estimate?"
+        },
+        {
+            "role": "user",
+            "content": "fuck oops  sorry take it back"
+        },
+        {
+            "role": "assistant",
+            "content": "No problem at all! Just to confirm, you still want the estimate for the brakes on your 2020 Ford Fiesta?"
+        },
+        {
+            "role": "user",
+            "content": "yes I need that estimate if I could get it verbally that would be great"
+        },
+        {
+            "role": "assistant",
+            "content": "I can definitely get you an estimate via text, and then the mechanic will follow up with you. Does that work for you?"
+        },
+        {
+            "role": "user",
+            "content": "I mean I would really like to get it verbally right now but I can wait for the mechanic if that's what I need to do"
+        },
+        {
+            "role": "assistant",
+            "content": "I understand! Unfortunately, I can't provide a verbal estimate right now, but I can send you a quick text, and the mechanic will follow up with you shortly. Does that sound good?"
+        }
+    ],
+    "collected": {
+        "name": "",
+        "phone": "19046156899",
+        "year": "",
+        "make": "",
+        "model": "",
+        "problem": ""
+    },
+    "estimate_given": false,
+    "lead_created": false,
+    "turn_count": 8
+}

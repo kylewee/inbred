@@ -1,0 +1,63 @@
+{
+    "call_sid": "5ce4a072-3b0a-4359-bf6e-a027068f44c3",
+    "from": "+19046156899",
+    "started_at": "2025-12-29T16:29:46+00:00",
+    "messages": [
+        {
+            "role": "assistant",
+            "content": "Hi there! Thanks for calling EZ Mobile Mechanic. What\u2019s going on with your vehicle today?"
+        },
+        {
+            "role": "user",
+            "content": "yeah"
+        },
+        {
+            "role": "assistant",
+            "content": "Got it! Could you please tell me the year, make, and model of your vehicle?"
+        },
+        {
+            "role": "user",
+            "content": "yeah"
+        },
+        {
+            "role": "assistant",
+            "content": "No problem! Just need the year, make, and model of your vehicle when you get a chance."
+        },
+        {
+            "role": "user",
+            "content": "uh yeah it's a geometrical 90 96"
+        },
+        {
+            "role": "assistant",
+            "content": "Thanks for that! Just to clarify, is it a Geo Metro from 1996? And what's the main issue you're experiencing with it?"
+        },
+        {
+            "role": "user",
+            "content": "that's right"
+        },
+        {
+            "role": "assistant",
+            "content": "Great! What's the problem you're having with your Geo Metro?"
+        },
+        {
+            "role": "user",
+            "content": "so the clutch went out I need a new clutch"
+        },
+        {
+            "role": "assistant",
+            "content": "Got it! I can text you a quick estimate for the clutch replacement. Would you like that?"
+        }
+    ],
+    "collected": {
+        "name": "",
+        "phone": "19046156899",
+        "year": "",
+        "make": "",
+        "model": "",
+        "problem": ""
+    },
+    "estimate_given": false,
+    "lead_created": true,
+    "turn_count": 5,
+    "lead_id": null
+}

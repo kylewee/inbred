@@ -186,7 +186,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($action === 'get_estimate') {
         // Rate limit check
         if (!checkRateLimit($ip)) {
-            echo json_encode(['ok' => false, 'error' => 'Too many requests today. Please try again tomorrow or call us at 904-217-5152.']);
+            echo json_encode(['ok' => false, 'error' => 'Too many requests today. Please try again tomorrow or call us at 904-706-6669.']);
             exit;
         }
 
@@ -212,7 +212,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $estimate = getEstimateFromAI($vehicle, $problem);
 
         if (!$estimate) {
-            echo json_encode(['ok' => false, 'error' => 'Could not generate estimate. Please call us at 904-217-5152.']);
+            echo json_encode(['ok' => false, 'error' => 'Could not generate estimate. Please call us at 904-706-6669.']);
             exit;
         }
 
@@ -237,6 +237,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $leadId = saveToCRM($crmData);
 
+        // Send to ezlead4u.com for distribution
+        require_once __DIR__ . '/lib/EzleadClient.php';
+        $ezlead = new EzleadClient();
+        if ($ezlead->isEnabled()) {
+            $description = "Vehicle: $year $make $model" . ($engine ? " ($engine)" : "") . "\n";
+            $description .= "Repair: " . ($estimate['repair']['name'] ?? 'Unknown') . "\n";
+            $description .= "Problem: $problem\n";
+            $description .= "Estimate: $" . ($estimate['estimate']['labor_cost'] ?? '?');
+
+            $ezleadResult = $ezlead->directPost(
+                defined('EZLEAD_VERTICAL') ? EZLEAD_VERTICAL : 'mechanic',
+                'FL',  // Default state - could be made configurable
+                $firstName,
+                $phone,
+                $lastName,
+                $email,
+                null,  // city
+                null,  // zip
+                null,  // address
+                $description
+            );
+            // Log result (non-blocking - don't fail if ezlead fails)
+            if (!$ezleadResult['success']) {
+                error_log("EzLead submission failed: " . ($ezleadResult['error'] ?? 'Unknown error'));
+            }
+        }
+
         // Store for delivery options
         $_SESSION['last_estimate'] = [
             'estimate' => $estimate,
@@ -255,7 +282,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Send estimate via text (keeping this for when 10DLC is set up)
     if ($action === 'send_text') {
-        echo json_encode(['ok' => false, 'error' => 'Text delivery coming soon! Please take a screenshot or call 904-217-5152.']);
+        echo json_encode(['ok' => false, 'error' => 'Text delivery coming soon! Please take a screenshot or call 904-706-6669.']);
         exit;
     }
 
@@ -280,7 +307,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $body .= "Description: {$est['repair']['description']}\n";
         $body .= "Labor Time: {$est['repair']['book_time_typical']} hours\n\n";
         $body .= "ESTIMATED COST: $" . number_format($est['estimate']['labor_cost'], 2) . " (labor only)\n\n";
-        $body .= "Ready to schedule? Call us at 904-217-5152 or reply to this email!\n\n";
+        $body .= "Ready to schedule? Call us at 904-706-6669 or reply to this email!\n\n";
         $body .= "- Kyle, EZ Mobile Mechanic\n";
         $body .= "St. Augustine, FL";
 
@@ -601,12 +628,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <div class="delivery-btns">
                     <button class="btn btn-secondary" onclick="sendEmail()">📧 Email Me This Estimate</button>
-                    <a href="tel:9042175152" class="btn btn-success" style="text-align: center; text-decoration: none;">📞 Call to Schedule: 904-217-5152</a>
+                    <a href="tel:9047066669" class="btn btn-success" style="text-align: center; text-decoration: none;">📞 Call to Schedule: 904-706-6669</a>
                     <button class="btn btn-secondary" onclick="newEstimate()">← Get Another Estimate</button>
                 </div>
             </div>
 
-            <p class="phone-link">Questions? Call <a href="tel:9042175152">904-217-5152</a></p>
+            <p class="phone-link">Questions? Call <a href="tel:9047066669">904-706-6669</a></p>
         </div>
     </div>
 

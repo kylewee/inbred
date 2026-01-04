@@ -33,7 +33,7 @@ app = Flask(__name__)
 # Configuration from environment
 TWILIO_ACCOUNT_SID = os.getenv('TWILIO_ACCOUNT_SID')
 TWILIO_AUTH_TOKEN = os.getenv('TWILIO_AUTH_TOKEN')
-TWILIO_PHONE_NUMBER = os.getenv('TWILIO_PHONE_NUMBER', '+19042175152')
+TWILIO_PHONE_NUMBER = os.getenv('TWILIO_PHONE_NUMBER', '+19047066669')
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 DB_CONFIG = {
     'host': os.getenv('DB_HOST', 'localhost'),

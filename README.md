@@ -1,298 +1,209 @@
-# Mechanic Saint Augustine
+# Master Template
 
-A comprehensive mobile mechanic service platform with quote management, voice recording, and CRM integration.
-
-## Features
-
-- **Quote System**: Online quote intake with SMS/email notifications
-- **Voice System**: Call recording with AI transcription (OpenAI Whisper)
-- **CRM Integration**: Rukovoditel CRM for lead management
-- **Admin Tools**: Dispatch, leads approval, parts orders
-- **Go Backend**: Modern REST API with clean architecture
-- **Security**: Input validation, SQL injection protection, secure authentication
-- **Monitoring**: Health check endpoints, structured logging, error tracking
-
-## Tech Stack
-
-- **Frontend**: HTML, CSS, JavaScript
-- **Backend**: PHP 7.4+ (legacy), Go 1.19+ (modern API)
-- **Database**: MySQL 5.7+/MariaDB 10.3+, PostgreSQL
-- **Integrations**: Twilio (Voice/SMS), OpenAI (Transcription)
-- **Security**: PDO prepared statements, input sanitization, CSRF protection
+Multi-site lead generation platform. One codebase, many domains.
 
 ## Quick Start
 
-### 1. Clone Repository
-
 ```bash
-git clone <your-repo-url>
-cd mechanicsaintaugustine.com
+# Create new site config
+./deploy-site.sh sodjax.com "Sod Jax" landscaping
+
+# Edit config with your credentials
+nano config/sodjax.com.php
+
+# Add to Caddyfile and reload
+sudo caddy reload --config Caddyfile
 ```
 
-### 2. Configure Environment
+## How It Works
 
-```bash
-# Copy environment template
-cp .env.example .env
-
-# Edit .env with your credentials
-nano .env
-```
-
-### 3. Set Up Database
-
-```bash
-mysql -u root -p <<EOF
-CREATE DATABASE mm CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-CREATE DATABASE rating CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-CREATE USER 'mechanic_user'@'localhost' IDENTIFIED BY 'your_password';
-GRANT ALL PRIVILEGES ON mm.* TO 'mechanic_user'@'localhost';
-GRANT ALL PRIVILEGES ON rating.* TO 'mechanic_user'@'localhost';
-FLUSH PRIVILEGES;
-EOF
-```
-
-### 4. Configure Web Server
-
-Set environment variables in your web server configuration (Apache/Nginx).
-See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed instructions.
-
-### 5. Test Installation
-
-```bash
-# Health check
-curl https://yourdomain.com/health.php
-
-# Should return: {"status":"healthy", ...}
-```
-
-## Project Structure
+1. **All domains point to same codebase** via Caddy
+2. **PHP detects domain** and loads appropriate config
+3. **Config controls everything**: branding, services, phone, CRM, estimates
 
 ```
-.
-├── api/                    # API endpoints (quote intake, SMS)
-├── quote/                  # Quote system handlers
-├── voice/                  # Voice recording & transcription
-├── admin/                  # Admin dashboard (dispatch, leads)
-├── Mobile-mechanic/        # Legacy customer portal
-├── crm/                    # Rukovoditel CRM system
-├── backend/                # Go REST API (modern)
-├── lib/                    # Shared PHP libraries
-│   ├── database/          # Database connection utilities
-│   ├── services/          # Business logic services
-│   └── utils/             # Helper utilities (validation, logging)
-├── docs/                   # Technical documentation
-├── health.php             # Health check endpoint
-├── .env.example           # Environment template
-└── DEPLOYMENT.md          # Deployment guide
+Request → Caddy → master-template/index.php
+                  ↓
+                  config/bootstrap.php → config/[domain].php
+                  ↓
+                  Site renders with correct branding/content
 ```
 
-## Core Components
+## Directory Structure
 
-### Shared Libraries (`/lib/`)
-
-**New in this release**: Consolidated, secure, reusable code
-
-- **Database.php**: Unified PDO-based database connections
-  - Single source of truth for all DB access
-  - SQL injection protection via prepared statements
-  - Support for main, rating, and CRM databases
-
-- **InputValidator.php**: Input sanitization and validation
-  - XSS protection
-  - Email, phone, URL validation
-  - CSRF token generation and validation
-
-- **PhoneNormalizer.php**: Phone number handling
-  - E.164 format normalization
-  - US/international phone support
-
-- **Logger.php**: Structured logging
-  - DEBUG, INFO, WARNING, ERROR, CRITICAL levels
-  - Request logging, API call tracking
-  - Automatic log rotation
-
-### Health Monitoring
-
-```bash
-# Check system health
-curl https://yourdomain.com/health.php
+```
+master-template/
+├── config/                    # Site configurations
+│   ├── bootstrap.php          # Auto-loads config by domain
+│   ├── config.template.php    # Copy for new sites
+│   ├── default.php            # Fallback config
+│   ├── mechanicstaugustine.com.php
+│   ├── sodjacksonvillefl.com.php
+│   ├── sodjax.com.php
+│   └── jacksonvillesod.com.php
+├── voice/                     # Phone system
+│   ├── incoming.php           # Inbound call handler
+│   ├── dial_result.php        # Post-dial routing
+│   ├── gpt_assistant.php      # AI voice assistant
+│   ├── recording_callback.php # Transcription + CRM
+│   └── swaig_functions.php    # AI functions (estimates)
+├── api/                       # Backend APIs
+│   ├── quote_intake.php       # Web form handler
+│   ├── service-complete.php   # Mark job complete
+│   └── quote-approve.php      # Quote approval
+├── lib/                       # Helpers
+│   ├── CRMHelper.php          # CRM integration
+│   └── QuoteSMS.php           # SMS quote system
+├── index.php                  # Landing page (config-driven)
+├── deploy-site.sh             # New site setup script
+├── Caddyfile.template         # Multi-domain Caddy config
+└── data/                      # SQLite databases
 ```
 
-Returns:
-- Database connectivity (main, rating, CRM)
-- Environment variable configuration
-- File system permissions
-- PHP version and extensions
-
-### Security Features
-
-✅ Input validation on all user inputs
-✅ SQL injection protection (PDO prepared statements)
-✅ XSS protection (output escaping)
-✅ CSRF token support
-✅ Secure password handling
-✅ Environment-based configuration (no hardcoded secrets)
-✅ HTTPS enforcement
-✅ Rate limiting ready (via web server)
-
-## API Endpoints
-
-### Quote System
-
-- `POST /quote/quote_intake_handler.php` - Submit quote request
-- `POST /quote/status_callback.php` - Twilio status updates
-
-### Voice System
-
-- `POST /voice/incoming.php` - Handle incoming calls
-- `POST /voice/recording_callback.php` - Process recordings
-
-### Health & Monitoring
-
-- `GET /health.php` - System health check
-
-## Environment Variables
-
-Required environment variables (see `.env.example`):
-
-```bash
-# Database
-DB_HOST=localhost
-DB_USERNAME=mechanic_user
-DB_PASSWORD=your_password
-DB_NAME=mm
-
-# Twilio
-TWILIO_ACCOUNT_SID=ACxxxxx...
-TWILIO_AUTH_TOKEN=your_token
-TWILIO_SMS_FROM=+1234567890
-
-# OpenAI
-OPENAI_API_KEY=sk-xxxxx...
-
-# CRM
-CRM_USERNAME=admin
-CRM_PASSWORD=crm_password
-CRM_API_KEY=api_key
-```
-
-## Deployment
-
-See [DEPLOYMENT.md](DEPLOYMENT.md) for complete deployment instructions including:
-
-- Server requirements
-- Web server configuration (Apache/Nginx)
-- SSL certificate setup
-- Twilio webhook configuration
-- Production security checklist
-- Monitoring and maintenance
-
-## Development
-
-### Using Shared Libraries
+## Config Reference
 
 ```php
-<?php
-// Load autoloader
-require_once __DIR__ . '/lib/autoload.php';
+return [
+    'site' => [
+        'name'        => 'Business Name',
+        'tagline'     => 'Your tagline',
+        'domain'      => 'yourdomain.com',
+        'phone'       => '+1234567890',
+        'email'       => 'info@domain.com',
+        'service_area'=> 'Jacksonville, FL',
+    ],
 
-// Database access
-$db = Database::getInstance('main');
-$users = $db->fetchAll('SELECT * FROM users WHERE active = ?', [1]);
+    'business' => [
+        'type'        => 'landscaping',  // mechanic, landscaping, roofing, plumbing
+        'category'    => 'Landscaping',
+        'services'    => ['Sod Installation', 'Lawn Care'],
+    ],
 
-// Input validation
-$email = InputValidator::sanitizeEmail($_POST['email']);
-$phone = PhoneNormalizer::normalize($_POST['phone']);
+    'branding' => [
+        'primary_color'   => '#16a34a',
+        'secondary_color' => '#854d0e',
+    ],
 
-// Logging
-Logger::info('User registered', ['email' => $email], 'auth');
+    'crm' => [
+        'enabled'       => true,
+        'api_url'       => 'https://domain.com/crm/api/rest.php',
+        // ... credentials
+    ],
+
+    'phone' => [
+        'provider'      => 'signalwire',
+        'project_id'    => '...',
+        'phone_number'  => '+1234567890',
+        'forward_to'    => '+1234567890',
+    ],
+
+    'openai' => [
+        'api_key'       => 'sk-...',
+    ],
+
+    'features' => [
+        'voice_assistant'   => true,
+        'sms_estimates'     => true,
+        'crm_integration'   => true,
+    ],
+
+    'estimates' => [
+        'enabled'       => true,
+        'labor_rate'    => 75,
+        'estimate_type' => 'landscaping',
+        'input_fields'  => [
+            ['name' => 'sqft', 'label' => 'Square Footage', 'type' => 'number'],
+            // ...
+        ],
+        'prompts' => [
+            'landscaping' => 'You are a sod estimator. ...',
+        ],
+    ],
+];
 ```
 
-### Running Tests
+## Adding a New Site
+
+1. **Create config**
+   ```bash
+   ./deploy-site.sh newdomain.com "Business Name" landscaping
+   ```
+
+2. **Edit config** - Fill in credentials:
+   - Phone number and service area
+   - SignalWire credentials (for phone)
+   - OpenAI key (for estimates)
+   - CRM credentials (optional)
+
+3. **Update Caddyfile**
+   ```
+   newdomain.com, www.newdomain.com,
+   ```
+
+4. **Reload Caddy**
+   ```bash
+   sudo caddy reload --config Caddyfile
+   ```
+
+## Business Types
+
+| Type | Collects | Estimate Fields |
+|------|----------|-----------------|
+| `mechanic` | year, make, model, problem | Labor hours, parts cost |
+| `landscaping` | sqft, grass type, address | Material, labor, total |
+| `roofing` | sqft, roof type, address | Material, labor, total |
+| `plumbing` | service type, address | Parts, labor, total |
+
+## Features
+
+### Voice System (SignalWire)
+- Inbound call handling
+- Auto-forward to your cell
+- GPT assistant picks up if you miss
+- Call recording + transcription
+- Auto-creates CRM leads
+
+### GPT Estimates
+- Voice: "What's it cost to replace brakes?"
+- Web form: Fill out, get instant quote
+- SMS: Texts estimate to customer
+- Rate limiting: 5 per day per phone
+
+### CRM Integration (Rukovoditel)
+- Auto-creates leads from calls/forms
+- Pipeline stage tracking
+- Activity logging
+
+## Commands
 
 ```bash
-# PHP tests
-cd backend
-go test ./...
+# Test PHP syntax
+php -l index.php
 
-# See TESTING_GUIDE.md for comprehensive testing instructions
+# View voice logs
+tail -f voice/voice.log | python3 -m json.tool
+
+# Reload PHP after config changes
+sudo systemctl reload php8.3-fpm
+
+# Validate Caddyfile
+caddy validate --config Caddyfile
 ```
 
-## Monitoring & Logs
+## Environment
 
-### Log Files
+- PHP 8.3
+- Caddy web server
+- SQLite (quotes, rate limits)
+- MySQL (CRM)
+- SignalWire/Twilio (phone)
+- OpenAI (GPT-4o-mini)
 
-```bash
-# Application logs (categorized by component)
-tail -f logs/app-YYYY-MM-DD.log
-tail -f logs/requests-YYYY-MM-DD.log
-tail -f logs/api-YYYY-MM-DD.log
-tail -f logs/database-YYYY-MM-DD.log
+## Active Sites
 
-# Web server logs
-tail -f /var/log/apache2/mechanic-error.log
-tail -f /var/log/nginx/mechanic-error.log
-```
-
-### Health Checks
-
-Set up automated health checks:
-
-```bash
-# Cron job example (every 5 minutes)
-*/5 * * * * curl -sf https://yourdomain.com/health.php || echo "Health check failed" | mail -s "Alert" admin@example.com
-```
-
-## Troubleshooting
-
-### Database Connection Issues
-
-```bash
-# Test database connection
-php -r "new PDO('mysql:host=localhost;dbname=mm', 'user', 'pass');"
-```
-
-### Twilio Webhook Issues
-
-- Ensure webhooks use HTTPS (not HTTP)
-- Verify webhook URLs in Twilio Console
-- Check web server logs for incoming requests
-
-### Permission Issues
-
-```bash
-# Fix file permissions
-sudo chown -R www-data:www-data .
-sudo chmod -R 755 .
-sudo chmod -R 775 logs api quote voice
-```
-
-## Production Checklist
-
-Before going live:
-
-- [ ] All environment variables configured
-- [ ] Database credentials are strong and unique
-- [ ] SSL certificate installed and working
-- [ ] Health check endpoint responding correctly
-- [ ] Twilio webhooks configured and tested
-- [ ] File permissions set correctly
-- [ ] Logs directory is writable
-- [ ] Backup system configured
-- [ ] Monitoring/alerting set up
-- [ ] Error logs being reviewed regularly
-
-## Security
-
-Report security vulnerabilities to: [your-security-email]
-
-## Documentation
-
-- [DEPLOYMENT.md](DEPLOYMENT.md) - Complete deployment guide
-- [TESTING_GUIDE.md](TESTING_GUIDE.md) - Testing procedures
-- [docs/](docs/) - Technical documentation
-
-## License
-
-[Your License]
+| Domain | Business | Type |
+|--------|----------|------|
+| mechanicstaugustine.com | EZ Mobile Mechanic | mechanic |
+| sodjacksonvillefl.com | Sod Jacksonville FL | landscaping |
+| sodjax.com | Sod Jax | landscaping |
+| jacksonvillesod.com | Jacksonville Sod | landscaping |

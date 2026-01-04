@@ -8,7 +8,7 @@ define('DB_NAME', 'mechanic');
 // Twilio Configuration
 define('TWILIO_SID', getenv('TWILIO_SID') ?: 'your_twilio_sid');
 define('TWILIO_TOKEN', getenv('TWILIO_TOKEN') ?: 'your_twilio_token');
-define('TWILIO_PHONE', getenv('TWILIO_PHONE') ?: '+19042175152');
+define('TWILIO_PHONE', getenv('TWILIO_PHONE') ?: '+19047066669');
 
 // OpenAI Configuration
 define('OPENAI_API_KEY', getenv('OPENAI_API_KEY') ?: 'your_openai_key');

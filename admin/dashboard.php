@@ -2,7 +2,7 @@
 session_start();
 
 // Simple password protection
-$password = 'mechanic2024'; // Change this to your preferred password
+$password = 'ezlead2024'; // Change this to your preferred password
 
 if (isset($_POST['logout'])) {
     unset($_SESSION['admin_logged_in']);
@@ -32,7 +32,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Admin Login - Mechanic St Augustine</title>
+    <title>Admin Login - EzLead4U</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         body { font-family: Arial, sans-serif; background: #1a1a2e; color: #eee; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
@@ -62,7 +62,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Admin Dashboard - Mechanic St Augustine</title>
+    <title>Admin Dashboard - EzLead4U</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         * { box-sizing: border-box; }
@@ -91,7 +91,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
 </head>
 <body>
     <div class="header">
-        <h1>🔧 Mechanic St Augustine - Admin Dashboard</h1>
+        <h1>🔧 EzLead4U - Admin Dashboard</h1>
         <form method="POST" style="display:inline;">
             <button type="submit" name="logout" value="1" class="logout-btn">Logout</button>
         </form>
@@ -124,7 +124,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
         <div class="card">
             <h2>🌐 Website</h2>
             <a href="/" target="_blank">Homepage</a>
-            <a href="/Mobile-mechanic/" target="_blank">Mobile Mechanic Portal</a>
+            <a href="/Mobile-mechanic/" target="_blank">EzLead4U Portal</a>
             <a href="/health.php" target="_blank">Health Check</a>
         </div>
 

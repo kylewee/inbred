@@ -1,0 +1,27 @@
+{
+    "call_sid": "RATE1",
+    "from": " 19045551111",
+    "started_at": "2025-12-27T13:18:12+00:00",
+    "messages": [
+        {
+            "role": "user",
+            "content": "I need an estimate for my 2020 Chevy Silverado brakes"
+        },
+        {
+            "role": "assistant",
+            "content": "Hey there! What\u2019s your name? I just texted you the estimate."
+        }
+    ],
+    "collected": {
+        "name": "",
+        "phone": "19045551111",
+        "year": "2020",
+        "make": "Chevy",
+        "model": "Silverado",
+        "problem": "brakes"
+    },
+    "estimate_given": true,
+    "lead_created": true,
+    "turn_count": 1,
+    "lead_id": "336"
+}

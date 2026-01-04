@@ -5,7 +5,7 @@
  */
 
 session_start();
-if (empty($_SESSION['admin_authenticated']) && ($_POST['password'] ?? '') !== 'rainonin') {
+if (empty($_SESSION['admin_authenticated']) && ($_POST['password'] ?? '') !== 'Rain0nin') {
     if (isset($_POST['password'])) $error = 'Invalid password';
     ?>
     <!DOCTYPE html>
@@ -59,7 +59,7 @@ $jobs = $flow->getRecent(25);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flow Admin - EZ Mobile Mechanic</title>
+    <title>Flow Admin - EzLead4U</title>
     <style>
         *{margin:0;padding:0;box-sizing:border-box}
         body{font-family:system-ui,sans-serif;background:#0f172a;color:#e2e8f0;padding:1.5rem}

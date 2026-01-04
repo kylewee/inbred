@@ -1,0 +1,30 @@
+{
+    "call_sid": "89d6befb-7cba-4f4a-bef4-924a3bf2d6d0",
+    "from": "+19047066669",
+    "started_at": "2025-12-29T17:58:09+00:00",
+    "messages": [
+        {
+            "role": "assistant",
+            "content": "Hey there! This is EZ Mobile Mechanic. What's going on with your vehicle?"
+        },
+        {
+            "role": "user",
+            "content": "the Google subscriber you have called is not available please leave a message after the tone"
+        },
+        {
+            "role": "assistant",
+            "content": "It seems I reached a voicemail. If you\u2019d like, feel free to call back when you're available. Have a great day!"
+        }
+    ],
+    "collected": {
+        "name": "",
+        "phone": "19047066669",
+        "year": "",
+        "make": "",
+        "model": "",
+        "problem": ""
+    },
+    "estimate_given": false,
+    "lead_created": false,
+    "turn_count": 1
+}

@@ -44,7 +44,7 @@ echo "\n<Response>\n";
 
 if (!$isMechanic) {
     // Not from mechanic - could be customer inquiry
-    echo "  <Message>Thanks for your message! We'll get back to you shortly. Call 904-217-5152 for immediate assistance.</Message>\n";
+    echo "  <Message>Thanks for your message! We'll get back to you shortly. Call 904-706-6669 for immediate assistance.</Message>\n";
     echo "</Response>";
     exit;
 }
@@ -183,7 +183,7 @@ function send_estimate_to_customer(array $est): array {
     }
     
     $msg .= "\n=== TOTAL: \${$total} ===\n\n";
-    $msg .= "Includes parts & labor. Reply or call 904-217-5152 to schedule!";
+    $msg .= "Includes parts & labor. Reply or call 904-706-6669 to schedule!";
     
     return send_sms($customerPhone, $msg);
 }

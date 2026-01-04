@@ -36,7 +36,7 @@ define('MECHANIC_CELL_NUMBER', '+19046634789');
 define('TWILIO_FORWARD_TO', '+19046634789');
 
 // OpenAI for transcription
-define('OPENAI_API_KEY', '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');
+define('OPENAI_API_KEY', getenv('OPENAI_API_KEY') ?: '');
 
 // Recording access token
 define('VOICE_RECORDINGS_TOKEN', 'msarec-2b7c9f1a5d4e');

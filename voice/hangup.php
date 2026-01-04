@@ -1,4 +1,7 @@
 <?php
-header('Content-Type: application/json');
-echo json_encode(["result" => "hangup"]);
-?>
+/**
+ * Simple hangup handler
+ */
+header('Content-Type: text/xml');
+echo '<?xml version="1.0" encoding="UTF-8"?>';
+echo '<Response><Hangup /></Response>';

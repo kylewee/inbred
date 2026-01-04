@@ -196,7 +196,7 @@ if (!$tests['api_token'] || TWILIO_AUTH_TOKEN === 'YOUR_SIGNALWIRE_API_TOKEN_HER
 if ($passed === $total) {
     echo "✅ All tests passed! Your system is ready.\n\n";
     echo "Test your phone system:\n";
-    echo "1. Call: +1 (904) 217-5152\n";
+    echo "1. Call: +1 (904) 706-6669\n";
     echo "2. Monitor logs: tail -f voice/voice.log\n";
     echo "3. Check recordings: https://mechanicstaugustine.com/voice/recording_callback.php?action=recordings&token=msarec-2b7c9f1a5d4e\n";
 } else {

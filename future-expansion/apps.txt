@@ -1,0 +1,373 @@
+Pubvana
+SitePad
+Dotclear
+Serendipity
+Textpattern
+b2evolution
+HTMLy
+Nibbleblog
+Nucleus
+Chyrp
+FlatPress
+PivotX
+Leafpub
+WordPress 6.8
+Portals/CMS
+Joomla
+Open Real Estate
+Concrete CMS
+MODX
+e107
+Drupal Core
+Xoops
+CMS Made Simple
+PHP-Fusion
+Geeklog
+Composr
+Zikula
+WebsiteBaker
+ProcessWire
+SilverStripe
+PyroCMS
+Subrion
+Drupal CMS
+Contao
+GRAV
+Sitemagic CMS
+ImpressPages
+Quick.CMS
+Redaxscript
+PopojiCMS
+OctoberCMS
+Microweber
+ImpressCMS
+WonderCMS
+Monstra
+TYPO3
+phpwcms
+Open Business Card
+Bludit
+SiteCake
+PluXml
+Kopage
+liveSite
+ExpressionEngine
+Pimcore
+WBCE CMS
+Bolt
+Mahara
+Jamroom
+Kirby
+Fork
+WinterCMS
+Pagekit
+ClassicPress
+Typesetter
+Backdrop CMS
+CSZ CMS
+Directus
+Fiyo CMS
+razorCMS
+NukeViet CMS
+Koken
+Atlantis CMS
+Pluck
+Plikli CMS
+Croogo
+Cotonti
+Zenario
+LEPTON
+CMSimple
+InstantCMS
+Hotaru CMS
+Anchor
+SCHLIX CMS
+appRain
+ClipperCMS
+GeniXCMS
+ZwiiCMS
+Saurus
+Precurio
+Tiki Wiki CMS Groupware
+Wolf CMS
+SofaWiki
+Forums
+phpBB
+SMF
+MyBB
+AEF
+Vanilla
+PunBB
+bbPress
+FluxBB
+XMB
+Phorum
+Flarum
+ElkArte
+FUDforum
+miniBB
+Carbon Forum
+my little forum
+TidyBB
+TangoBB
+Flatboard
+Beehive
+Unclassified NewsBoard
+Image Galleries
+Gallery
+Piwigo
+Coppermine
+Zenphoto
+TinyWebGallery
+Lychee
+Chevereto
+4images
+iGalerie
+Wikis
+DokuWiki
+PmWiki
+WikkaWiki
+MediaWiki
+Social Networking
+pH7Builder
+Dolphin
+Oxwall
+Jcow
+Open Source Social Network
+HumHub
+Etano
+UNA
+Family Connections
+Hubzilla
+GNU social
+Elgg
+Ad Management
+OsClass Classifieds
+Calendars
+WebCalendar
+Booked
+LuxCal
+SuperCali
+Event Schedule
+Gaming
+Nuked Klan
+Mails
+Roundcube
+phpList
+WebMail Lite
+SquirrelMail
+RainLoop Webmail
+OpenNewsletter
+Postfix Admin
+Polls and Analytics
+LimeSurvey
+Matomo
+LittlePoll
+Open Web Analytics
+Advanced Poll
+Simple PHP Poll
+EasyPoll
+Logaholic
+CJ Dynamic Poll
+Little Software Stats
+Framadate
+Project Management
+Feng Office
+Rukovoditel
+qdPM
+Collabtive
+dotProject
+Mantis Bug Tracker
+Snipe-IT
+ProjectPier
+Kanboard
+The Bug Genie
+PHProjekt
+TaskFreak
+SOPlanning
+ProjeQtOr
+ZenTao
+phpCollab
+Admidio
+WebCollab
+Traq
+Eventum
+Bugs
+Manage Your Team
+TestLink
+Burden
+E-Commerce
+AbanteCart
+WHMCS
+ClicShopping AI
+CE Phoenix
+osCommerce
+Zen Cart
+PrestaShop
+Loaded Commerce
+LiteCart
+Invoice Ninja
+thirty bees
+Open Source Point of Sale
+CubeCart
+Quick.Cart
+Blesta
+InvoicePlane
+OpenCart
+Shopware
+Arastta
+AlegroCart
+SeoToaster
+Open eShop
+Avactis
+Thelia 2
+Zeuscart
+Bagisto
+ClientExec
+Logic Invoice
+Magento
+WhatACart
+QloApps
+PEEL SHOPPING
+Maian Cart
+ERP
+Dolibarr
+Vtiger
+Akaunting
+YetiForce
+SugarCRM
+SuiteCRM
+FrontAccounting
+EPESI
+EspoCRM
+OrangeHRM
+EGroupware
+X2CRM
+Group Office
+Zurmo
+webERP
+ChurchCRM
+Tine 2.0
+Sentrifugo
+Zenbership
+IceHrm
+Krayin CRM
+Jorani
+Guest Books
+VX Guestbook
+RicarGBooK
+PHP Address Book
+Customer Support
+HESK
+osTicket
+Mibew Messenger
+Live helper chat
+Vision Helpdesk
+Crafty Syntax
+HelpDeskZ
+Faveo Helpdesk
+OpenSupports
+phpMyFAQ
+Maian Support
+FreeScout
+UVdesk
+HelpDEZk
+Attendize
+Handesk
+Frameworks
+Laravel
+CodeIgniter
+yii
+Bootstrap
+CakePHP
+Symfony
+Zend
+Kohana
+UIkit
+UserSpice
+Smarty
+HTML Purifier
+FuelPHP
+Webasyst
+PRADO
+Educational
+Moodle
+Chamilo
+RosarioSIS
+Claroline
+TCExam
+Gibbon
+Omeka
+ATutor
+Forma LMS
+ILIAS
+Savsoft Quiz
+openSIS
+DB Tools
+phpMyAdmin
+MyWebSQL
+SIDU
+Adminer
+SQLiteManager
+phpLiteAdmin
+Vty
+Music
+Podcast Generator
+Impleo
+Ampache
+Castopod
+Video
+ClipBucket
+CumulusClips
+RSS
+Tiny Tiny RSS
+FreshRSS
+selfoss
+SimplePie
+Miniflux
+Reader Self
+File Management
+ProjectSend
+eXtplorer
+Arfooo
+SeedDMS
+LetoDMS
+Monsta FTP
+OpenDocMan
+net2ftp
+Others
+Seo Panel
+SLiMS
+Open Journal Systems
+YOURLS
+Question2Answer
+WeBid
+Form Tools
+SPIP
+GLPI
+PASTE
+webtrees
+wallabag
+Firefly III
+PhpGedView
+InfiniteWP
+Agora-Project
+BlaB! AX
+EasyAppointments
+AJAX Chat
+DomainMOD
+Kimai
+u-Auctions
+Commentics
+Fusio
+TastyIgniter
+XCloner
+Omeka S
+LibreHealth EHR
+Hablator
+HuMo-genealogy
+phpDocumentor
+Open Monograph Press
+XMS
+Unmark
+Open Preprint Systems

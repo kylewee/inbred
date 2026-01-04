@@ -111,7 +111,7 @@
             <h2 id="resultTitle"></h2>
             <div id="resultDetails"></div>
             <div class="price" id="resultPrice"></div>
-            <div class="small" style="text-align: center;">Call 904-217-5152 to book!</div>
+            <div class="small" style="text-align: center;">Call 904-706-6669 to book!</div>
         </div>
     </div>
 

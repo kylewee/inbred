@@ -118,7 +118,7 @@ if [ "$all_ok" = true ]; then
     fi
 
     echo ""
-    echo "Voice system is ready to receive calls at: +19042175152"
+    echo "Voice system is ready to receive calls at: +19047066669"
     echo "Website accessible at: https://mechanicstaugustine.com"
 else
     echo -e "${RED}ERROR: Some critical services failed to start${NC}"

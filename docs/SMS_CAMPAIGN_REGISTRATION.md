@@ -52,7 +52,7 @@ Hi [NAME], your [SERVICE] appointment is scheduled for [DATE] at [TIME]. [MECHAN
 
 **Template 3 - Mechanic En Route:**
 ```
-[MECHANIC] is on the way to your location! ETA: [TIME]. For any questions, call us at (904) 217-5152. Reply STOP to opt-out.
+[MECHANIC] is on the way to your location! ETA: [TIME]. For any questions, call us at (904) 706-6669. Reply STOP to opt-out.
 ```
 
 **Template 4 - Service Complete:**
@@ -62,7 +62,7 @@ Your [SERVICE] is complete! Total: $[AMOUNT]. View invoice and pay at: [LINK]. T
 
 **Template 5 - Payment Reminder:**
 ```
-Reminder: Invoice #[NUMBER] for $[AMOUNT] is pending. Pay online at: [LINK] or call (904) 217-5152. Reply STOP to opt-out.
+Reminder: Invoice #[NUMBER] for $[AMOUNT] is pending. Pay online at: [LINK] or call (904) 706-6669. Reply STOP to opt-out.
 ```
 
 ### Opt-in / Opt-out
@@ -97,7 +97,7 @@ Customer records are flagged in CRM to prevent future messaging
 - **Business Name:** Mechanics Saint Augustine
 - **Business Type:** Mobile Automotive Repair Service
 - **Business Address:** [Your business address]
-- **Phone Number:** +1 (904) 217-5152
+- **Phone Number:** +1 (904) 706-6669
 - **Website:** https://mechanicstaugustine.com
 - **EIN/Tax ID:** [Your EIN]
 
@@ -129,7 +129,7 @@ By requesting service from Mechanics Saint Augustine, you consent to receive tra
 
 Message and data rates may apply. Message frequency varies based on your service requests.
 
-To opt-out at any time, reply STOP to any message. For help, reply HELP or call (904) 217-5152.
+To opt-out at any time, reply STOP to any message. For help, reply HELP or call (904) 706-6669.
 
 Privacy Policy: https://mechanicstaugustine.com/privacy
 Terms of Service: https://mechanicstaugustine.com/terms
@@ -206,7 +206,7 @@ const SMS_CAMPAIGN_ID = 'your-approved-campaign-id';
 const SMS_BRAND_ID = 'your-approved-brand-id';
 
 // Ensure this is set
-define('TWILIO_SMS_FROM', '+19042175152');
+define('TWILIO_SMS_FROM', '+19047066669');
 ```
 
 ## Testing After Approval

@@ -1,2 +1,27 @@
 User-agent: *
-Disallow: /
+# Backend - locked up, key thrown away
+Disallow: /admin/
+Disallow: /api/
+Disallow: /voice/
+Disallow: /crm/
+Disallow: /config/
+Disallow: /lib/
+Disallow: /data/
+Disallow: /sessions/
+Disallow: /archive/
+Disallow: /backend/
+Disallow: /cron/
+Disallow: /docs/
+Disallow: /future-expansion/
+Disallow: /q/
+Disallow: /quote/
+Disallow: /scripts/
+Disallow: /services/
+Disallow: /signalwire/
+Disallow: /tests/
+Disallow: /voice_0/
+Disallow: /voice_old/
+
+# OLD - blocked everything:
+# User-agent: *
+# Disallow: /

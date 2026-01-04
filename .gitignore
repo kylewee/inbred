@@ -3,3 +3,26 @@ dist/
 .build/
 .env
 .vscode/
+
+# Logs
+*.log
+voice/*.log
+
+# Databases
+data/*.db
+
+# Recordings
+voice/recordings/*.mp3
+
+# Sessions
+voice/sessions/
+
+# Temp session logs
+CLAUDE2.md
+claude3.md
+session_log*.md
+SESSION_LOG2.md
+
+# Credentials
+api/.env.local.php
+*.desktop

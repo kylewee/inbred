@@ -1,0 +1,47 @@
+{
+    "call_sid": "dd9ea13e-0363-4cef-ae43-087d44f6fc5a",
+    "from": "+19046156899",
+    "started_at": "2025-12-29T16:45:31+00:00",
+    "messages": [
+        {
+            "role": "assistant",
+            "content": "Hi there! Thanks for calling EZ Mobile Mechanic. What\u2019s going on with your vehicle today?"
+        },
+        {
+            "role": "user",
+            "content": "well good question um well today my car it won't start"
+        },
+        {
+            "role": "assistant",
+            "content": "Got it! Can you tell me the year, make, and model of your car?"
+        },
+        {
+            "role": "user",
+            "content": "sure it's a 1995 Suburban"
+        },
+        {
+            "role": "assistant",
+            "content": "Thanks! So, just to confirm, your 1995 Suburban won't start. Is there anything specific you noticed before it stopped working?"
+        },
+        {
+            "role": "user",
+            "content": "yeah it would make this clicking noise"
+        },
+        {
+            "role": "assistant",
+            "content": "Sounds like it could be a battery issue or something similar. Would you like me to text you a quick estimate for the diagnostic?"
+        }
+    ],
+    "collected": {
+        "name": "",
+        "phone": "19046156899",
+        "year": "",
+        "make": "",
+        "model": "",
+        "problem": ""
+    },
+    "estimate_given": false,
+    "lead_created": true,
+    "turn_count": 3,
+    "lead_id": null
+}

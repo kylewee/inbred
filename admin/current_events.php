@@ -2,7 +2,7 @@
 session_start();
 
 // Simple password protection (same as dashboard)
-$password = 'mechanic2024';
+$password = 'ezlead2024';
 
 if (isset($_POST['logout'])) {
     unset($_SESSION['admin_logged_in']);
@@ -95,7 +95,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Current Events - Mechanic St Augustine</title>
+    <title>Current Events - EzLead4U</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="refresh" content="60">
     <style>

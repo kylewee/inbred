@@ -1,0 +1,27 @@
+{
+    "call_sid": "RATE2",
+    "from": " 19045551111",
+    "started_at": "2025-12-27T14:34:57+00:00",
+    "messages": [
+        {
+            "role": "user",
+            "content": "estimate for 2019 Toyota Camry oil change"
+        },
+        {
+            "role": "assistant",
+            "content": "Hey there! What\u2019s your name? I can get you that estimate for the oil change on your 2019 Toyota Camry."
+        }
+    ],
+    "collected": {
+        "name": "",
+        "phone": "19045551111",
+        "year": "2019",
+        "make": "Toyota",
+        "model": "Camry",
+        "problem": "oil change"
+    },
+    "estimate_given": false,
+    "lead_created": true,
+    "turn_count": 1,
+    "lead_id": "337"
+}

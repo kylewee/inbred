@@ -1,0 +1,78 @@
+{
+    "call_sid": "ab252db7-f395-4858-94da-6def1b2cbfe0",
+    "from": "+19046156899",
+    "started_at": "2025-12-30T17:21:31+00:00",
+    "messages": [
+        {
+            "role": "assistant",
+            "content": "Hey there! This is EZ Mobile Mechanic. What's going on with your vehicle?"
+        },
+        {
+            "role": "user",
+            "content": "hey"
+        },
+        {
+            "role": "assistant",
+            "content": "Hey! What\u2019s up with your vehicle?"
+        },
+        {
+            "role": "user",
+            "content": "I"
+        },
+        {
+            "role": "assistant",
+            "content": "I didn't catch that. What's going on with your vehicle?"
+        },
+        {
+            "role": "user",
+            "content": "up and down on the side of the road"
+        },
+        {
+            "role": "assistant",
+            "content": "Gotcha! Can you tell me the year, make, and model of your vehicle?"
+        },
+        {
+            "role": "user",
+            "content": "yes it's a 95"
+        },
+        {
+            "role": "assistant",
+            "content": "Cool, what make and model is it? And what's the issue?"
+        },
+        {
+            "role": "user",
+            "content": "all right it's a make the make is F-150 know it's a Ford"
+        },
+        {
+            "role": "assistant",
+            "content": "Perfect, so a 95 Ford F-150. What's going on with it?"
+        },
+        {
+            "role": "user",
+            "content": "is I'm broken down on the side of the road I think it overheated"
+        },
+        {
+            "role": "assistant",
+            "content": "Oh no, sorry to hear that! I\u2019ll get you set up. Do you want me to text you an estimate for the repair?"
+        },
+        {
+            "role": "user",
+            "content": "okay well"
+        },
+        {
+            "role": "assistant",
+            "content": "I'll have someone call you right back. Thanks for calling!"
+        }
+    ],
+    "collected": {
+        "name": "",
+        "phone": "19046156899",
+        "year": "",
+        "make": "",
+        "model": "",
+        "problem": ""
+    },
+    "estimate_given": false,
+    "lead_created": false,
+    "turn_count": 7
+}

@@ -115,7 +115,7 @@ $failed = in_array($status, ['failed','busy','no-answer','canceled'], true);
 define('SIGNALWIRE_SPACE', 'mobilemechanic.signalwire.com');
 define('TWILIO_ACCOUNT_SID', 'ce4806cb-ccb0-41e9-8bf1-7ea59536adfd');
 define('TWILIO_AUTH_TOKEN', 'PT1c8cf22d1446d4d9daaf580a26ad92729e48a4a33beb769a');
-define('TWILIO_SMS_FROM', '+19042175152');
+define('TWILIO_SMS_FROM', '+19047066669');
 define('TWILIO_FORWARD_TO', '+19046634789');  // Your cell - gets approval texts
 
 // OpenAI for transcription and estimates
@@ -197,7 +197,7 @@ Customer Call → No Answer (60 second timeout)
 ### Test Answered Call Workflow:
 **NOTE:** Won't fully work until SignalWire enables transcription
 
-1. Call +19042175152
+1. Call +19047066669
 2. Answer the call
 3. Say realistic info:
    - "Hi, I'm John Smith"
@@ -213,7 +213,7 @@ Customer Call → No Answer (60 second timeout)
 ### Test Missed Call Workflow:
 **NOTE:** SMS won't send until brand approved
 
-1. Call +19042175152
+1. Call +19047066669
 2. Don't answer - let it timeout (60 seconds)
 3. Hang up after hearing voicemail
 4. **Current behavior:**
@@ -287,7 +287,7 @@ grep "VOICE_ESTIMATE" /var/log/apache2/error.log
 
 ## 📞 Phone Numbers Reference
 
-- **Public Number:** +19042175152 (Google Voice)
+- **Public Number:** +19047066669 (Google Voice)
 - **System Number:** +19047066669 (SignalWire)
 - **Your Cell:** +19046634789 (receives calls + approval texts)
 

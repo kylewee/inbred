@@ -152,7 +152,7 @@ function statusClass(string $status): string
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dispatch Board · Mechanics Saint Augustine</title>
+  <title>Dispatch Board · EzLead4U</title>
   <style>
     :root {
       color-scheme: light dark;

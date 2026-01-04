@@ -3,13 +3,13 @@
  * "Mechanic Busted" Video Content System
  *
  * Short-form video content strategy for TikTok/Reels/Shorts
- * Positioning EZ Mobile Mechanic as the honest alternative
+ * Positioning EzLead4U as the honest alternative
  */
 
 session_start();
 $authenticated = isset($_SESSION['admin_auth']) && $_SESSION['admin_auth'] === true;
 if (!$authenticated && isset($_POST['password'])) {
-    if ($_POST['password'] === 'EZmechanic2025!') {
+    if ($_POST['password'] === 'EZlead2025!') {
         $_SESSION['admin_auth'] = true;
         $authenticated = true;
     }

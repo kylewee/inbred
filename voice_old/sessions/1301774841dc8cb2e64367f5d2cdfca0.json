@@ -1,0 +1,31 @@
+{
+    "call_sid": "SIMCALL001",
+    "from": " 19041234567",
+    "started_at": "2025-12-27T06:09:03+00:00",
+    "messages": [
+        {
+            "role": "assistant",
+            "content": "Hey there! What\u2019s going on with your ride?"
+        },
+        {
+            "role": "user",
+            "content": "my brakes are squeaking on my 2018 Honda Accord"
+        },
+        {
+            "role": "assistant",
+            "content": "Gotcha! So, it\u2019s a 2018 Honda Accord with squeaky brakes. I can text you a quick estimate for that. What\u2019s your name? I just texted you the estimate."
+        }
+    ],
+    "collected": {
+        "name": "",
+        "phone": "19041234567",
+        "year": "2018",
+        "make": "Honda",
+        "model": "Accord",
+        "problem": "squeaky brakes"
+    },
+    "estimate_given": true,
+    "lead_created": true,
+    "turn_count": 1,
+    "lead_id": null
+}

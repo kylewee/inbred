@@ -1,0 +1,46 @@
+{
+    "call_sid": "3441a708-a706-43e0-90be-67627afd45a8",
+    "from": "+19046156899",
+    "started_at": "2025-12-30T13:21:26+00:00",
+    "messages": [
+        {
+            "role": "assistant",
+            "content": "Hey there! This is EZ Mobile Mechanic. What's going on with your vehicle?"
+        },
+        {
+            "role": "user",
+            "content": "uh just the brakes are the brakes pads need to be replaced"
+        },
+        {
+            "role": "assistant",
+            "content": "Got it! What year, make, and model is your vehicle?"
+        },
+        {
+            "role": "user",
+            "content": "96 Ford Escort"
+        },
+        {
+            "role": "assistant",
+            "content": "Thanks! Just to confirm, your name?"
+        },
+        {
+            "role": "user",
+            "content": "Kyle works"
+        },
+        {
+            "role": "assistant",
+            "content": "Great to meet you, Kyle! So, you need brake pad replacement for your '96 Ford Escort. Would you like me to text you a quick estimate?"
+        }
+    ],
+    "collected": {
+        "name": "",
+        "phone": "19046156899",
+        "year": "",
+        "make": "",
+        "model": "",
+        "problem": ""
+    },
+    "estimate_given": false,
+    "lead_created": false,
+    "turn_count": 3
+}

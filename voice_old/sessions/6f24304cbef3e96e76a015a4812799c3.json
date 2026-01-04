@@ -1,0 +1,54 @@
+{
+    "call_sid": "acd91e8a-f923-43b6-b057-6027faa37666",
+    "from": "+19046156899",
+    "started_at": "2025-12-30T17:32:27+00:00",
+    "messages": [
+        {
+            "role": "assistant",
+            "content": "Hey there! This is EZ Mobile Mechanic. What's going on with your vehicle?"
+        },
+        {
+            "role": "user",
+            "content": "hey this"
+        },
+        {
+            "role": "assistant",
+            "content": "I didn't quite catch that. Could you please repeat what you said?"
+        },
+        {
+            "role": "user",
+            "content": "I didn't"
+        },
+        {
+            "role": "assistant",
+            "content": "I understand. Could you tell me what's wrong with your vehicle?"
+        },
+        {
+            "role": "user",
+            "content": "um and you my oil changed"
+        },
+        {
+            "role": "assistant",
+            "content": "Got it, you need an oil change. Can you please provide the year, make, and model of your vehicle?"
+        },
+        {
+            "role": "user",
+            "content": "96 geometrical"
+        },
+        {
+            "role": "assistant",
+            "content": "Thank you for the information. To confirm, you have a 1996 Geo. I can text you an estimate for the oil change. Would you like that?"
+        }
+    ],
+    "collected": {
+        "name": "",
+        "phone": "19046156899",
+        "year": "",
+        "make": "",
+        "model": "",
+        "problem": ""
+    },
+    "estimate_given": false,
+    "lead_created": false,
+    "turn_count": 4
+}

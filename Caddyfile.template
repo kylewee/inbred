@@ -1,0 +1,59 @@
+# ===========================================
+# MULTI-SITE CADDY CONFIGURATION
+# ===========================================
+# One codebase serves all domains
+# PHP detects domain and loads appropriate config
+# ===========================================
+
+{
+    email your@email.com
+    admin off
+}
+
+# ===========================================
+# ALL YOUR DOMAINS - ONE BLOCK
+# ===========================================
+# Add new domains here, comma-separated
+# The PHP bootstrap auto-loads config/[domain].php
+
+landimpressions.com, www.landimpressions.com,
+wesodjax.com, www.wesodjax.com,
+sodjacksonvillefl.com, www.sodjacksonvillefl.com,
+mechanicstaugustine.com, www.mechanicstaugustine.com {
+
+    # All domains point to same codebase
+    root * /home/kylewee/code/master-template
+
+    # Quote page routing - /q/{JOB_ID} -> /q/index.php
+    @quote path /q/*
+    rewrite @quote /q/index.php
+
+    # PHP processing
+    php_fastcgi unix//run/php/php8.3-fpm.sock
+
+    # Serve static files
+    file_server
+
+    # Optional: Logging per domain
+    # log {
+    #     output file /var/log/caddy/{host}.log
+    # }
+}
+
+# ===========================================
+# LOCAL DEVELOPMENT
+# ===========================================
+localhost:8080 {
+    root * /home/kylewee/code/master-template
+    php_fastcgi unix//run/php/php8.3-fpm.sock
+    file_server
+}
+
+# ===========================================
+# ADDING A NEW SITE
+# ===========================================
+# 1. Create config/newdomain.com.php (copy from config.template.php)
+# 2. Add domain to the list above
+# 3. Run: caddy reload --config Caddyfile
+# 4. Done - SSL auto-provisioned by Caddy
+# ===========================================

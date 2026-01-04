@@ -14,7 +14,7 @@ echo "Step 1: Simulating incoming call...\n";
 $callData = [
     'CallSid' => 'CA123456789',
     'From' => '+15555551234',
-    'To' => '+19042175152',
+    'To' => '+19047066669',
     'TranscriptionText' => 'Hi, I need an oil change for my 2015 Honda Civic. My name is John Smith.',
     'RecordingUrl' => 'https://api.signalwire.com/recordings/mock.mp3',
     'RecordingDuration' => 45

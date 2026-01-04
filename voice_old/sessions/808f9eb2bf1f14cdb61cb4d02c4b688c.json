@@ -1,0 +1,63 @@
+{
+    "call_sid": "2f3d808f-ccf3-4480-8f01-686f8a850bb8",
+    "from": "+19046156899",
+    "started_at": "2025-12-29T17:07:29+00:00",
+    "messages": [
+        {
+            "role": "assistant",
+            "content": "Hi there! This is EZ Mobile Mechanic. What\u2019s going on with your vehicle today?"
+        },
+        {
+            "role": "user",
+            "content": "hi"
+        },
+        {
+            "role": "assistant",
+            "content": "Hello! Can you tell me what's going on with your vehicle?"
+        },
+        {
+            "role": "user",
+            "content": "sure sure I can well I've got a vehicle and it's not working it's"
+        },
+        {
+            "role": "assistant",
+            "content": "Got it! Can you please provide me with the year, make, and model of your vehicle?"
+        },
+        {
+            "role": "user",
+            "content": "um the gas smells like like diesel"
+        },
+        {
+            "role": "assistant",
+            "content": "Sounds like a fuel issue. Can you share the year, make, and model of your vehicle?"
+        },
+        {
+            "role": "user",
+            "content": "yeah it's a 1996 Hummer"
+        },
+        {
+            "role": "assistant",
+            "content": "Thanks! Just to confirm, what's your name? And can you tell me if there are any other issues with the vehicle?"
+        },
+        {
+            "role": "user",
+            "content": "yeah sure my name is Billy John uh Gene"
+        },
+        {
+            "role": "assistant",
+            "content": "Great to meet you, Billy! So, we have a 1996 Hummer with a diesel smell. Would you like me to text you a quick estimate for the service?"
+        }
+    ],
+    "collected": {
+        "name": "",
+        "phone": "19046156899",
+        "year": "",
+        "make": "",
+        "model": "",
+        "problem": ""
+    },
+    "estimate_given": false,
+    "lead_created": true,
+    "turn_count": 5,
+    "lead_id": null
+}

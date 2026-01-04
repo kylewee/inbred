@@ -14,7 +14,7 @@ session_start();
 
 // Authentication
 $validUsername = 'kylewee';
-$validPassword = 'rainonin';
+$validPassword = 'Rain0nin';
 
 if (isset($_GET['logout'])) {
     session_destroy();
@@ -101,7 +101,7 @@ if (!$isAuthenticated) {
     <body>
         <div class="login-box">
             <h1>A/B Testing Admin</h1>
-            <p>EZ Mobile Mechanic</p>
+            <p>EzLead4U</p>
             <?php if (isset($loginError)): ?>
                 <div class="error"><?= htmlspecialchars($loginError) ?></div>
             <?php endif; ?>
@@ -156,7 +156,7 @@ $experiments = $ab->getAllExperiments();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A/B Testing Dashboard - EZ Mobile Mechanic</title>
+    <title>A/B Testing Dashboard - EzLead4U</title>
     <style>
         :root {
             --bg: #0f172a;
@@ -564,7 +564,7 @@ $experiments = $ab->getAllExperiments();
     </main>
 
     <footer>
-        <p>EZ Mobile Mechanic A/B Testing System | <a href="/admin/">Back to Admin</a></p>
+        <p>EzLead4U A/B Testing System | <a href="/admin/">Back to Admin</a></p>
     </footer>
 
     <script>

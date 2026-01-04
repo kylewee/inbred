@@ -1,0 +1,57 @@
+<!-- SOD QUOTE FORM - Drop into main content area -->
+<div style="background: #f5f5f5; padding: 20px; border: 2px solid #15803d; margin: 20px 0;">
+  <h2 style="color: #15803d; margin-top: 0;">Get a Free Sod Estimate</h2>
+
+  <form action="/api/form-submit.php" method="POST">
+    <input type="hidden" name="source" value="YOUR_DOMAIN.com">
+
+    <p>
+      <label><strong>Name:</strong></label><br>
+      <input type="text" name="name" required style="width: 100%; padding: 8px; font-size: 16px;">
+    </p>
+
+    <p>
+      <label><strong>Phone:</strong></label><br>
+      <input type="tel" name="phone" required style="width: 100%; padding: 8px; font-size: 16px;">
+    </p>
+
+    <p>
+      <label><strong>Email:</strong></label><br>
+      <input type="email" name="email" style="width: 100%; padding: 8px; font-size: 16px;">
+    </p>
+
+    <p>
+      <label><strong>Property Address:</strong></label><br>
+      <input type="text" name="address" required style="width: 100%; padding: 8px; font-size: 16px;">
+    </p>
+
+    <p>
+      <label><strong>Grass Type:</strong></label><br>
+      <select name="grass_type" style="width: 100%; padding: 8px; font-size: 16px;">
+        <option value="St. Augustine (Floratam)">St. Augustine (Floratam)</option>
+        <option value="St. Augustine (Palmetto)">St. Augustine (Palmetto/Shade)</option>
+        <option value="Zoysia">Zoysia</option>
+        <option value="Bermuda">Bermuda</option>
+        <option value="Bahia">Bahia</option>
+        <option value="Not Sure">Not Sure - Recommend One</option>
+      </select>
+    </p>
+
+    <p>
+      <label><strong>Approximate Square Footage:</strong></label><br>
+      <input type="number" name="sqft" placeholder="e.g. 2000" style="width: 100%; padding: 8px; font-size: 16px;">
+    </p>
+
+    <p>
+      <label><strong>Tell us about your project:</strong></label><br>
+      <textarea name="notes" rows="4" style="width: 100%; padding: 8px; font-size: 16px;" placeholder="New lawn? Replacing old grass? Need grading?"></textarea>
+    </p>
+
+    <p>
+      <button type="submit" style="background: #15803d; color: white; padding: 15px 30px; font-size: 18px; border: none; cursor: pointer; width: 100%;">
+        Get My Free Estimate
+      </button>
+    </p>
+  </form>
+</div>
+<!-- END SOD QUOTE FORM -->

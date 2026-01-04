@@ -1,0 +1,70 @@
+{
+    "call_sid": "aca38b7d-9e0d-48c7-9dd7-ad41684276ca",
+    "from": "+19046156899",
+    "started_at": "2025-12-29T18:02:45+00:00",
+    "messages": [
+        {
+            "role": "assistant",
+            "content": "Hey there! This is EZ Mobile Mechanic. What's going on with your vehicle?"
+        },
+        {
+            "role": "user",
+            "content": "oh it's not working at all it sucks it's a piece of crap"
+        },
+        {
+            "role": "assistant",
+            "content": "I hear you, that can be really frustrating! Can you tell me the year, make, and model of your vehicle?"
+        },
+        {
+            "role": "user",
+            "content": "I'm not sure I'm not sure that you're a maker model I know it's a car"
+        },
+        {
+            "role": "assistant",
+            "content": "No problem! If you can give me any details like the year or brand, that would help. What specific issues are you experiencing with the car?"
+        },
+        {
+            "role": "user",
+            "content": "what's the ticket  it doesn't work and it has 4 Wheels"
+        },
+        {
+            "role": "assistant",
+            "content": "Got it! It sounds like you're having some major issues. If you can find out the year, make, and model later, that would be helpful. Do you want me to send you a quick estimate for the diagnostics?"
+        },
+        {
+            "role": "user",
+            "content": "I want you to fix it right now over the phone"
+        },
+        {
+            "role": "assistant",
+            "content": "I wish I could help you out that way, but I can only provide mobile services in person. If you\u2019d like, I can send you a quick estimate and have a mechanic follow up with you. How does that sound?"
+        },
+        {
+            "role": "user",
+            "content": "great"
+        },
+        {
+            "role": "assistant",
+            "content": "Awesome! Could you please share your name so I can include it in the estimate?"
+        },
+        {
+            "role": "user",
+            "content": "Billy Ray Billy Ray Cyrus"
+        },
+        {
+            "role": "assistant",
+            "content": "Thanks, Billy Ray! Just to recap, can you let me know the year, make, and model of your car when you have a moment? After that, I'll get the estimate ready for you."
+        }
+    ],
+    "collected": {
+        "name": "",
+        "phone": "19046156899",
+        "year": "",
+        "make": "",
+        "model": "",
+        "problem": ""
+    },
+    "estimate_given": false,
+    "lead_created": false,
+    "turn_count": 6
+}

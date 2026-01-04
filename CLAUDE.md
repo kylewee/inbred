@@ -4,176 +4,345 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository Overview
 
-Mobile mechanic service platform integrating:
-- **SignalWire/Twilio** - VoIP calls, SMS via 10DLC
-- **OpenAI Whisper** - Call transcription and AI data extraction
-- **Rukovoditel CRM** - Lead management (MySQL, entity-based)
-- **Go REST API** - JWT auth, PostgreSQL (in `backend/`)
-- **PHP webhooks** - Voice handlers, quote intake, customer flow (in `voice/`, `api/`, `quote/`, `lib/`)
+Multi-site lead generation platform. One codebase serves multiple domains (mechanic, landscaping, roofing, etc.) with domain-based config loading.
 
-Runtime entrypoints are under `voice/`, `api/`, `quote/`, `crm/`, and `cron/`.
+**Core integrations:**
+- **SignalWire/Twilio** - VoIP calls, SMS via 10DLC
+- **OpenAI** - Whisper transcription, GPT-4 estimates
+- **Rukovoditel CRM** - Lead management (MySQL, entity-based)
+- **Caddy** - Multi-domain HTTPS routing to PHP-FPM
+
+## Multi-Site Architecture
+
+```
+Request (sodjax.com) → Caddy → index.php
+                                    ↓
+                         config/bootstrap.php
+                                    ↓
+                         config/sodjax.com.php  ← domain-specific config
+                                    ↓
+                         Site renders with correct branding
+```
+
+**How config loading works:**
+1. `bootstrap.php` extracts domain from `HTTP_HOST`, strips port and `www.`
+2. Loads `config/{domain}.php` if it exists, else `config/default.php`
+3. Defines legacy constants (CRM_*, SIGNALWIRE_*, OPENAI_*) for backwards compatibility
+4. Provides `config('key.subkey', $default)` helper function
+
+**To add a new site:**
+```bash
+./deploy-site.sh newdomain.com "Business Name" landscaping
+# Edit config/newdomain.com.php with credentials
+# Add domain to Caddyfile, reload Caddy
+```
 
 ## Critical Policies
 
-**NEVER delete configuration lines** - Always comment them out instead. This preserves rollback context.
+**NEVER delete configuration lines** - Comment them out. Preserves rollback context.
 
-**After config changes**: Always reload PHP-FPM (`sudo systemctl reload php8.3-fpm`)
+**After config changes**: `sudo systemctl reload php8.3-fpm`
 
-**Telephony pattern**: Prefer Twilio-like field names for webhook handlers. If adding new providers, create adapters that normalize to Twilio shape (see `voice/signalwire_webhook.php`).
+**Telephony pattern**: All webhook handlers expect Twilio-like POST keys. SignalWire fields are normalized via `voice/signalwire_webhook.php`.
 
-**Secrets**: Use environment variables; code falls back to `voice/.signalwire_secret` if present. Never commit secrets.
+## Caddy Configuration
+
+Caddyfile location: `/etc/caddy/Caddyfile`
+
+**ezlead4u.com routing:**
+- `/admin/buyers/*` → PHP buyer admin
+- `/admin/*` → Admin tools (hub, calls, analytics, etc.)
+- `/buyer/*` → Buyer portal
+- `/api/*` → PHP webhooks
+- `/voice/*` → SignalWire callbacks
+- Everything else → Python FastAPI (localhost:8000)
+
+```bash
+# Validate and reload Caddy (admin API disabled, must restart)
+caddy validate --config /etc/caddy/Caddyfile
+sudo systemctl restart caddy
+```
 
 ## Essential Commands
 
 ```bash
-# PHP voice system
-php test_workflow.php                    # Test complete workflow
-php test_signalwire_setup.php            # Test SignalWire connectivity
-php -l voice/recording_callback.php      # Syntax check
-sudo systemctl reload php8.3-fpm         # Reload after config changes
+# Local testing (test domain via /etc/hosts)
+php -S 0.0.0.0:8888 -t /home/kylewee/code/master-template
 
-# Local PHP dev server for webhook tests
-php -S 127.0.0.1:8000 -t .
+# Syntax check
+php -l voice/recording_callback.php
 
-# Web server
-sudo systemctl reload caddy              # Reload Caddy
-caddy validate --config Caddyfile        # Validate config
+# Reload after config changes
+sudo systemctl reload php8.3-fpm
 
-# Go backend (in backend/)
-make docker-up                           # Start PostgreSQL + Adminer
-make run DATA_BACKEND=postgres DATABASE_URL="postgres://ezm:ezm@localhost:5432/ezm?sslmode=disable"
-go run ./cmd/api                         # Run API directly
-go test ./...                            # Run tests
-make test-integration                    # Integration tests (requires Postgres)
-make seed                                # Seed sample data
-make docker-down                         # Stop Docker services
+# View voice logs (JSON format)
+tail -f voice/voice.log | python3 -m json.tool
 
-# Logs
-tail -f voice/voice.log                  # Voice system logs (JSON)
-tail -f voice/voice_signalwire_adapter.log  # Adapter debug
-sudo journalctl -u caddy -f              # Caddy logs
+# Validate Caddy config
+caddy validate --config Caddyfile
+sudo systemctl reload caddy
 
-# PHP tests (in tests/)
-php tests/test_flow.php                  # Test voice/SMS flow
-php tests/test_callback.php              # Test recording callback
+# Test SignalWire connectivity
+php test_signalwire_setup.php
+
+# Test complete workflow
+php test_workflow.php
 ```
 
-## Architecture
+## Voice Call Flow
 
-### Voice Call Flow
-
+### Current Flow (Voicemail Only)
 ```
-Customer Call → SignalWire → voice/incoming.php (TwiML)
+Customer Call → SignalWire → voice/incoming.php
        ↓
-Call Forwarded + Recorded (MP3)
+Friendly greeting: "Hey there! Thanks for calling..."
        ↓
-SignalWire Webhook → voice/recording_callback.php
+Record voicemail (up to 2 min)
        ↓
-Download MP3 → OpenAI Whisper (transcription)
+voice/recording_processor.php
        ↓
-GPT-4 (extract: name, phone, vehicle, issue)
+Whisper transcribe → GPT extract (name, phone, address, email)
        ↓
-Create CRM Lead (Rukovoditel API, entity 26)
+[Mechanic only] If vehicle info present → Generate estimate
        ↓
-Send Confirmation SMS
+CRM Lead created (with estimate in notes if generated)
 ```
 
-### Key Implementation Details
+### Optional: Forward First, Then Voicemail
+```
+# In incoming.php, if config('phone.forward_to') is set:
+Customer Call → Try owner (20s) → No answer → Voicemail
+```
 
-- **Recording format**: MUST be MP3 (not WAV) - SignalWire's 8kHz WAV is incompatible with OpenAI
-- **Recording URLs**: Require token authentication (`?token=VOICE_RECORDINGS_TOKEN`)
-- **Missed call detection**: Check `DialCallDuration === 0` (not just status)
-- **SignalWire adapter**: `voice/signalwire_webhook.php` remaps SignalWire fields to Twilio-like keys
+**Key details:**
+- Recording format MUST be MP3 (SignalWire's 8kHz WAV incompatible with OpenAI)
+- Use `voice="man"` or `voice="woman"` (NOT `Polly.*` - causes failures)
+- Estimate auto-generated when transcript contains year/make/model/problem
+- Session files store call state in `voice/sessions/`
 
-### Webhook Field Mapping
+## Template Variants
 
-The central handler `voice/recording_callback.php` expects Twilio-like POST keys:
-- `RecordingSid`, `RecordingUrl`, `TranscriptionText`, `From`, `To`, `CallSid`
+| Template | Voice Flow | Use Case |
+|----------|------------|----------|
+| **Basic** | Voice prompts → record → transcribe → CRM | landscaping, plumbing, roofing |
+| **Auto Estimation** | Voice prompts → GPT vehicle discussion → estimate | mechanic, auto repair |
 
-SignalWire adapter (`voice/signalwire_webhook.php`) maps:
-- `call_id` → `CallSid`
-- `recording_id` → `RecordingSid`
-- `recording_url` → `RecordingUrl`
-- `caller` → `From`
-- `called` → `To`
-
-### CRM Integration
-
-- **Database**: `rukovoditel` (MySQL)
-- **Leads Entity**: ID `26` (table: `app_entity_26`)
-- **API**: `https://mechanicstaugustine.com/crm/api/rest.php`
-- **Field mappings in**: `api/.env.local.php` (CRM_FIELD_MAP constant)
-
-Key fields: first_name(219), last_name(220), phone(227), email(235), year(231), make(232), model(233), notes(230)
-
-### Go Backend (`backend/`)
-
-Clean architecture with switchable storage:
-- `DATA_BACKEND=memory` - In-memory (development)
-- `DATA_BACKEND=postgres` - PostgreSQL (production)
-
-Endpoints: `/healthz`, `/v1/ping`, `/v1/customers`, `/v1/vehicles`, `/v1/quotes`, `/v1/auth/*`
-
-Migrations auto-run from `db/migrations/*.up.sql` at startup.
+The estimation module is optional based on `business.type` in config.
 
 ## Key Files
 
 | File | Purpose |
 |------|---------|
-| `voice/recording_callback.php` | Main webhook: download recording, transcribe, extract data, create CRM lead, send SMS |
-| `voice/incoming.php` | TwiML handler: greeting, call forwarding, recording setup |
-| `voice/signalwire_webhook.php` | Adapter: normalizes SignalWire fields to Twilio format |
-| `voice/call_router.php` | AI agent integration, call routing logic |
-| `voice/sms_estimate.php` | SMS estimate responses, rate limiting |
-| `api/.env.local.php` | Primary config: SignalWire creds, OpenAI key, CRM field mappings |
-| `lib/CustomerFlow/` | Customer journey tracking, post-service flow |
-| `cron/followups.php` | Automated follow-up scheduling |
-| `crm/config/database.php` | CRM database connection |
-| `Caddyfile` | Web server: PHP-FPM integration, HTTPS |
-| `test_workflow.php` | Complete workflow tester |
+| `config/bootstrap.php` | Domain detection, config loading, `config()` helper |
+| `config/webhook_bootstrap.php` | For webhooks: detects domain from phone number or session file |
+| `config/config.template.php` | Full config template - copy for new sites |
+| `index.php` | Config-driven landing page with dynamic form fields |
+| `api/form-submit.php` | Web form POST handler → CRM lead → thank you page |
+| `voice/incoming.php` | TwiML: greeting + record voicemail (optional: try forward first) |
+| `voice/recording_processor.php` | Download recording, transcribe, extract, estimate, CRM lead |
+| `voice/dial_result.php` | Handles answered/missed call routing (if forwarding enabled) |
+| `lib/CRMHelper.php` | Centralized CRM API functions |
+| `lib/QuoteSMS.php` | SMS quote system with rate limiting |
+| `deploy-site.sh` | Script to create new site config |
 
-## Database Access
+## Config Structure
+
+```php
+// config/domain.com.php
+return [
+    'site' => ['name', 'tagline', 'phone', 'domain', 'service_area'],
+    'business' => ['type', 'category', 'services'],  // type: mechanic, landscaping, roofing, plumbing
+    'branding' => ['primary_color', 'secondary_color'],
+    'crm' => ['api_url', 'entity_id', 'field_map' => [...]],
+    'phone' => ['provider', 'project_id', 'space', 'api_token', 'forward_to'],
+    'openai' => ['api_key'],
+    'estimates' => ['enabled', 'labor_rate', 'input_fields' => [...], 'prompts' => [...]],
+];
+```
+
+**Access config values:**
+```php
+require_once __DIR__ . '/../config/bootstrap.php';
+$siteName = config('site.name', 'Default Name');
+$laborRate = config('estimates.labor_rate', 75);
+```
+
+## CRM Integration (Rukovoditel)
+
+- **Leads Entity**: ID `26` (table: `app_entity_26`)
+- **Field mappings**: Defined per-site in `config/{domain}.php` → `crm.field_map`
+- **Common fields**: first_name(219), last_name(220), phone(227), email(235), notes(230), stage(228)
 
 ```bash
-# CRM (MySQL)
-mysql -u kylewee -p rukovoditel
+# Query recent leads
 mysql -u kylewee -p rukovoditel -e "SELECT id, field_219, field_227 FROM app_entity_26 ORDER BY id DESC LIMIT 10;"
-
-# Go API (PostgreSQL via Docker)
-docker exec -it ezm-db psql -U ezm -d ezm
 ```
+
+## Webhook Field Mapping
+
+Central handlers expect Twilio-like POST keys:
+- `RecordingSid`, `RecordingUrl`, `TranscriptionText`, `From`, `To`, `CallSid`
+
+SignalWire adapter (`voice/signalwire_webhook.php`) maps:
+- `call_id` → `CallSid`
+- `recording_id` → `RecordingSid`
+- `caller` → `From`
 
 ## Troubleshooting
 
 | Issue | Fix |
 |-------|-----|
-| Transcription failing | Verify OpenAI key in `api/.env.local.php` is direct string (not `getenv()`), reload PHP-FPM |
-| Audio format error | Ensure using MP3 format in download URLs (`.mp3` extension) |
-| Recording forbidden | Add token to URL: `?token=VOICE_RECORDINGS_TOKEN` |
-| CRM lead not created | Check CRM credentials and field mappings match installation |
+| Voice changes not working | Caddy serves from `/code/inbred/` not `/code/master-template/` - update Caddyfile |
+| Calls failing immediately | Check webhook returns valid TwiML, avoid `Polly.*` voices (use `man` or `woman`) |
+| Config not loading | Check domain matches filename, strip `www.` and port |
+| Recording callback wrong config | webhook_bootstrap.php checks session file for domain if no "To" field |
+| Transcription failing | Verify OpenAI key is direct string (not `getenv()`), reload PHP-FPM |
+| Recording forbidden | Add `?token=VOICE_RECORDINGS_TOKEN` to URL |
+| CRM lead not created | Check field mappings match your Rukovoditel installation |
 | Changes not taking effect | `sudo systemctl reload php8.3-fpm` (opcache) |
-| Calls marked missed incorrectly | Check `DialCallDuration > 0` for answered calls |
-
-## PR Guidelines
-
-- Keep changes minimal and focused: one behavioral change per PR
-- If updating webhook handling, include sample log output in PR description
-- Preserve public endpoint URLs unless coordinating with SignalWire resource URL updates
-- Logging: handlers append JSON to `voice/voice.log` - keep this pattern for quick troubleshooting
 
 ## SQLite Databases
 
-Several features use SQLite for local data storage:
-- `data/ab_testing.db` - A/B test variants and results
-- `data/customer_flow.db` - Customer journey tracking
-- `data/quotes.db` - Quote management
-- `data/service_flow.db` - Service workflow state
+Local storage in `data/`:
+- `form_submissions.log` - Web form submissions
+- `quotes.db` - Quote management
+- `rate_limits.db` - SMS rate limiting
+- `call_tracking.db` - Call analytics
 
-## Documentation References
+## Session Continuity
 
-- `docs/MASTER_CONFIG_DOCUMENT.md` - Complete configuration reference
-- `docs/SERVICE_STATUS.md` - Current service status
-- `docs/TRANSCRIPTION_SYSTEM_STATUS.md` - Voice system status
-- `docs/SYSTEM_ARCHITECTURE.md` - Complete system architecture diagrams
-- `voice/TELEPHONY_SETUP.md` - CRM telephony integration
-- `backend/README.md` - Go API documentation
+**Start of session:** Read `SESSION_LOG.md` for context and recent changes.
+
+**End of session:** Update `SESSION_LOG.md` with what was done.
+
+## Admin Hub (ezlead4u.com)
+
+Central admin dashboard at `https://ezlead4u.com/admin/`
+
+**Password:** `Rain0nin`
+
+| Tool | URL | Purpose |
+|------|-----|---------|
+| Admin Hub | `/admin/` | Central dashboard |
+| Buyer Management | `/admin/buyers/` | Create buyers, credits, campaigns |
+| Outgoing Calls | `/admin/calls/` | Make recorded calls |
+| A/B Testing | `/admin/ab-testing/` | Landing page experiments |
+| Analytics | `/admin/analytics/` | Unified dashboard |
+| Customer Flow | `/admin/flow/` | 1-2-3-4-5 journey |
+| Quotes | `/admin/quotes/` | SMS quote system |
+
+### Outgoing Calls System
+
+Makes recorded outbound calls via SignalWire. Calls YOUR phone first, then connects to target.
+
+**Files:**
+- `api/make-call.php` - API endpoint
+- `voice/outgoing.php` - TwiML handler
+- `admin/calls/index.php` - Admin UI
+- `data/calls.db` - Call history (SQLite)
+- `data/call_rate_limits.json` - Rate limiting
+
+**Flow:**
+1. Enter target number in admin
+2. Click "Call" → YOUR phone rings
+3. Answer → "Connecting you to 407-844-0231"
+4. Target's phone rings
+5. Call recorded, saved to `/voice/recordings/`
+
+**Rate Limit:** 5 minutes per number (prevents spam)
+
+```bash
+# Test outgoing call API
+curl -X POST https://ezlead4u.com/api/make-call.php \
+  -H "Content-Type: application/json" \
+  -d '{"to": "+14075551234", "agent": "+19042175152"}'
+```
+
+## Buyer Portal
+
+Lead distribution system for selling leads to contractors.
+
+**Location:** `buyer/`
+
+| File | Purpose |
+|------|---------|
+| `buyer/init_db.php` | Initialize SQLite database |
+| `buyer/BuyerAuth.php` | Authentication (login, sessions) |
+| `buyer/LeadDistributor.php` | Auto-distribute leads to eligible buyers |
+| `buyer/login.php` | Buyer login page |
+| `buyer/index.php` | Buyer dashboard |
+| `buyer/admin/index.php` | Admin panel (create buyers, add credit) |
+
+**Pricing model:**
+- $35/lead default (configurable per buyer)
+- 3 free test leads to start
+- $35 minimum balance (auto-pause if below)
+- Shared leads (unless paying $90 for exclusive)
+
+**Database:** `data/buyers.db` (SQLite)
+
+```bash
+# Initialize buyer database
+php buyer/init_db.php
+
+# Create test buyer
+php buyer/create_test_buyer.php
+```
+
+## Domain Portfolio
+
+**Priority 1 - SOD (Jacksonville):**
+- sodjacksonvillefl.com - aged 2008, 1.63k impressions (primary)
+- sodjax.com - short domain, good for ads (paid thru 2029)
+- jacksonvillesod.com - 993 impressions
+
+**Priority 2 - WELDING:**
+- weldingjacksonville.com - 2.68k impressions
+- weldingjax.com - 1.84k impressions
+- welderfl.com - 906 impressions
+
+**Priority 3 - OTHER:**
+- mechanicstaugustine.com - mobile mechanic (live)
+- septictankjacksonville.com - 1.09k impressions
+- drainagejax.com
+
+See `docs/DOMAINS.md` for full portfolio.
+
+## Active Sites
+
+| Domain | Business Type | Status |
+|--------|---------------|--------|
+| mechanicstaugustine.com | mechanic | Live |
+| sodjacksonvillefl.com | sod | Live |
+| sodjax.com | sod | Live |
+| jacksonvillesod.com | sod | Live |
+
+## Contractor Scraper
+
+Tools for finding contractors to recruit as lead buyers.
+
+**Location:** `tools/contractor-scraper/`
+
+| File | Purpose |
+|------|---------|
+| `scraper_free.py` | Free scraper (BBB, Yelp, YellowPages) |
+| `scraper.py` | Google Places API version |
+| `cities.txt` | Target cities (18 Florida cities) |
+
+```bash
+cd tools/contractor-scraper
+pip install -r requirements.txt
+python scraper_free.py --keyword "sod installation" --city "Jacksonville, FL"
+```
+
+## Key Documentation
+
+| File | Purpose |
+|------|---------|
+| `SESSION_LOG.md` | What was done each session |
+| `docs/BUYER_ACQUISITION.md` | How to recruit contractors |
+| `docs/BUYER_COLD_CALL_SCRIPT.md` | Cold call script |
+| `docs/BUYER_EMAIL_SEQUENCE.md` | 5-email drip sequence |
+| `docs/LAUNCH_PLAN.md` | Step-by-step to 3 leads/day |
+| `docs/DOMAINS.md` | Full domain portfolio |
+| `docs/DOMAIN_MIGRATION.md` | How to migrate domains properly |

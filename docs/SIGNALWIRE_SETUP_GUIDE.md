@@ -20,7 +20,7 @@
 **Your SignalWire Details:**
 - **Space:** mobilemechanic.signalwire.com
 - **Project ID:** ce4806cb-ccb0-41e9-8bf1-7ea59536adfd
-- **Phone Number:** +19042175152
+- **Phone Number:** +19047066669
 - **API Token:** ⚠️ NEEDS TO BE ADDED (see steps above)
 
 ### 2. Update Configuration
@@ -71,7 +71,7 @@ define('CRM_API_KEY', getenv('CRM_API_KEY') ?: 'YOUR_ACTUAL_CRM_API_KEY');
 
 Once you've added both tokens, test with:
 
-1. **Call your SignalWire number:** +1 (904) 217-5152
+1. **Call your SignalWire number:** +1 (904) 706-6669
 2. **Check the call log:**
    ```bash
    tail -f /home/kylewee/code/idk/projects/mechanicstaugustine.com/voice/voice.log
@@ -84,7 +84,7 @@ Once you've added both tokens, test with:
 ✅ **OpenAI API Key:** Configured via environment variable
 ✅ **SignalWire Space:** mobilemechanic.signalwire.com
 ✅ **SignalWire Project ID:** ce4806cb-ccb0-41e9-8bf1-7ea59536adfd
-✅ **Phone Number:** +19042175152
+✅ **Phone Number:** +19047066669
 ✅ **Call Forwarding:** Calls forward to +19047066669
 ✅ **Call Recording:** All calls are being recorded
 ✅ **CRM Database:** Connected (MySQL: rukovoditel)

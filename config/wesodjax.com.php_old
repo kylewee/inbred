@@ -1,0 +1,123 @@
+<?php
+/**
+ * wesodjax.com - Sod Installation
+ * TODO: Fill in actual credentials
+ */
+
+return [
+    'site' => [
+        'name'        => 'We Sod Jax',
+        'tagline'     => 'Professional Sod Installation',
+        'domain'      => 'wesodjax.com',
+        'phone'       => '',                      // TODO: Your phone number
+        'email'       => 'info@wesodjax.com',
+        'address'     => 'Jacksonville, FL',
+        'service_area'=> 'Jacksonville, FL and surrounding areas',
+    ],
+
+    'business' => [
+        'type'        => 'landscaping',
+        'category'    => 'Landscaping',
+        'services'    => ['Sod Installation', 'Lawn Replacement', 'Grading', 'Irrigation'],
+    ],
+
+    'branding' => [
+        'primary_color'   => '#16a34a',           // Green
+        'secondary_color' => '#854d0e',           // Brown/earth
+        'logo'            => '/assets/logo.png',
+        'favicon'         => '/favicon.ico',
+    ],
+
+    'crm' => [
+        'enabled'       => true,
+        'api_url'       => '',                    // TODO: CRM URL
+        'username'      => '',
+        'password'      => '',
+        'api_key'       => '',
+        'entity_id'     => 26,
+        'created_by'    => 2,
+        'field_map'     => [
+            'first_name'  => 219,
+            'last_name'   => 220,
+            'phone'       => 227,
+            'stage'       => 228,
+            'source'      => 229,
+            'notes'       => 230,
+            // Sod-specific fields (adjust IDs after CRM setup)
+            'sqft'        => 231,                 // Square footage instead of year
+            'grass_type'  => 232,                 // Grass type instead of make
+            'address'     => 234,
+            'email'       => 235,
+        ],
+    ],
+
+    'phone' => [
+        'provider'      => 'signalwire',
+        'project_id'    => '',                    // TODO
+        'space'         => '',                    // TODO
+        'api_token'     => '',                    // TODO
+        'phone_number'  => '',                    // TODO
+        'forward_to'    => '',                    // TODO
+        'recordings_token' => '',
+    ],
+
+    'openai' => [
+        'api_key'       => '',                    // TODO: Can share same key
+        'model'         => 'gpt-4o-mini',
+        'whisper_model' => 'whisper-1',
+    ],
+
+    'features' => [
+        'voice_assistant'   => true,
+        'call_recording'    => true,
+        'transcription'     => true,
+        'sms_estimates'     => true,
+        'web_quotes'        => true,
+        'crm_integration'   => true,
+    ],
+
+    'seo' => [
+        'title_template'    => '%page% | We Sod Jax - Jacksonville Sod Installation',
+        'meta_description'  => 'Professional sod installation in Jacksonville, FL. Free estimates. Same-week installation available.',
+        'og_image'          => '/assets/og-image.jpg',
+        'google_analytics'  => '',
+        'google_tag_manager'=> '',
+    ],
+
+    // EzLead HQ (ezlead4u.com) - Lead Distribution
+    'ezlead' => [
+        'enabled'   => true,
+        'base_url'  => 'https://ezlead4u.com',
+        'api_key'   => 'ezl_DN2qTNd3sN27fK3I4rZwGF5c3v4es_qU12UcEr3_92M',
+        'vertical'  => 'sod',
+        'state'     => 'FL',
+        'timeout'   => 10,
+        'log_file'  => __DIR__ . '/../data/ezlead.log',
+    ],
+
+    'estimates' => [
+        'enabled'       => true,
+        'labor_rate'    => 0.85,                  // $ per sqft installed
+        'min_charge'    => 500,                   // Minimum job
+        'system_prompt' => 'You are an expert sod installation estimator in Jacksonville, FL.',
+        'estimate_type' => 'landscaping',
+        'input_fields'  => [
+            ['name' => 'sqft', 'label' => 'Square Footage', 'type' => 'number', 'required' => true],
+            ['name' => 'grass_type', 'label' => 'Grass Type', 'type' => 'select', 'required' => true, 'options' => ['St. Augustine (Floratam)', 'St. Augustine (Palmetto)', 'Bermuda', 'Zoysia', 'Bahia']],
+            ['name' => 'soil_prep', 'label' => 'Needs Soil Prep/Grading?', 'type' => 'checkbox'],
+            ['name' => 'removal', 'label' => 'Old Lawn Removal Needed?', 'type' => 'checkbox'],
+            ['name' => 'address', 'label' => 'Property Address', 'type' => 'text', 'required' => true],
+            ['name' => 'notes', 'label' => 'Additional Details', 'type' => 'textarea'],
+        ],
+        'prompts' => [
+            'landscaping' => 'You are a sod installation estimator in Jacksonville FL. Job: {sqft} sqft of {grass_type} sod. Soil prep needed: {soil_prep}. Old lawn removal: {removal}. Respond with JSON: {"job_name": "", "material_cost": 0, "labor_cost": 0, "prep_cost": 0, "removal_cost": 0, "total": 0, "notes": ""}',
+        ],
+    ],
+
+    'buyer_portal' => [
+        'enabled'       => true,
+        'price_per_lead'=> 3500,  // $35
+        'free_leads'    => 3,
+        'min_balance'   => 3500,  // $35
+    ],
+];

@@ -26,3 +26,27 @@ localhost:8092 {
     # Serve static files
     file_server
 }
+
+# sodjacksonvillefl.com - Sod Lead Gen (SEO Test)
+sodjacksonvillefl.com, www.sodjacksonvillefl.com {
+    root * /home/kylewee/code/master-template/services/sod
+    file_server
+}
+
+# sodjax.com - Sod Lead Gen (short domain, good for ads)
+sodjax.com, www.sodjax.com {
+    root * /home/kylewee/code/master-template/services/sod
+    file_server
+}
+
+# jacksonvillesod.com - Sod Lead Gen (993 impressions)
+jacksonvillesod.com, www.jacksonvillesod.com {
+    root * /home/kylewee/code/master-template/services/sod
+    file_server
+}
+
+# ezlead4u.com - Lead Distribution HQ
+ezlead4u.com, www.ezlead4u.com {
+    reverse_proxy localhost:8001
+}
+

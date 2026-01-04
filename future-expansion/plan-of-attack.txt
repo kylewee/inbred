@@ -2072,7 +2072,7 @@ Step 3: Configure Agent Personality
 
   1. Click "Save", "Deploy", or "Publish" at the top
   2. Find the "Phone Numbers" or "Incoming Calls" section
-  3. Select phone number: +19042175152
+  3. Select phone number: +19047066669
   4. Set it to route to: Agent: Sarah (select from dropdown)
   5. IMPORTANT: Disable any previous routing (like TwiML URL to voice/incoming.php)
   6. Save/Deploy
@@ -2082,7 +2082,7 @@ Step 3: Configure Agent Personality
 
   Once deployed:
 
-  1. Call the number: +19042175152
+  1. Call the number: +19047066669
   2. Sarah should answer with the greeting
   3. Follow the conversation:
     - Say your name

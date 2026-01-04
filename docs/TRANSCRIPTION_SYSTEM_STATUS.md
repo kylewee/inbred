@@ -26,7 +26,7 @@ The call transcription system automatically:
 
 ### 3. Google Voice "Press 1" Prompt (COMPLETED)
 **Issue**: Forwarding to Google Voice required pressing 1 to accept calls
-**Fix**: Changed forward target from +19042175152 (Google Voice) to +19046634789 (direct cell)
+**Fix**: Changed forward target from +19047066669 (Google Voice) to +19046634789 (direct cell)
 **Files Modified**: `voice/incoming.php` line 13
 
 ### 4. Audio Format Incompatibility (COMPLETED)
@@ -75,7 +75,7 @@ The call transcription system automatically:
 ### SignalWire Settings
 - Space: `mobilemechanic.signalwire.com`
 - Project ID: `ce4806cb-ccb0-41e9-8bf1-7ea59536adfd`
-- Business Number: `+19042175152`
+- Business Number: `+19047066669`
 - Forward To: `+19046634789`
 
 ### OpenAI Settings
@@ -106,7 +106,7 @@ const CRM_FIELD_MAP = [
 ## System Flow
 
 ```
-1. Customer calls +19042175152 (SignalWire)
+1. Customer calls +19047066669 (SignalWire)
    ↓
 2. SignalWire webhook → /voice/incoming.php
    ↓

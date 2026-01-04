@@ -37,7 +37,7 @@ $variants = [
         'headline' => 'Professional Check Engine Light Diagnosis',
         'subheadline' => 'Advanced Snap-on ZEUS diagnostics for accurate problem identification',
         'cta_primary' => 'Schedule Diagnostic Service',
-        'cta_secondary' => 'Call (904) 217-5152',
+        'cta_secondary' => 'Call (904) 706-6669',
         'hero_class' => 'hero-professional',
         'urgency_banner' => false,
         'benefits_style' => 'grid',
@@ -47,7 +47,7 @@ $variants = [
         'headline' => 'Stop Guessing. Get Answers Today.',
         'subheadline' => 'Tired of the check engine light? We diagnose it RIGHT - the first time.',
         'cta_primary' => 'Fix My Check Engine Light NOW',
-        'cta_secondary' => 'Call NOW: (904) 217-5152',
+        'cta_secondary' => 'Call NOW: (904) 706-6669',
         'hero_class' => 'hero-urgent',
         'urgency_banner' => true,
         'benefits_style' => 'list',
@@ -65,7 +65,7 @@ $v = $variants[$variant['variant']] ?? $variants['A'];
 
     <!-- SEO Meta Tags -->
     <meta name="title" content="Check Engine Light Diagnosis St. Augustine | EZ Mobile Mechanic">
-    <meta name="description" content="Expert check engine light diagnosis in St. Augustine, FL. Snap-on ZEUS advanced diagnostics identify the exact problem. Mobile service - we come to you. Call (904) 217-5152.">
+    <meta name="description" content="Expert check engine light diagnosis in St. Augustine, FL. Snap-on ZEUS advanced diagnostics identify the exact problem. Mobile service - we come to you. Call (904) 706-6669.">
     <meta name="keywords" content="check engine light diagnosis, St. Augustine auto repair, mobile mechanic diagnostics, Snap-on ZEUS, check engine light fix, OBD2 diagnosis">
     <meta name="robots" content="index, follow">
 
@@ -458,7 +458,7 @@ $v = $variants[$variant['variant']] ?? $variants['A'];
                 <li><a href="/">Home</a></li>
                 <li><a href="/#services">Services</a></li>
                 <li><a href="/#contact">Contact</a></li>
-                <li><a href="tel:+19042175152" class="btn btn-primary" onclick="trackConversion('call_click')">Call Now</a></li>
+                <li><a href="tel:+19047066669" class="btn btn-primary" onclick="trackConversion('call_click')">Call Now</a></li>
             </ul>
         </nav>
     </header>
@@ -472,7 +472,7 @@ $v = $variants[$variant['variant']] ?? $variants['A'];
                 <a href="#quote" class="btn <?php echo $v['urgency_banner'] ? 'btn-urgent' : 'btn-primary'; ?>" onclick="trackConversion('cta_click')">
                     <?php echo htmlspecialchars($v['cta_primary']); ?>
                 </a>
-                <a href="tel:+19042175152" class="btn btn-secondary" onclick="trackConversion('call_click')">
+                <a href="tel:+19047066669" class="btn btn-secondary" onclick="trackConversion('call_click')">
                     <?php echo htmlspecialchars($v['cta_secondary']); ?>
                 </a>
             </div>
@@ -582,7 +582,7 @@ $v = $variants[$variant['variant']] ?? $variants['A'];
 
     <!-- Footer -->
     <footer>
-        <p>EZ Mobile Mechanic | <a href="tel:+19042175152">(904) 217-5152</a> | St. Augustine, FL 32092</p>
+        <p>EZ Mobile Mechanic | <a href="tel:+19047066669">(904) 706-6669</a> | St. Augustine, FL 32092</p>
         <p style="margin-top: 0.5rem; opacity: 0.7;">© 2025 EZ Mobile Mechanic. All rights reserved.</p>
     </footer>
 
@@ -623,7 +623,7 @@ $v = $variants[$variant['variant']] ?? $variants['A'];
 
             // If it's a call click, also track for phone call attribution
             if (action === 'call_click') {
-                trackCallIntent('+19042175152');
+                trackCallIntent('+19047066669');
             }
         }
 
@@ -689,7 +689,7 @@ $v = $variants[$variant['variant']] ?? $variants['A'];
         "provider": {
             "@type": "LocalBusiness",
             "name": "EZ Mobile Mechanic",
-            "telephone": "+19042175152",
+            "telephone": "+19047066669",
             "address": {
                 "@type": "PostalAddress",
                 "addressLocality": "St. Augustine",

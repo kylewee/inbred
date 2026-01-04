@@ -102,7 +102,7 @@ if (!empty($order['notes'])) {
     $emailBody[] = '';
 }
 $emailBody[] = 'Thank you!';
-$emailBody[] = 'Mechanics Saint Augustine';
+$emailBody[] = 'EzLead4U';
 
 $emailText = implode("\n", $emailBody);
 $mailto = 'mailto:';
