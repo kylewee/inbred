@@ -60,7 +60,7 @@ return [
     ],
 
     'openai' => [
-        'api_key'       => '',
+        'api_key'       => getenv('OPENAI_API_KEY') ?: '',
         'model'         => 'gpt-4o-mini',
         'whisper_model' => 'whisper-1',
     ],
